@@ -2,10 +2,13 @@ let express = require('express');
 let app = express();
 let path = require("path");
 
+// Allow reading files from public folder
+app.use('/', express.static(path.join(__dirname, '.')));
+
 // The frontend
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/main.html'))
-);
+  res.sendFile(path.join(__dirname + '/main.html'));
+});
 
 // API
 

@@ -4,19 +4,28 @@
   "description": "Admin functionalities for Zui.fi blog",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel --presets es2015 ui-src/js/app.js -o public/app.bundle.js",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zuip/zuifi-admin.git"
   },
-  "author": "Robert Nurminen",
+  "author": "Zuip",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Zuip/zuifi-admin/issues"
   },
   "homepage": "https://github.com/Zuip/zuifi-admin#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "vue": "^2.5.13",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
