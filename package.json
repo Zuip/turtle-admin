@@ -1,0 +1,22 @@
+{
+  "name": "zuifi-admin",
+  "version": "1.0.0",
+  "description": "Admin functionalities for Zui.fi blog",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zuip/zuifi-admin.git"
+  },
+  "author": "Robert Nurminen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zuip/zuifi-admin/issues"
+  },
+  "homepage": "https://github.com/Zuip/zuifi-admin#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
