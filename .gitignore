@@ -2,3 +2,5 @@ node_modules
 /public/style.css
 /public/style.css.map
 /.sass-cache
+/public/app.js
+/public/app.js.map
