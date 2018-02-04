@@ -1,0 +1,32 @@
+#navigation-content {
+
+  grid-column-start: content-start;
+  grid-column-end: content-end;
+  grid-row-start: header-end;
+  grid-row-end: footer-start;
+
+  padding: 15px;
+
+  h1, h2, h3, h4, h5, p {
+    font-family: $theme-font-family;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a.btn-primary {
+    background-color: $theme-color;
+    color: $theme-text-color-on-theme-color;
+    border: none;
+  }
+
+  a.btn-primary:hover {
+    background-color: $theme-hover-color;
+    color: $theme-text-color-on-theme-color;
+  }
+}

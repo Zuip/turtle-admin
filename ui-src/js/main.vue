@@ -2,20 +2,21 @@
   <div id="grid-container">
     <Header />
     <div id="left-bar"></div>
-    <div id="content">
-      <p>Welcome to Zui.fi Admin page!</p>
-      <button>Description</button>
+    <div id="navigation-content">
+      <Login/>
     </div>
     <div id="right-div"></div>
   </div>
 </template>
 
 <script>
-  import Header from './Header.vue'
+  import Header from './Header.vue';
+  import Login from './views/login/Login.vue';
 
   export default {
     components: {
-      Header
+      Header,
+      Login
     }
   }
 </script>
