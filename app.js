@@ -7,7 +7,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // The frontend
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/main.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 // API

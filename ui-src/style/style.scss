@@ -1,3 +1,37 @@
-body {
-  color: blue;
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import '../vendor/font-awesome/font-awesome.scss';
+
+$theme-color: #579ABF;
+$theme-hover-color: #317499;
+$theme-text-color-on-theme-color: #FFFFFF;
+$theme-font-family: 'Roboto', sans-serif;
+$theme-light-grey: #fbfbfb;
+$theme-grey: #f3f3f3;
+$theme-dark-grey: #959595;
+
+$header-element-font-family: 'Nunito', sans-serif;
+$header-logo-font-family: 'Caveat Brush', cursive;
+$header-height: 70px;
+
+$footer-color: $theme-grey;
+$footer-height: 120px;
+
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+#grid-container {
+
+  display: grid;
+  grid-template-columns: [page-start] 2fr [content-start] 4fr [content-end] 2fr [page-end];
+  grid-template-rows: [header-start] 70px [header-end] 1fr [footer-start] $footer-height [footer-end];
+  min-height: 100vh;
+
+  @import "header";
+  /* @import "content";
+  @import "footer"; */
 }
