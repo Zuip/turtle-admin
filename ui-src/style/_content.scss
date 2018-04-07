@@ -19,13 +19,13 @@
     text-decoration: none;
   }
 
-  a.btn-primary {
+  button.btn-primary, a.btn-primary {
     background-color: $theme-color;
     color: $theme-text-color-on-theme-color;
     border: none;
   }
 
-  a.btn-primary:hover {
+  button.btn-primary:hover, a.btn-primary:hover {
     background-color: $theme-hover-color;
     color: $theme-text-color-on-theme-color;
   }
