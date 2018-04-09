@@ -1,9 +1,9 @@
 let bcrypt = require('bcrypt');
 
 let password = {
-  generateHash: function(password) {
+  generateHash: function(password, callback) {
     bcrypt.hash(password, 10, function(err, hash) {
-      console.log(hash);
+      callback(hash);
     });
   },
   validate: function(password, hash, isValidCallback, isNotValidCallback) {
