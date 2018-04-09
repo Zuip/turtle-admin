@@ -17,7 +17,8 @@
         <input type="password"
                class="form-control"
                id="password"
-               placeholder="Salasana" />
+               placeholder="Salasana"
+               v-model="password" />
       </p>
 
       <button class="btn btn-primary" v-on:click="login">Kirjaudu</button>
@@ -42,7 +43,8 @@
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
-              username: this.username
+              username: this.username,
+              password: this.password
             })
           }
         ).then(function(data) {

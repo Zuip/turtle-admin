@@ -3,7 +3,11 @@ let config = {
     secret: ''
   },
   database: {
-
+    username: '',
+    password: '',
+    host: '',
+    port: '',
+    schema: ''
   }
 };
 

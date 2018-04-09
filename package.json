@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/Zuip/zuifi-admin#readme",
   "dependencies": {
+    "bcrypt": "^2.0.0",
     "bootstrap": "^4.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "jquery": "^3.3.1",
+    "pg-promise": "^8.2.2",
     "popper.js": "^1.12.9",
     "vue": "^2.5.13",
     "webpack": "^3.11.0"
