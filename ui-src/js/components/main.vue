@@ -3,7 +3,7 @@
     <Header />
     <div id="left-bar"></div>
     <div id="navigation-content">
-      <Login/>
+      <Login />
     </div>
     <div id="right-div"></div>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
   import Header from './Header.vue';
-  import Login from './views/login/Login.vue';
+  import Login from './login/Login.vue';
 
   export default {
     components: {

@@ -1,9 +1,16 @@
 import Vue from 'vue';
-import main from './main.vue';
+import Vuex from 'vuex';
+import main from './components/main.vue';
+import store from './store/index';
 import 'bootstrap';
 
-var vm = new Vue({
-    render: (h) => h(main)
-})
+Vue.use(Vuex);
 
-vm.$mount('#app')
+window.$store = require('./store/index').default; 
+
+var vm = new Vue({
+  store: new Vuex.Store(store),
+  render: (h) => h(main)
+});
+
+vm.$mount('#app');

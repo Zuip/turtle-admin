@@ -1,27 +1,27 @@
 <template>
   <div>
-    <h3>Kirjaudu sisään:</h3>
+    <h3>{{translations.login}}:</h3>
     <form>
 
       <p>
-        Käyttäjätunnus:<br/>
+        {{translations.username}}:<br/>
         <input type="text"
                class="form-control"
                id="username"
-               placeholder="Käyttäjätunnus"
+               :placeholder="translations.username"
                v-model="username" />
       </p>
 
       <p>
-        Salasana:<br />
+        {{translations.password}}:<br />
         <input type="password"
                class="form-control"
                id="password"
-               placeholder="Salasana"
+               :placeholder="translations.password"
                v-model="password" />
       </p>
 
-      <button class="btn btn-primary" v-on:click="login">Kirjaudu</button>
+      <button class="btn btn-primary" v-on:click="login">{{translations.loginShort}}</button>
 
     </form>
   </div>
@@ -33,6 +33,11 @@
     data: {
       username: '',
       password: ''
+    },
+    computed: {
+      translations() {
+        return this.$store.getters.getTranslations.login;
+      }
     },
     methods: {
       login: function(event) {
