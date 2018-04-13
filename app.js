@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // Allow reading files from public folder
 app.use(express.static(root));
 
-// Initialize sessionS
+// Initialize sessions
 app.use(
   session({
     secret: config.session.secret,

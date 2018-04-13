@@ -3,7 +3,8 @@ import translations from '../translations/translations'
 let store = {
   state: {
     user: null,
-    translations: translations.get
+    translations: translations.get,
+    loading: false
   },
   getters: {
     getUser: function(state) {
@@ -14,6 +15,9 @@ let store = {
     },
     getTranslations: function(state) {
       return state.translations;
+    },
+    contentIsBeingLoaded: function(state) {
+      return state.loading;
     }
   },
   mutations: {
@@ -22,6 +26,12 @@ let store = {
     },
     logout(state) {
       state.user = null;
+    },
+    startContentLoading(state) {
+      state.loading = true;
+    },
+    endContentLoading(state) {
+      state.loading = false;
     }
   },
   actions: {
@@ -30,6 +40,12 @@ let store = {
     },
     logout(context) {
       context.commit('logout');
+    },
+    startContentLoading(context) {
+      content.commit('startContentLoading');
+    },
+    endContentLoading(context) {
+      content.commit('endContentLoading');
     }
   }
 };

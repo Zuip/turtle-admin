@@ -1,0 +1,23 @@
+.overlay {
+
+  background-color: rgba(128, 128, 128, 0.25);
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index:1000;
+
+  .content {
+
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+
+    #spinner-icon {
+      color: $theme-color;
+      font-size: 48px;
+    }
+  }
+}
