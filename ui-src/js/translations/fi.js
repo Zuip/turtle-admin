@@ -3,9 +3,13 @@ let translations = {
     login: "Kirjaudu sisään",
     loginShort: "Kirjaudu",
     username: "Käyttäjätunnus",
-    password: "Salasana"
+    password: "Salasana",
+    loginFailedTopic: "Kirjautuminen epäonnistui!",
+    loginFailedExplanation: "Salasanasi tai käyttäjätunnuksesi oli väärin"
   },
-  categoriesAndArticles: "Kategoriat ja artikkelit"
+  categories: {
+    categoriesAndArticles: "Kategoriat ja artikkelit"
+  }
 };
 
 export default translations;

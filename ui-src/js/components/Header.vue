@@ -6,13 +6,19 @@
           <h1>Zui.fi</h1>
         </div>
       </a>
-      <div class="header-element">
-        <h3>Artikkelit</h3>
+      <div class="header-element logout-button" v-on:click="logout">
+        <i class="fas fa-power-off"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default { }
+  export default {
+    methods: {
+      logout: function(event) {
+        this.$store.dispatch('logout');
+      }
+    }
+  }
 </script>

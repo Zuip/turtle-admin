@@ -3,7 +3,8 @@
     <Header />
     <div id="left-bar"></div>
     <div id="navigation-content">
-      <Login />
+      <Login v-if="!userIsLoggedIn" />
+      <router-view v-if="userIsLoggedIn"></router-view>
     </div>
     <div id="right-div"></div>
   </div>
@@ -17,6 +18,11 @@
     components: {
       Header,
       Login
+    },
+    computed: {
+      userIsLoggedIn() {
+        return this.$store.getters.userIsLoggedIn;
+      }
     }
   }
 </script>

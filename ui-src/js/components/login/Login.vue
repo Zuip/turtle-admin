@@ -3,6 +3,13 @@
     <h3>{{translations.login}}:</h3>
     <form>
 
+      <div class="alert alert-danger" role="alert" v-if="loginFailed">
+        <p>
+          <strong>{{translations.loginFailedTopic}}</strong><br />
+          {{translations.loginFailedExplanation}}
+        </p>
+      </div>
+
       <p>
         {{translations.username}}:<br/>
         <input type="text"
@@ -30,9 +37,12 @@
 <script>
   export default {
     components: { },
-    data: {
-      username: '',
-      password: ''
+    data: function() {
+      return {
+        username: '',
+        password: '',
+        loginFailed: false
+      }
     },
     computed: {
       translations() {
@@ -41,9 +51,12 @@
     },
     methods: {
       login: function(event) {
+
         event.preventDefault();
+        this.loginFailed = false;
+
         fetch(
-          '/login',
+          '/api/login',
           {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -52,9 +65,15 @@
               password: this.password
             })
           }
-        ).then(function(data) {
-
-        }).catch(function(error) {
+        ).then(
+          data => data.json()
+        ).then(data => {
+          if(data.success === true) {
+            this.$store.dispatch('login', { username: data.username });
+          } else {
+            this.loginFailed = true;
+          }
+        }).catch(error => {
 
         });
       }

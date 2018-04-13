@@ -11,7 +11,7 @@ let postLogin = function(req, res) {
       function isValid() {
         req.session.user = data;
         res.json({
-          username: data.username,
+          username: data.name,
           success: true
         });
       },

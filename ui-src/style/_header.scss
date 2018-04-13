@@ -28,10 +28,12 @@
       margin: 0;
       padding: 0;
     }
-    
-    i.fa-angle-down {
-      margin-left: 3px;
-    }
+  }
+
+  .header-element.logout-button {
+    color: $theme-text-color-on-theme-color;
+    font-size: 24px;
+    float: right;
   }
 
   .header-element:hover {
