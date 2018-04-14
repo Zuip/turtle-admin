@@ -4,7 +4,7 @@ let store = {
   state: {
     user: null,
     translations: translations.get,
-    loading: false
+    loading: []
   },
   getters: {
     getUser: function(state) {
@@ -17,7 +17,7 @@ let store = {
       return state.translations;
     },
     contentIsBeingLoaded: function(state) {
-      return state.loading;
+      return state.loading.length > 0;
     }
   },
   mutations: {
@@ -27,11 +27,13 @@ let store = {
     logout(state) {
       state.user = null;
     },
-    startContentLoading(state) {
-      state.loading = true;
+    startContentLoading(state, contentId) {
+      state.loading.push(contentId);
     },
-    endContentLoading(state) {
-      state.loading = false;
+    endContentLoading(state, contentId) {
+      state.loading = state.loading.filter(function(contentBeingLoaded) {
+        return contentId !== contentBeingLoaded;
+      });
     }
   },
   actions: {
@@ -42,10 +44,10 @@ let store = {
       context.commit('logout');
     },
     startContentLoading(context) {
-      content.commit('startContentLoading');
+      context.commit('startContentLoading');
     },
     endContentLoading(context) {
-      content.commit('endContentLoading');
+      context.commit('endContentLoading');
     }
   }
 };

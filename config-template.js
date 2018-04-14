@@ -1,4 +1,5 @@
 let config = {
+  production: true,
   session: {
     secret: ''
   },

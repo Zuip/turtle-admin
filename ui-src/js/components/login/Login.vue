@@ -59,6 +59,7 @@
           '/api/login',
           {
             method: 'POST',
+            credentials: 'same-origin',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
               username: this.username,

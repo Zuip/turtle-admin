@@ -8,9 +8,13 @@ module.exports = function(app) {
 
   app.post('/api/login', postLoginController);
 
-  app.all('/api/*', authenticatedMiddleware);
-
   app.get('/api/user', function(req, res) {
-    res.json({ result: req.session.user });
+    if(typeof req.session.user === 'undefined') {
+      res.json({ user: null });
+    } else {
+      res.json({ user: req.session.user });
+    }
   });
+
+  app.all('/api/*', authenticatedMiddleware);
 };

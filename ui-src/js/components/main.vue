@@ -31,6 +31,31 @@
       contentIsBeingLoaded() {
         return this.$store.getters.contentIsBeingLoaded;
       }
+    },
+    created: function () {
+
+      let contentLoadingName = 'checkIfSessionAlreadyExists';
+      this.$store.dispatch('startContentLoading', contentLoadingName);
+
+      fetch(
+        '/api/user',
+        {
+          method: 'GET',
+          credentials: 'same-origin'
+        }
+      ).then(
+        data => data.json()
+      ).then(data => {
+
+        if(data.user !== null) {
+          this.$store.dispatch('login', { username: data.user.username });
+        }
+
+        this.$store.dispatch('endContentLoading', contentLoadingName);
+
+      }).catch(function(err) {
+
+      });
     }
   }
 </script>

@@ -6,5 +6,5 @@ node_modules
 /public/app.js.map
 /config.js
 .nyc_output
-/Gemfile.lock
 /package-lock.json
+/tmp/sessions/*.json
