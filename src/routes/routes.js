@@ -12,9 +12,14 @@ module.exports = function(app) {
     if(typeof req.session.user === 'undefined') {
       res.json({ user: null });
     } else {
-      res.json({ user: req.session.user });
+      res.json({ user: { name: req.session.user.name }});
     }
   });
 
   app.all('/api/*', authenticatedMiddleware);
+
+  app.get('/api/logout', function(req, res) {
+    req.session.destroy();
+    res.json({ success: true });
+  });
 };

@@ -48,7 +48,7 @@
       ).then(data => {
 
         if(data.user !== null) {
-          this.$store.dispatch('login', { username: data.user.username });
+          this.$store.dispatch('login', { username: data.user.name });
         }
 
         this.$store.dispatch('endContentLoading', contentLoadingName);

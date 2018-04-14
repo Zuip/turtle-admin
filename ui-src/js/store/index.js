@@ -37,17 +37,17 @@ let store = {
     }
   },
   actions: {
-    login(context) {
-      context.commit('login');
+    login(context, user) {
+      context.commit('login', user);
     },
     logout(context) {
       context.commit('logout');
     },
-    startContentLoading(context) {
-      context.commit('startContentLoading');
+    startContentLoading(context, contentId) {
+      context.commit('startContentLoading', contentId);
     },
-    endContentLoading(context) {
-      context.commit('endContentLoading');
+    endContentLoading(context, contentId) {
+      context.commit('endContentLoading', contentId);
     }
   }
 };
