@@ -48,4 +48,8 @@ $footer-height: 120px;
   border-color: $theme-hover-color;
 }
 
+.form-control.failed {
+  background-color: pink;
+}
+
 @import "overlay";

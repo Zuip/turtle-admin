@@ -29,29 +29,34 @@
     max-width: 500px;
     border: 0.5px solid grey;
 
-    .popup-grid {
+    .popup-grid-container {
 
-      display: grid;
-      grid-template-columns: auto;
-      grid-template-rows: auto 70px;
-      grid-template-areas:
-        "content"
-        "footer";
       height: 100%;
 
-      .popup-grid-content {
-        grid-area: content;
-        padding: 20px;
-      }
+      .popup-grid {
 
-      .popup-grid-footer {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto 70px;
+        grid-template-areas:
+          "content"
+          "footer";
+        height: 100%;
 
-        grid-area: footer;
-        margin: 10px;
+        .popup-grid-content {
+          grid-area: content;
+          padding: 20px;
+        }
 
-        .btn {
-          float: right;
-          margin: 5px;
+        .popup-grid-footer {
+
+          grid-area: footer;
+          margin: 10px;
+
+          .btn {
+            float: right;
+            margin: 5px;
+          }
         }
       }
     }

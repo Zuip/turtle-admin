@@ -1,6 +1,8 @@
 let translations = {
   save: "Tallenna",
   cancel: "Peruuta",
+  close: "Sulje",
+  savingSucceeded: "Tallentaminen onnistui!",
   published: "Julkaistu",
   urlName: "URL nimi",
   yes: "Kyllä",
