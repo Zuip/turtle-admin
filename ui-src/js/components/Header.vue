@@ -1,11 +1,11 @@
 <template>
   <div id="navigation-header-color-bar">
     <div id="navigation-header-content">
-      <a href="/">
+      <router-link :to="'/'">
         <div id="site-name" class="header-element">
           <h1>Zui.fi</h1>
         </div>
-      </a>
+      </router-link>
       <div class="header-element logout-button" v-on:click="logout" v-if="userIsLoggedIn">
         <i class="fas fa-power-off"></i>
       </div>

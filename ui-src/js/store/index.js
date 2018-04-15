@@ -4,7 +4,8 @@ let store = {
   state: {
     user: null,
     translations: translations.get,
-    loading: []
+    loading: [],
+    popup: null
   },
   getters: {
     getUser: function(state) {
@@ -18,6 +19,12 @@ let store = {
     },
     contentIsBeingLoaded: function(state) {
       return state.loading.length > 0;
+    },
+    popupIsBeingShown: function(state) {
+      return state.popup !== null;
+    },
+    getPopupContent: function(state) {
+      return state.popup;
     }
   },
   mutations: {
@@ -34,6 +41,12 @@ let store = {
       state.loading = state.loading.filter(function(contentBeingLoaded) {
         return contentId !== contentBeingLoaded;
       });
+    },
+    openPopup(state, component) {
+      state.popup = component;
+    },
+    closePopup(state) {
+      state.popup = null;
     }
   },
   actions: {
@@ -48,6 +61,12 @@ let store = {
     },
     endContentLoading(context, contentId) {
       context.commit('endContentLoading', contentId);
+    },
+    openPopup(context, component) {
+      context.commit('openPopup', component);
+    },
+    closePopup(context) {
+      context.commit('closePopup');
     }
   }
 };

@@ -7,12 +7,28 @@
 </template>
 
 <script>
+  import NewCategory from './NewCategory.vue';
+
   export default {
     components: { },
-    data: { },
+    data: function() {
+      return { };
+    },
     computed: {
       translations() {
         return this.$store.getters.getTranslations.categories;
+      }
+    },
+    created: function() {
+      if(this.$route.params.categoryId === 'new') {
+        this.$store.dispatch('openPopup', NewCategory);
+      }
+    },
+    watch: {
+      "$route.params.categoryId": function(categoryId) {
+        if(categoryId === 'new') {
+          this.$store.dispatch('openPopup', NewCategory);
+        }
       }
     }
   }

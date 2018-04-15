@@ -14,7 +14,6 @@
         {{translations.username}}:<br/>
         <input type="text"
                class="form-control"
-               id="username"
                :placeholder="translations.username"
                v-model="username" />
       </p>
@@ -23,7 +22,6 @@
         {{translations.password}}:<br />
         <input type="password"
                class="form-control"
-               id="password"
                :placeholder="translations.password"
                v-model="password" />
       </p>
@@ -55,6 +53,9 @@
         event.preventDefault();
         this.loginFailed = false;
 
+        let contentLoadingName = 'login';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
         fetch(
           '/api/login',
           {
@@ -69,11 +70,15 @@
         ).then(
           data => data.json()
         ).then(data => {
+          
           if(data.success === true) {
             this.$store.dispatch('login', { username: data.username });
           } else {
             this.loginFailed = true;
           }
+
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+
         }).catch(error => {
 
         });

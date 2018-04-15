@@ -9,6 +9,7 @@
       </div>
       <div id="right-div"></div>
     </div>
+    <PopupOverlay v-if="popupIsBeingShown" :content="popupContent" />
     <LoadingOverlay v-if="contentIsBeingLoaded" />
   </div>
 </template>
@@ -17,12 +18,14 @@
   import Header from './Header.vue';
   import Login from './login/Login.vue';
   import LoadingOverlay from './overlay/LoadingOverlay.vue';
+  import PopupOverlay from './overlay/PopupOverlay.vue';
 
   export default {
     components: {
       Header,
       Login,
-      LoadingOverlay
+      LoadingOverlay,
+      PopupOverlay
     },
     computed: {
       userIsLoggedIn() {
@@ -30,6 +33,12 @@
       },
       contentIsBeingLoaded() {
         return this.$store.getters.contentIsBeingLoaded;
+      },
+      popupIsBeingShown() {
+        return this.$store.getters.popupIsBeingShown;
+      },
+      popupContent() {
+        return this.$store.getters.getPopupContent;
       }
     },
     created: function () {

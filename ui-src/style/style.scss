@@ -38,4 +38,14 @@ $footer-height: 120px;
   @import "content";
 }
 
+.btn-primary {
+  background-color: $theme-color;
+  border-color: $theme-color;
+}
+
+.btn-primary:hover {
+  background-color: $theme-hover-color;
+  border-color: $theme-hover-color;
+}
+
 @import "overlay";

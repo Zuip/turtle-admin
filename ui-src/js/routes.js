@@ -1,5 +1,4 @@
 import Categories from './components/categories/Categories.vue';
-import NewCategory from './components/categories/NewCategory.vue';
 
 let routes = {
   mode: 'history',
@@ -10,9 +9,9 @@ let routes = {
       component: Categories
     },
     {
-      path: '/categories/new',
+      path: '/categories/:categoryId',
       name: 'New category',
-      component: NewCategory
+      component: Categories
     }
   ]
 };
