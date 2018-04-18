@@ -2,10 +2,11 @@ import translations from '../translations/translations'
 
 let store = {
   state: {
-    user: null,
-    translations: translations.get,
+    language: 'fi',
     loading: [],
-    popup: null
+    popup: null,
+    translations: translations.get,
+    user: null
   },
   getters: {
     getUser: function(state) {
@@ -13,6 +14,9 @@ let store = {
     },
     userIsLoggedIn: function(state) {
       return state.user !== null;
+    },
+    getLanguage: function(state) {
+      return state.language
     },
     getTranslations: function(state) {
       return state.translations;

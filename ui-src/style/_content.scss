@@ -29,4 +29,24 @@
     background-color: $theme-hover-color;
     color: $theme-text-color-on-theme-color;
   }
+
+  .category-content-table {
+
+    .row-type-icon-column {
+      width: 45px;
+    }
+
+    .actions-column {
+
+      width: 120px;
+
+      button {
+        float: right;
+        font-size: 12px;
+        height: 25px;
+        margin: 2px;
+        padding: 3px 10px;
+      }
+    }
+  }
 }

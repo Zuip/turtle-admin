@@ -1,16 +1,23 @@
 <template>
   <div>
     <h3>{{translations.categoriesAndArticles}}</h3>
-    <p></p>
-    <router-link :to="'/categories/new'">New category</router-link>
+    <CategoryContent />
+    <router-link :to="'/categories/new'">
+      <button type="button" class="btn btn-primary">
+        {{translations.newCategory}}
+      </button>
+    </router-link>
   </div>
 </template>
 
 <script>
+  import CategoryContent from './CategoryContent.vue';
   import NewCategory from './NewCategory.vue';
 
   export default {
-    components: { },
+    components: {
+      CategoryContent
+    },
     data: function() {
       return { };
     },

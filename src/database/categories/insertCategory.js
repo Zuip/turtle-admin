@@ -1,10 +1,10 @@
-let db = require('./connection');
-let languageFetcher = require('./language');
+let db = require('../connection');
+let selectLanguages = require('../selectLanguages');
 
 let insertCategory = function (parentId, name, urlName, description, published) {
 
   let categoryId = insertCategoryBase();
-  let languages = languageFetcher.getLanguages();
+  let languages = selectlanguages.all();
 
   Promise.all([categoryId, languages]).then(function(data) {
     data[1].map(function(language) {

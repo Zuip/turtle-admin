@@ -62,8 +62,8 @@
 
         this.$store.dispatch('endContentLoading', contentLoadingName);
 
-      }).catch(function(err) {
-
+      }).catch(function(error) {
+        console.log(error);
       });
     }
   }

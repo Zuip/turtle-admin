@@ -1,4 +1,4 @@
-let db = require('./connection');
+let db = require('../connection');
 
 let selectCategory = {
   withId: function(categoryId) {

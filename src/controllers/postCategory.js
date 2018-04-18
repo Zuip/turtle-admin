@@ -1,6 +1,6 @@
 let categoryValidator = require('../models/categories/categoryValidator');
-let insertCategory = require('../database/insertCategory');
-let selectCategory = require('../database/selectCategory');
+let insertCategory = require('../database/categories/insertCategory');
+let selectCategory = require('../database/categories/selectCategory');
 
 let postCategory = function(req, res) {
 

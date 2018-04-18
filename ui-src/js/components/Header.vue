@@ -26,6 +26,10 @@
     },
     methods: {
       logout: function(event) {
+
+        let contentLoadingName = 'logout';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
         fetch(
           '/api/logout',
           {
@@ -38,8 +42,9 @@
           if(data.success === true) {
             this.$store.dispatch('logout');
           }
+          this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(error => {
-
+          console.log(error);
         });
       }
     }
