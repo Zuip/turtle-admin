@@ -19,7 +19,8 @@ let translations = {
     categoriesAndArticles: "Kategoriat ja artikkelit",
     newCategory: "Uusi kategoria",
     categoryName: "Kategorian nimi",
-    description: "Kuvaus"
+    description: "Kuvaus",
+    confirmDelete: "Oletko varma, että haluat poistaa kategorian"
   }
 };
 
