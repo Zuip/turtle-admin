@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>{{translations.categoriesAndArticles}}</h3>
-    <CategoryContent />
+    <CategoryContent :categoryId="categoryId" />
     <router-link :to="'/categories/new'">
       <button type="button" class="btn btn-primary">
         {{translations.newCategory}}
@@ -18,22 +18,30 @@
     components: {
       CategoryContent
     },
-    data: function() {
-      return { };
-    },
     computed: {
       translations() {
         return this.$store.getters.getTranslations.categories;
+      },
+      categoryId() {
+
+        if(typeof this.$route.params.categoryId === 'undefined') {
+          return 'root';
+        }
+
+        return this.$route.params.categoryId;
       }
     },
     created: function() {
-      if(this.$route.params.categoryId === 'new') {
+      if(this.$attrs.action === 'new') {
         this.$store.dispatch('openPopup', NewCategory);
       }
     },
+    data: function() {
+      return { };
+    },
     watch: {
-      "$route.params.categoryId": function(categoryId) {
-        if(categoryId === 'new') {
+      '$attrs.action': function(action) {
+        if(action === 'new') {
           this.$store.dispatch('openPopup', NewCategory);
         }
       }

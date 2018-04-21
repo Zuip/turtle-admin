@@ -9,9 +9,21 @@ let routes = {
       component: Categories
     },
     {
-      path: '/categories/:categoryId',
+      path: '/categories/new',
       name: 'New category',
+      component: Categories,
+      props: { action: 'new' }
+    },
+    {
+      path: '/categories/:categoryId',
+      name: 'Subcategories',
       component: Categories
+    },
+    {
+      path: '/categories/:categoryId/new',
+      name: 'New subcategory',
+      component: Categories,
+      props: { action: 'new' }
     }
   ]
 };

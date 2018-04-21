@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="row-type-icon-column"><i class="far fa-folder"></i></td>
-    <td>{{data.name}}</td>
+    <td><router-link :to="'/categories/' + data.id">{{data.name}}</router-link></td>
     <td class="actions-column">
       <button type="button" class="btn btn-danger" v-on:click="remove">
         <i class="far fa-trash-alt"></i>

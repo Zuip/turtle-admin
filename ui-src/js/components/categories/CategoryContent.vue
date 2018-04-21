@@ -38,12 +38,18 @@
         let contentLoadingName = 'updateCategoryContent';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        getCategories('root', this.$store.getters.getLanguage).then(data => {
+        getCategories(this.categoryId, this.$store.getters.getLanguage).then(data => {
           this.categories = data;
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(function(error) {
           console.log(error);
         });
+      }
+    },
+    props: ['categoryId'],
+    watch: {
+      categoryId: function(newCategoryId, oldCategoryId) {
+        this.updateCategoryList();
       }
     }
   }
