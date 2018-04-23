@@ -49,7 +49,9 @@
     props: ['categoryId'],
     watch: {
       categoryId: function(newCategoryId, oldCategoryId) {
-        this.updateCategoryList();
+        if(newCategoryId !== oldCategoryId) {
+          this.updateCategoryList();
+        }
       }
     }
   }

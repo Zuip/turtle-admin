@@ -1,8 +1,9 @@
 <template>
   <div>
     <h3>{{translations.categoriesAndArticles}}</h3>
+    <BackToParentCategoryLink :categoryId="categoryId" />
     <CategoryContent :categoryId="categoryId" />
-    <router-link :to="'/categories/new'">
+    <router-link :to="newCategoryLink">
       <button type="button" class="btn btn-primary">
         {{translations.newCategory}}
       </button>
@@ -11,12 +12,14 @@
 </template>
 
 <script>
+  import BackToParentCategoryLink from './BackToParentCategoryLink.vue';
   import CategoryContent from './CategoryContent.vue';
   import NewCategory from './NewCategory.vue';
 
   export default {
     components: {
-      CategoryContent
+      CategoryContent,
+      BackToParentCategoryLink
     },
     computed: {
       translations() {
@@ -29,6 +32,14 @@
         }
 
         return this.$route.params.categoryId;
+      },
+      newCategoryLink() {
+
+        if(this.categoryId === 'root') {
+          return '/categories/new';
+        }
+
+        return '/categories/' + this.categoryId + '/new';
       }
     },
     created: function() {

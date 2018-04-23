@@ -1,6 +1,6 @@
 let db = require('./connection');
 
-let selectLanguages = {
+module.exports = {
   all: function () {
     return db.any(`
       SELECT *
@@ -8,5 +8,3 @@ let selectLanguages = {
     `);
   }
 };
-
-module.exports = selectLanguages;

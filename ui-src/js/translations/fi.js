@@ -20,7 +20,8 @@ let translations = {
     newCategory: "Uusi kategoria",
     categoryName: "Kategorian nimi",
     description: "Kuvaus",
-    confirmDelete: "Oletko varma, että haluat poistaa kategorian"
+    confirmDelete: "Oletko varma, että haluat poistaa kategorian",
+    backToParent: "Takaisin ylemmälle kategoriatasolle"
   }
 };
 

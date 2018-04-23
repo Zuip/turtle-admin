@@ -17,10 +17,7 @@ let postCategory = function(req, res) {
     categoryId = null;
   }
 
-  Promise.all([
-    validateCategory(categoryId),
-    selectLanguage.withCode(language)
-  ]).then(function() {
+  validateCategory(categoryId, language).then(function() {
     // The category exists or the id refers to root
   }).catch(function(error) {
     console.log(error);
@@ -38,7 +35,7 @@ let postCategory = function(req, res) {
   });
 }
 
-let validateCategory = function(categoryId) {
+let validateCategory = function(categoryId, language) {
 
   if(categoryId === null) {
     return new Promise(function(resolve, reject) {
@@ -46,7 +43,7 @@ let validateCategory = function(categoryId) {
     });
   }
 
-  return selectCategory.withId(categoryId);
+  return selectCategory.withIdAndLanguage(categoryId, language);
 };
 
 module.exports = postCategory;
