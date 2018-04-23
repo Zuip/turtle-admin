@@ -26,7 +26,7 @@ function insertCategoryBase(parentId) {
   return db.one(
     `
       INSERT INTO categories (parent_id, menu_weight)
-      SELECT $1, MAX(menu_weight)
+      SELECT $1, MAX(menu_weight) + 1
       FROM (
         SELECT menu_weight
         FROM categories
