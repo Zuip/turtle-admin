@@ -1,12 +1,10 @@
 let db = require('./connection');
 
-let user = {
+module.exports = {
   getWithUsername: function (username) {
     return db.one(
-      'SELECT * FROM user_accounts WHERE lower(name) = $1',
+      'SELECT * FROM user_account WHERE lower(name) = $1',
       username.toLowerCase()
     );
   }
 };
-
-module.exports = user;

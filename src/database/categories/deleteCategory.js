@@ -4,7 +4,7 @@ module.exports = {
   withId: function(categoryId) {
     return db.none(
       `
-        UPDATE categories
+        UPDATE category
         SET removed = true
         WHERE id = $1
       `,

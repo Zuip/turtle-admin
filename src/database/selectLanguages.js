@@ -4,7 +4,7 @@ module.exports = {
   all: function () {
     return db.any(`
       SELECT *
-      FROM languages
+      FROM language
     `);
   }
 };

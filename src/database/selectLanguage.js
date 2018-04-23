@@ -4,8 +4,8 @@ let selectLanguage = {
   withCode: function (code) {
     return db.one(`
       SELECT *
-      FROM languages
-      WHERE languages.code = $1
+      FROM language
+      WHERE language.code = $1
     `, [code]);
   }
 };

@@ -25,11 +25,11 @@ let insertCategory = function (parentId, name, urlName, description, published) 
 function insertCategoryBase(parentId) {
   return db.one(
     `
-      INSERT INTO categories (parent_id, menu_weight)
+      INSERT INTO category (parent_id, menu_weight)
       SELECT $1, MAX(menu_weight) + 1
       FROM (
         SELECT menu_weight
-        FROM categories
+        FROM category
         UNION
         SELECT 0 as menu_weight
       ) menu_weights
@@ -42,8 +42,8 @@ function insertCategoryBase(parentId) {
 function insertTranslatedCategory(name, urlName, description, published, languageId, categoryId) {
   db.none(
     `
-      INSERT INTO translated_categories (
-        name, urlname, description, published, language_id, category_id
+      INSERT INTO translated_category (
+        name, url_name, description, published, language_id, category_id
       )
       VALUES ($1, $2, $3, $4, $5, $6)
     `,

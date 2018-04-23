@@ -1,22 +1,22 @@
 let db = require('../connection');
 
 let selectColumns = `
-  categories.id AS id,
-  categories.parent_id AS parent_id,
-  categories.menu_weight AS menu_weight,
-  translated_categories.name AS name,
-  translated_categories.urlname AS urlname,
-  translated_categories.description AS description,
-  translated_categories.published AS published
+  category.id AS id,
+  category.parent_id AS parent_id,
+  category.menu_weight AS menu_weight,
+  translated_category.name AS name,
+  translated_category.url_name AS url_name,
+  translated_category.description AS description,
+  translated_category.published AS published
 `;
 
-let selectCategory = {
+module.exports = {
   withId: function(categoryId) {
     return db.one(
       `
         SELECT *
-        FROM categories
-        WHERE categories.id = $1
+        FROM category
+        WHERE category.id = $1
         AND removed = false
       `,
       [categoryId]
@@ -26,11 +26,11 @@ let selectCategory = {
     return db.one(
       `
         SELECT ${selectColumns}
-        FROM categories
-        JOIN translated_categories ON translated_categories.category_id = categories.id
-        JOIN languages ON translated_categories.language_id = languages.id
-        WHERE categories.id = $1
-        AND languages.code = $2
+        FROM category
+        JOIN translated_category ON translated_category.category_id = category.id
+        JOIN language ON translated_category.language_id = language.id
+        WHERE category.id = $1
+        AND language.code = $2
         AND removed = false
       `,
       [categoryId, language]
@@ -40,13 +40,11 @@ let selectCategory = {
     return db.any(
       `
         SELECT ${selectColumns}
-        FROM categories
-        JOIN translated_categories ON translated_categories.category_id = categories.id
-        WHERE translated_categories.urlname = $1
+        FROM category
+        JOIN translated_category ON translated_category.category_id = category.id
+        WHERE translated_category.url_name = $1
       `,
       [urlName]
     );
   }
 };
-
-module.exports = selectCategory;

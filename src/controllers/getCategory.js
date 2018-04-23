@@ -11,7 +11,7 @@ module.exports = function(req, res) {
       parentId: data.parent_id,
       menuWeight: data.menu_weight,
       name: data.name,
-      urlName: data.urlname,
+      urlName: data.url_name,
       description: data.description,
       published: data.published
     });
