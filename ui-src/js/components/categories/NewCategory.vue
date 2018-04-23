@@ -68,8 +68,15 @@
     },
     methods: {
       close: function() {
+
         this.$store.dispatch('closePopup');
-        this.$router.push('/');
+
+        if(this.categoryId === null) {
+          this.$router.push('/');
+          return;
+        }
+
+        this.$router.push('/categories/' + this.getCategoryId());
       },
       save: function() {
 
@@ -79,7 +86,7 @@
         this.urlNameFailed = false;
 
         postCategory({
-          parent: null,
+          parent: this.getCategoryId(),
           name: this.categoryName,
           urlName: this.urlName,
           description: this.description,
@@ -104,8 +111,16 @@
           }
 
         }).catch(error => {
-
+          console.log(error);
         });
+      },
+      getCategoryId() {
+
+        if(typeof this.$route.params.categoryId !== 'undefined') {
+          return parseInt(this.$route.params.categoryId);
+        }
+
+        return null;
       }
     }
   }

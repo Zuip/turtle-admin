@@ -3,7 +3,7 @@ let selectLanguages = require('../selectLanguages');
 
 let insertCategory = function (parentId, name, urlName, description, published) {
 
-  let categoryId = insertCategoryBase();
+  let categoryId = insertCategoryBase(parentId);
   let languages = selectLanguages.all();
 
   Promise.all([categoryId, languages]).then(function(data) {
