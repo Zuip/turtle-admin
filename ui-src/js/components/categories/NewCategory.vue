@@ -69,6 +69,7 @@
     methods: {
       close: function() {
 
+        this.updateCategoryList();
         this.$store.dispatch('closePopup');
 
         if(this.categoryId === null) {
@@ -76,7 +77,7 @@
           return;
         }
 
-        this.$router.push('/categories/' + this.getCategoryId());
+        this.$router.push('/categories/' + this.getCategoryId('root'));
       },
       save: function() {
 
@@ -86,7 +87,7 @@
         this.urlNameFailed = false;
 
         postCategory({
-          parent: this.getCategoryId(),
+          parent: this.getCategoryId(null),
           name: this.categoryName,
           urlName: this.urlName,
           description: this.description,
@@ -114,14 +115,15 @@
           console.log(error);
         });
       },
-      getCategoryId() {
+      getCategoryId(defaultValue) {
 
         if(typeof this.$route.params.categoryId !== 'undefined') {
           return parseInt(this.$route.params.categoryId);
         }
 
-        return null;
+        return defaultValue;
       }
-    }
+    },
+    props: ['updateCategoryList']
   }
 </script>
