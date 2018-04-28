@@ -24,10 +24,11 @@
   .popup.content {
 
     background-color: white;
-    width: 90vw;
+    border: 0.5px solid grey;
     height: 90vh;
     max-width: 500px;
-    border: 0.5px solid grey;
+    overflow-y: auto;
+    width: 90vw;
 
     .popup-grid-container {
 

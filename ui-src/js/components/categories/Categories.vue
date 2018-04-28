@@ -11,6 +11,7 @@
       </tbody>
     </table>
     <NewCategoryButton :categoryId="categoryId" />
+    <NewArticleButton :categoryId="categoryId" v-if="categoryId !== 'root'" />
   </div>
 </template>
 
@@ -18,7 +19,9 @@
 
   import BackToParentCategoryLink from './BackToParentCategoryLink.vue';
   import CategoryRow from './CategoryRow.vue';
+  import NewArticle from '../articles/NewArticle.vue';
   import NewCategory from './NewCategory.vue';
+  import NewArticleButton from '../articles/NewArticleButton.vue';
   import NewCategoryButton from './NewCategoryButton.vue';
 
   import getCategories from '../../apiCalls/getCategories';
@@ -27,6 +30,7 @@
     components: {
       BackToParentCategoryLink,
       CategoryRow,
+      NewArticleButton,
       NewCategoryButton
     },
     computed: {
@@ -46,8 +50,12 @@
 
       this.updateCategoryList();
 
-      if(this.$attrs.action === 'new') {
+      if(this.$attrs.action === 'newCategory') {
         this.openNewCategoryPopup();
+      }
+
+      if(this.$attrs.action === 'newArticle') {
+        this.openNewArticlePopup();
       }
     },
     data: function() {
@@ -56,6 +64,14 @@
       };
     },
     methods: {
+      openNewArticlePopup: function() {
+        this.$store.dispatch( 'openPopup', {
+          component: NewArticle,
+          props: {
+            updateCategoryList: this.updateCategoryList
+          }
+        });
+      },
       openNewCategoryPopup: function() {
         this.$store.dispatch( 'openPopup', {
           component: NewCategory,
@@ -79,8 +95,11 @@
     },
     watch: {
       '$attrs.action': function(action) {
-        if(action === 'new') {
+        if(action === 'newCategory') {
           this.openNewCategoryPopup();
+        }
+        if(action === 'newArticle') {
+          this.openNewArticlePopup();
         }
       },
       categoryId: function(newCategoryId, oldCategoryId) {

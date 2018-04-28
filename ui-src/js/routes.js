@@ -12,7 +12,7 @@ let routes = {
       path: '/categories/new',
       name: 'New category',
       component: Categories,
-      props: { action: 'new' }
+      props: { action: 'newCategory' }
     },
     {
       path: '/categories/:categoryId',
@@ -23,7 +23,13 @@ let routes = {
       path: '/categories/:categoryId/new',
       name: 'New subcategory',
       component: Categories,
-      props: { action: 'new' }
+      props: { action: 'newCategory' }
+    },
+    {
+      path: '/categories/:categoryId/articles/new',
+      name: 'New article',
+      component: Categories,
+      props: { action: 'newArticle' }
     }
   ]
 };

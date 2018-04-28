@@ -1,10 +1,11 @@
 <template>
   <p>
     {{title}}:<br/>
-    <textarea class="form-control"
-              :placeholder="title"
-              v-model="inputVal.value">
-    </textarea>
+    <select class="form-control" v-model="inputVal.value">
+      <option v-for="option in value.options" :value="option.value">
+        {{option.translation}}
+      </option>
+    </select>
   </p>
 </template>
 

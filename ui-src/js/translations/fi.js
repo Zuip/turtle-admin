@@ -1,27 +1,35 @@
 let translations = {
-  save: "Tallenna",
   cancel: "Peruuta",
   close: "Sulje",
-  savingSucceeded: "Tallentaminen onnistui!",
+  no: "Ei",
   published: "Julkaistu",
+  save: "Tallenna",
+  savingSucceeded: "Tallentaminen onnistui!",
   urlName: "URL nimi",
   yes: "Kyllä",
-  no: "Ei",
+  articles: {
+    newArticle: "Uusi artikkeli",
+    publishDate: "Julkaisupäivämäärä",
+    summary: "Tiivistelmä",
+    text: "Teksti",
+    topic: "Otsikko",
+    writers: "Kirjoittajat"
+  },
+  categories: {
+    backToParent: "Takaisin ylemmälle kategoriatasolle",
+    categoriesAndArticles: "Kategoriat ja artikkelit",
+    categoryName: "Kategorian nimi",
+    confirmDelete: "Oletko varma, että haluat poistaa kategorian",
+    description: "Kuvaus",
+    newCategory: "Uusi kategoria"
+  },
   login: {
     login: "Kirjaudu sisään",
     loginShort: "Kirjaudu",
-    username: "Käyttäjätunnus",
-    password: "Salasana",
     loginFailedTopic: "Kirjautuminen epäonnistui!",
-    loginFailedExplanation: "Salasanasi tai käyttäjätunnuksesi oli väärin"
-  },
-  categories: {
-    categoriesAndArticles: "Kategoriat ja artikkelit",
-    newCategory: "Uusi kategoria",
-    categoryName: "Kategorian nimi",
-    description: "Kuvaus",
-    confirmDelete: "Oletko varma, että haluat poistaa kategorian",
-    backToParent: "Takaisin ylemmälle kategoriatasolle"
+    loginFailedExplanation: "Salasanasi tai käyttäjätunnuksesi oli väärin",
+    password: "Salasana",
+    username: "Käyttäjätunnus"
   }
 };
 
