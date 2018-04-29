@@ -7,7 +7,11 @@
         <CategoryRow v-for="category in categories"
                      :data="category"
                      :key="category.id"
-                     @updateCategoryList="updateCategoryList"/>
+                     @updateCategoryList="updateCategoryList" />
+        <ArticleRow v-for="article in articles"
+                    :data="article"
+                    :key="article.id"
+                    @updateCategoryList="updateCategoryList" />
       </tbody>
     </table>
     <NewCategoryButton :categoryId="categoryId" />
@@ -18,16 +22,19 @@
 <script>
 
   import BackToParentCategoryLink from './BackToParentCategoryLink.vue';
+  import ArticleRow from '../articles/ArticleRow.vue';
   import CategoryRow from './CategoryRow.vue';
   import NewArticle from '../articles/NewArticle.vue';
   import NewCategory from './NewCategory.vue';
   import NewArticleButton from '../articles/NewArticleButton.vue';
   import NewCategoryButton from './NewCategoryButton.vue';
 
+  import getArticles from '../../apiCalls/getArticles';
   import getCategories from '../../apiCalls/getCategories';
 
   export default {
     components: {
+      ArticleRow,
       BackToParentCategoryLink,
       CategoryRow,
       NewArticleButton,
@@ -60,7 +67,8 @@
     },
     data: function() {
       return {
-        categories: []
+        categories: [],
+        articles: []
       };
     },
     methods: {
@@ -85,11 +93,20 @@
         let contentLoadingName = 'updateCategoryContent';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        getCategories(this.categoryId, this.$store.getters.getLanguage).then(data => {
+        let categories = getCategories(this.categoryId, this.$store.getters.getLanguage).then(data => {
           this.categories = data;
-          this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(function(error) {
           console.log(error);
+        });
+
+        let articles = getArticles(this.categoryId, this.$store.getters.getLanguage).then(data => {
+          this.articles = data;
+        }).catch(function(error) {
+          console.log(error);
+        });
+
+        Promise.all([categories, articles]).then(() => {
+          this.$store.dispatch('endContentLoading', contentLoadingName);
         });
       }
     },

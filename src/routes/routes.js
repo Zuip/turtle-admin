@@ -3,6 +3,7 @@ let authenticatedMiddleware = require('../middlewares/authenticated');
 
 // Controllers
 let deleteCategoryController = require('../controllers/deleteCategory');
+let getArticlesController = require('../controllers/getArticles');
 let getCategoryController = require('../controllers/getCategory');
 let getCategoriesController = require('../controllers/getCategories');
 let getLogoutController = require('../controllers/getLogout');
@@ -23,6 +24,7 @@ module.exports = function(app) {
 
   // Routes with authentication
   app.delete('/api/categories/:categoryId', deleteCategoryController);
+  app.get('/api/categories/:categoryId/articles', getArticlesController);
   app.get('/api/categories/:categoryId', getCategoryController);
   app.get('/api/categories/:categoryId/categories', getCategoriesController);
   app.get('/api/logout', getLogoutController);
