@@ -79,7 +79,9 @@
 
           this.$store.dispatch('endContentLoading', contentLoadingName);
 
-          if(!data.success) {
+          if(data.success) {
+            this.saved = true;
+          } else {
 
             if(data.failedFields.includes("name")) {
               this.categoryName.failed = true;
@@ -88,10 +90,6 @@
             if(data.failedFields.includes("urlName")) {
               this.urlName.failed = true;
             }
-          }
-
-          if(data.success) {
-            this.saved = true;
           }
 
         }).catch(error => {

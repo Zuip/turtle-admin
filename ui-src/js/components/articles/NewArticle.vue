@@ -39,11 +39,11 @@
   export default {
     data: function() {
       return {
-        topic:       { value: '',   failed: false, mandatory: true  },
-        urlName:     { value: '',   failed: false, mandatory: true  },
-        summary:     { value: '',   failed: false, mandatory: false },
-        text:        { value: '',   failed: false, mandatory: true  },
-        publishDate: { value: '',   failed: false, mandatory: true  },
+        topic:       { value: '', failed: false, mandatory: true  },
+        urlName:     { value: '', failed: false, mandatory: true  },
+        summary:     { value: '', failed: false, mandatory: false },
+        text:        { value: '', failed: false, mandatory: true  },
+        publishDate: { value: '', failed: false, mandatory: true  },
         published: {
           value: 'no',
           failed: false,
@@ -99,6 +99,23 @@
           published: this.published.value,
           writers: this.writers.value
         }).then(data => {
+
+          if(data.success) {
+            this.saved = true;
+          } else {
+
+            if(data.failedFields.includes("text")) {
+              this.text.failed = true;
+            }
+
+            if(data.failedFields.includes("topic")) {
+              this.topic.failed = true;
+            }
+
+            if(data.failedFields.includes("urlName")) {
+              this.urlName.failed = true;
+            }
+          }
 
         }).catch(error => {
           console.log(error);
