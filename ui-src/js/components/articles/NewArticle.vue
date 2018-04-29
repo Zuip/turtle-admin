@@ -29,6 +29,7 @@
 
   import CloseCategoryPopupButton from '../categories/CloseCategoryPopupButton.vue';
   import getUsers from '../../apiCalls/getUsers';
+  import postArticle from '../../apiCalls/postArticle';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import SelectInput from '../layout/forms/SelectInput.vue';
   import TextInput from '../layout/forms/TextInput.vue';
@@ -88,7 +89,28 @@
     },
     methods: {
       save: function() {
+        postArticle({
+          categoryId: this.getCategoryId(),
+          topic: this.topic.value,
+          urlName: this.urlName.value,
+          summary: this.summary.value,
+          text: this.text.value,
+          publishDate: this.publishDate.value,
+          published: this.published.value,
+          writers: this.writers.value
+        }).then(data => {
 
+        }).catch(error => {
+          console.log(error);
+        });
+      },
+      getCategoryId() {
+
+        if(typeof this.$route.params.categoryId !== 'undefined') {
+          return parseInt(this.$route.params.categoryId);
+        }
+
+        return null;
       }
     },
     props: ['updateCategoryList']

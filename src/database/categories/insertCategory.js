@@ -7,10 +7,21 @@ let insertCategory = function (parentId, name, urlName, description, published) 
   let languages = selectLanguages.all();
 
   Promise.all([categoryId, languages]).then(function(data) {
+
+    let firstAdded = false;
+
     data[1].map(function(language) {
+
+      let languageEnding = '';
+      if(firstAdded) {
+        languageEnding = '-' + language.code;
+      }
+
+      firstAdded = true;
+
       insertTranslatedCategory(
         name,
-        urlName,
+        urlName + languageEnding,
         description,
         published,
         language.id,

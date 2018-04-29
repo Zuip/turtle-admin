@@ -2,7 +2,7 @@ let categoryValidator = require('../models/categories/categoryValidator');
 let insertCategory = require('../database/categories/insertCategory');
 let selectCategory = require('../database/categories/selectCategory');
 
-let postCategory = function(req, res) {
+module.exports = function(req, res) {
 
   categoryValidator.initialize();
   categoryValidator.setName(req.body.name);
@@ -13,10 +13,10 @@ let postCategory = function(req, res) {
   selectCategory.withUrlName(
     req.body.urlName
   ).then(function(data) {
-
-    if(data.length > 0) {
-      categoryValidator.addFailedField("urlName");
-    }
+    categoryValidator.addFailedField("urlName");
+  }).catch(function() {
+    // The category with same url name was not found, so we ended up in here
+  }).then(function() {
 
     if(req.body.parent === null) {
       return;
@@ -46,9 +46,8 @@ let postCategory = function(req, res) {
     );
 
     res.json({ success: true });
+    
   }).catch(function(error) {
     console.log(error);
   });
 };
-
-module.exports = postCategory;

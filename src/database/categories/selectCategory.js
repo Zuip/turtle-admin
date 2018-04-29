@@ -37,7 +37,7 @@ module.exports = {
     );
   },
   withUrlName: function(urlName) {
-    return db.any(
+    return db.one(
       `
         SELECT ${selectColumns}
         FROM category

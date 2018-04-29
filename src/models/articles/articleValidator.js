@@ -1,50 +1,55 @@
 let failedFields = [];
+let articleData = { };
 
-let categoryData = { };
-
-let categoryValidator = {
+module.exports = {
   initialize: function() {
     failedFields = [];
     categoryData = {
-      name: null,
+      topic: null,
       urlName: null,
+      text: null,
       published: null
     };
   },
-  setName: function(name) {
-    if(name !== "") {
-      categoryData.name = name;
+  setTopic: function(topic) {
+    if(topic !== "") {
+      articleData.topic = topic;
     }
   },
   setUrlName: function(urlName) {
     if(urlName !== "") {
-      categoryData.urlName = urlName;
+      articleData.urlName = urlName;
+    }
+  },
+  setText: function(text) {
+    if(text !== "") {
+      articleData.text = text;
     }
   },
   setPublished: function(published) {
     if(published === "yes") {
-      categoryData.published = true;
+      articleData.published = true;
     } else if(published === "no") {
-      categoryData.published = false;
+      articleData.published = false;
     }
   },
   getPublishedAsBoolean: function() {
-    return categoryData.published;
+    return articleData.published;
   },
   addFailedField: function(failedField) {
     failedFields.push(failedField);
   },
   initializeFailedFields: function() {
 
-    if(categoryData.name === null) {
+    if(articleData.name === null) {
       failedFields.push("name");
     }
 
-    if(categoryData.urlName === null) {
+    if(articleData.urlName === null) {
       failedFields.push("urlName");
     }
 
-    if(categoryData.published === null) {
+    if(articleData.published === null) {
       failedFields.push("published");
     }
   },
@@ -52,5 +57,3 @@ let categoryValidator = {
     return failedFields;
   }
 };
-
-module.exports = categoryValidator;
