@@ -24,6 +24,7 @@
   import BackToParentCategoryLink from './BackToParentCategoryLink.vue';
   import ArticleRow from '../articles/ArticleRow.vue';
   import CategoryRow from './CategoryRow.vue';
+  import EditArticle from '../articles/EditArticle.vue';
   import NewArticle from '../articles/NewArticle.vue';
   import NewCategory from './NewCategory.vue';
   import NewArticleButton from '../articles/NewArticleButton.vue';
@@ -64,6 +65,10 @@
       if(this.$attrs.action === 'newArticle') {
         this.openNewArticlePopup();
       }
+
+      if(this.$attrs.action === 'editArticle') {
+        this.openEditArticlePopup();
+      }
     },
     data: function() {
       return {
@@ -72,8 +77,16 @@
       };
     },
     methods: {
+      openEditArticlePopup: function() {
+        this.$store.dispatch('openPopup', {
+          component: EditArticle,
+          props: {
+            updateCategoryList: this.updateCategoryList
+          }
+        });
+      },
       openNewArticlePopup: function() {
-        this.$store.dispatch( 'openPopup', {
+        this.$store.dispatch('openPopup', {
           component: NewArticle,
           props: {
             updateCategoryList: this.updateCategoryList
@@ -81,8 +94,16 @@
         });
       },
       openNewCategoryPopup: function() {
-        this.$store.dispatch( 'openPopup', {
+        this.$store.dispatch('openPopup', {
           component: NewCategory,
+          props: {
+            updateCategoryList: this.updateCategoryList
+          }
+        });
+      },
+      openEditCategoryPopup: function() {
+        this.$store.dispatch('openPopup', {
+          component: EditCategory,
           props: {
             updateCategoryList: this.updateCategoryList
           }
@@ -112,11 +133,17 @@
     },
     watch: {
       '$attrs.action': function(action) {
+
         if(action === 'newCategory') {
           this.openNewCategoryPopup();
         }
+
         if(action === 'newArticle') {
           this.openNewArticlePopup();
+        }
+
+        if(action === 'editArticle') {
+          this.openEditArticlePopup();
         }
       },
       categoryId: function(newCategoryId, oldCategoryId) {

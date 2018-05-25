@@ -2,7 +2,7 @@
   <div class="popup-grid-container">
     <div class="popup-grid" v-if="!saved">
       <div class="popup-grid-content">
-        <h3>{{translations.articles.newArticle}}</h3>
+        <h3>{{translations.articles.editArticle}}</h3>
         <ArticleForm v-model="fields" />
       </div>
       <div class="popup-grid-footer">
@@ -19,11 +19,12 @@
 <script>
 
   import ArticleForm from './ArticleForm.vue';
-  import CloseCategoryPopupButton from '../categories/CloseCategoryPopupButton.vue';
-  import getUsers from '../../apiCalls/getUsers';
-  import postArticle from '../../apiCalls/postArticle';
-  import initializeArticle from '../../services/articles/initializeArticle';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
+  import CloseCategoryPopupButton from '../categories/CloseCategoryPopupButton.vue';
+  import getArticle from '../../apiCalls/getArticle';
+  import getUsers from '../../apiCalls/getUsers';
+  import initializeArticle from '../../services/articles/initializeArticle';
+  import postArticle from '../../apiCalls/postArticle';
 
   export default {
     data: function() {
@@ -44,6 +45,8 @@
     },
     created: function() {
 
+      this.initializeArticle();
+
       let contentLoadingName = 'loadUsersToUserSelect';
       this.$store.dispatch('startContentLoading', contentLoadingName);
 
@@ -55,6 +58,23 @@
       });
     },
     methods: {
+      initializeArticle: function() {
+
+        let contentLoadingName = 'loadArticleData';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        getArticle(this.$route.params.articleId, 'fi').then(data => {
+          this.fields.topic.value = data.topic;
+          this.fields.urlName.value = data.urlName;
+          this.fields.summary.value = data.summary;
+          this.fields.text.value = data.text;
+          this.fields.publishDate.value = data.publishDate;
+          this.fields.published.value = data.published ? 'yes' : 'no';
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
+      },
       save: function() {
         postArticle({
           categoryId: this.getCategoryId(),
@@ -63,7 +83,7 @@
           summary: this.fields.summary.value,
           text: this.fields.text.value,
           publishDate: this.fields.publishDate.value,
-          published: this.fields.published.value,
+          published: this.fieldspublished.value,
           writers: this.fields.writers.value
         }).then(data => {
 

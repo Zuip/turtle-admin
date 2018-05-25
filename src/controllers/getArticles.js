@@ -1,6 +1,7 @@
 let selectArticles = require('../database/articles/selectArticles');
 let selectCategory = require('../database/categories/selectCategory');
 let selectLanguage = require('../database/selectLanguage');
+let articleDataNaming = require('../models/articles/articleDataNaming');
 
 module.exports = function(req, res) {
 
@@ -27,6 +28,15 @@ module.exports = function(req, res) {
     });
   }).then(function() {
     return selectArticles.withCategoryIdAndLanguageCode(categoryId, language);
+  }).then(function(data) {
+    return data.map(function(article) {
+      articleDataNaming.setDBNamed(article);
+      articleDataNaming.transformDBToAPINamed();
+      let apiNamed = articleDataNaming.getAPINamed();
+      delete apiNamed.text;
+      delete apiNamed.summary;
+      return apiNamed;
+    });
   }).then(function(data) {
     res.json(data);
   }).catch(function(error) {

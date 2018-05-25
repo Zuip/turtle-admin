@@ -8,6 +8,7 @@ let translations = {
   urlName: "URL nimi",
   yes: "Kyllä",
   articles: {
+    editArticle: "Muokkaa artikkelia",
     newArticle: "Uusi artikkeli",
     publishDate: "Julkaisupäivämäärä",
     summary: "Tiivistelmä",

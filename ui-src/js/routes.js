@@ -30,6 +30,12 @@ let routes = {
       name: 'New article',
       component: Categories,
       props: { action: 'newArticle' }
+    },
+    {
+      path: '/categories/:categoryId/articles/:articleId',
+      name: 'Edit article',
+      component: Categories,
+      props: { action: 'editArticle' }
     }
   ]
 };

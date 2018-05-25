@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="newArticleLink">
+  <router-link :to="newArticleLink()">
     <button type="button" class="btn btn-primary">
       {{translations.newArticle}}
     </button>
@@ -9,6 +9,11 @@
 <script>
   export default {
     computed: {
+      translations() {
+        return this.$store.getters.getTranslations.articles;
+      }
+    },
+    methods: {
       newArticleLink() {
 
         if(this.categoryId === 'root') {
@@ -16,9 +21,6 @@
         }
 
         return '/categories/' + this.categoryId + '/articles/new';
-      },
-      translations() {
-        return this.$store.getters.getTranslations.articles;
       }
     },
     props: ['categoryId']

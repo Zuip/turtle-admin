@@ -6,9 +6,11 @@
       <button type="button" class="btn btn-danger" v-on:click="remove">
         <i class="far fa-trash-alt"></i>
       </button>
-      <button type="button" class="btn btn-primary">
-        <i class="fas fa-edit"></i>
-      </button>
+      <router-link :to="editArticleLink()">
+        <button type="button" class="btn btn-primary">
+          <i class="fas fa-edit"></i>
+        </button>
+      </router-link>
     </td>
   </tr>
 </template>
@@ -22,7 +24,15 @@
       return { };
     },
     methods: {
-      remove: function() {
+      editArticleLink() {
+
+        if(this.categoryId === 'root') {
+          return '/articles/' + this.data.id;
+        }
+
+        return '/categories/' + this.data.categoryId + '/articles/' + this.data.id;
+      },
+      remove() {
         if(confirm(this.$store.getters.getTranslations.categories.confirmDelete + " " + this.data.name + "?")) {
           deleteCategory(this.data.id).then(data => {
             this.updateCategoryList();
