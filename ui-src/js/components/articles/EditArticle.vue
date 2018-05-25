@@ -24,7 +24,7 @@
   import getArticle from '../../apiCalls/getArticle';
   import getUsers from '../../apiCalls/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
-  import postArticle from '../../apiCalls/postArticle';
+  import putArticle from '../../apiCalls/putArticle';
 
   export default {
     data: function() {
@@ -76,14 +76,13 @@
         });
       },
       save: function() {
-        postArticle({
-          categoryId: this.getCategoryId(),
+        putArticle(this.$route.params.articleId, 'fi', {
           topic: this.fields.topic.value,
           urlName: this.fields.urlName.value,
           summary: this.fields.summary.value,
           text: this.fields.text.value,
           publishDate: this.fields.publishDate.value,
-          published: this.fieldspublished.value,
+          published: this.fields.published.value,
           writers: this.fields.writers.value
         }).then(data => {
 

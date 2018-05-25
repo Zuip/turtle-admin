@@ -13,6 +13,7 @@ let getUsersController = require('../controllers/getUsers');
 let postArticleController = require('../controllers/postArticle');
 let postCategoryController = require('../controllers/postCategory');
 let postLoginController = require('../controllers/postLogin');
+let putArticleController = require('../controllers/putArticle');
 
 module.exports = function(app) {
 
@@ -33,4 +34,5 @@ module.exports = function(app) {
   app.get('/api/users', getUsersController);
   app.post('/api/articles', postArticleController);
   app.post('/api/categories', postCategoryController);
+  app.put('/api/articles/:articleId', putArticleController);
 };
