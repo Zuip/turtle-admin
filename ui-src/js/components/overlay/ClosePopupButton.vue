@@ -9,7 +9,6 @@
     methods: {
       close: function() {
 
-        this.$emit('updateCategoryList');
         this.$store.dispatch('closePopup');
 
         if(this.getCategoryId() === 'root') {
@@ -28,6 +27,6 @@
         return 'root';
       }
     },
-    props: ['text', 'updateCategoryList']
+    props: ['text']
   }
 </script>

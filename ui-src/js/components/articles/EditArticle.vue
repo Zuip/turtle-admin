@@ -9,10 +9,10 @@
         <button type="button" class="btn btn-primary" v-on:click="save">
           {{translations.save}}
         </button>
-        <CloseCategoryPopupButton :text="translations.close" @updateCategoryList="updateCategoryList" />
+        <ClosePopupButton :text="translations.close" />
       </div>
     </div>
-    <SavingSucceeded v-if="saved" @close="close" />
+    <SavingSucceeded v-if="saved" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 
   import ArticleForm from './ArticleForm.vue';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
-  import CloseCategoryPopupButton from '../categories/CloseCategoryPopupButton.vue';
+  import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import getArticle from '../../apiCalls/getArticle';
   import getUsers from '../../apiCalls/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
@@ -35,7 +35,7 @@
     },
     components: {
       ArticleForm,
-      CloseCategoryPopupButton,
+      ClosePopupButton,
       SavingSucceeded
     },
     computed: {
@@ -88,6 +88,7 @@
 
           if(data.success) {
             this.saved = true;
+            this.updateCategoryList();
           } else {
 
             if(data.failedFields.includes("text")) {

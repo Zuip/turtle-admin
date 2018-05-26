@@ -5,24 +5,23 @@
       <p>{{translations.savingSucceeded}}</p>
     </div>
     <div class="popup-grid-footer">
-      <button type="button" class="btn btn-primary" v-on:click="closeClicked">
-        {{translations.close}}
-      </button>
+      <ClosePopupButton :text="translations.close" />
     </div>
   </div>
 </template>
 
 <script>
+
+  import ClosePopupButton from './ClosePopupButton.vue';
+
   export default {
     computed: {
       translations() {
         return this.$store.getters.getTranslations;
       }
     },
-    methods: {
-      closeClicked: function() {
-        this.$emit('close');
-      }
+    components: {
+      ClosePopupButton
     }
   };
 </script>

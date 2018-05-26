@@ -6,11 +6,11 @@
       <tbody>
         <CategoryRow v-for="category in categories"
                      :data="category"
-                     :key="category.id"
+                     :key="'category_row_' + category.id"
                      @updateCategoryList="updateCategoryList" />
         <ArticleRow v-for="article in articles"
                     :data="article"
-                    :key="article.id"
+                    :key="'article_row_' + article.id"
                     @updateCategoryList="updateCategoryList" />
       </tbody>
     </table>

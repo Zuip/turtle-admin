@@ -17,6 +17,9 @@ let putArticleController = require('../controllers/putArticle');
 
 module.exports = function(app) {
 
+  // Always reload api calls: this prevents 304
+  app.set('etag', false);
+
   // Routes without authentication
   app.get('/api/user', getUserController);
   app.post('/api/login', postLoginController);

@@ -15,16 +15,16 @@
         <button type="button" class="btn btn-primary" v-on:click="save">
           {{translations.save}}
         </button>
-        <CloseCategoryPopupButton :text="translations.close" @updateCategoryList="updateCategoryList" />
+        <ClosePopupButton :text="translations.close" />
       </div>
     </div>
-    <SavingSucceeded v-if="saved" @close="close" />
+    <SavingSucceeded v-if="saved" />
   </div>
 </template>
 
 <script>
 
-  import CloseCategoryPopupButton from './CloseCategoryPopupButton.vue';
+  import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import postCategory from '../../apiCalls/postCategory';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import SelectInput from '../layout/forms/SelectInput.vue';
@@ -50,7 +50,7 @@
       }
     },
     components: {
-      CloseCategoryPopupButton,
+      ClosePopupButton,
       SavingSucceeded,
       SelectInput,
       TextInput,
@@ -81,6 +81,7 @@
 
           if(data.success) {
             this.saved = true;
+            this.updateCategoryList();
           } else {
 
             if(data.failedFields.includes("name")) {
