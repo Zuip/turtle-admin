@@ -1,5 +1,6 @@
 let config = {
   production: true,
+  basePath: '/',
   session: {
     secret: ''
   },

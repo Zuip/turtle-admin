@@ -1,8 +1,9 @@
 let express = require('express');
 let path = require('path');
 let bodyParser = require('body-parser');
-var history = require('express-history-api-fallback');
+let history = require('express-history-api-fallback');
 let config = require('./config');
+let index = require('./src/index');
 
 let app = express();
 
@@ -19,9 +20,7 @@ app.listen(3000, () => console.log('Zui.fi Admin listening on port 3000!'));
 require('./src/session')(app, config);
 
 // The frontend
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/index.html'));
-});
+app.get('/', index);
 
 // Allow reading files from public folder
 app.use(express.static(root));
