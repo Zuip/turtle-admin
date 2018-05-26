@@ -33,6 +33,9 @@
 </template>
 
 <script>
+
+  import postLogin from '../../apiCalls/postLogin';
+
   export default {
     components: { },
     data: function() {
@@ -56,21 +59,8 @@
         let contentLoadingName = 'login';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        fetch(
-          '/api/login',
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-              username: this.username,
-              password: this.password
-            }),
-            credentials: 'same-origin'
-          }
-        ).then(
-          data => data.json()
-        ).then(data => {
-          
+        postLogin(this.username, this.password).then(data => {
+
           if(data.success === true) {
             this.$store.dispatch('login', { username: data.username });
           } else {
@@ -80,7 +70,7 @@
           this.$store.dispatch('endContentLoading', contentLoadingName);
 
         }).catch(error => {
-
+          console.log(error);
         });
       }
     }

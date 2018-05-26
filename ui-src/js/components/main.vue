@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import getCurrentUser from '../apiCalls/getCurrentUser';
   import Header from './Header.vue';
   import Login from './login/Login.vue';
   import LoadingOverlay from './overlay/LoadingOverlay.vue';
@@ -46,15 +47,7 @@
       let contentLoadingName = 'checkIfSessionAlreadyExists';
       this.$store.dispatch('startContentLoading', contentLoadingName);
 
-      fetch(
-        '/api/user',
-        {
-          method: 'GET',
-          credentials: 'same-origin'
-        }
-      ).then(
-        data => data.json()
-      ).then(data => {
+      getCurrentUser().then(data => {
 
         if(data.user !== null) {
           this.$store.dispatch('login', { username: data.user.name });

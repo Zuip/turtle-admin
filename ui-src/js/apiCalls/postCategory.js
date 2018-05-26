@@ -1,6 +1,6 @@
 export default function(postData) {
   return fetch(
-    '/api/categories',
+    document.getElementsByTagName('base')[0].href + 'api/categories',
     {
       method: 'POST',
       headers: {

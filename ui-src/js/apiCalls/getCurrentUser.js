@@ -1,6 +1,6 @@
 export default function() {
   return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/users',
+    document.getElementsByTagName('base')[0].href + 'api/user',
     {
       method: 'GET',
       credentials: 'same-origin'

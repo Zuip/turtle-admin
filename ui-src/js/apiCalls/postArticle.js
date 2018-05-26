@@ -1,6 +1,6 @@
 export default function(postData) {
   return fetch(
-    '/api/articles',
+    document.getElementsByTagName('base')[0].href + 'api/articles',
     {
       method: 'POST',
       headers: {

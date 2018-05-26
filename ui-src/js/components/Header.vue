@@ -15,6 +15,9 @@
 </template>
 
 <script>
+
+  import getLogout from '../apiCalls/getLogout';
+
   export default {
     computed: {
       userIsLoggedIn() {
@@ -30,15 +33,7 @@
         let contentLoadingName = 'logout';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        fetch(
-          '/api/logout',
-          {
-            method: 'GET',
-            credentials: 'same-origin'
-          }
-        ).then(
-          data => data.json()
-        ).then(data => {
+        getLogout().then(data => {
           if(data.success === true) {
             this.$store.dispatch('logout');
           }

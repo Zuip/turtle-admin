@@ -1,6 +1,6 @@
 export default function(categoryId) {
   return fetch(
-    '/api/categories/' + categoryId,
+    document.getElementsByTagName('base')[0].href + 'api/categories/' + categoryId,
     {
       method: 'DELETE',
       credentials: 'same-origin'
