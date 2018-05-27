@@ -1,7 +1,6 @@
 let express = require('express');
 let path = require('path');
 let bodyParser = require('body-parser');
-let history = require('express-history-api-fallback');
 let config = require('./config');
 let index = require('./src/index');
 
@@ -28,5 +27,5 @@ app.use(express.static(root));
 // Api routes
 require('./src/routes/routes')(app);
 
-// Fall back to vue if path is not found in server. This is for nicer urls.
-app.use(history('index.html', { root: root }));
+// Redirect to index for all other routes so that Vue can handle rest of the routing
+app.get('*', index);
