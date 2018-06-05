@@ -1,7 +1,7 @@
-let articleValidator = require('../models/articles/articleValidator');
-let insertArticle = require('../database/articles/insertArticle');
-let selectArticle = require('../database/articles/selectArticle');
-let selectCategory = require('../database/categories/selectCategory');
+let articleValidator = require('../../models/articles/articleValidator');
+let insertArticle = require('../../database/articles/insertArticle');
+let selectArticle = require('../../database/articles/selectArticle');
+let selectCategory = require('../../database/categories/selectCategory');
 
 module.exports = function(req, res) {
 

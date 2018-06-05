@@ -1,5 +1,5 @@
-let articleDataNaming = require('../models/articles/articleDataNaming');
-let selectArticle = require('../database/articles/selectArticle');
+let articleDataNaming = require('../../models/articles/articleDataNaming');
+let selectArticle = require('../../database/articles/selectArticle');
 
 module.exports = function(req, res) {
 

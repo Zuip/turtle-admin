@@ -1,7 +1,7 @@
-let selectArticles = require('../database/articles/selectArticles');
-let selectCategory = require('../database/categories/selectCategory');
-let selectLanguage = require('../database/selectLanguage');
-let articleDataNaming = require('../models/articles/articleDataNaming');
+let selectArticles = require('../../database/articles/selectArticles');
+let selectCategory = require('../../database/categories/selectCategory');
+let selectLanguage = require('../../database/selectLanguage');
+let articleDataNaming = require('../../models/articles/articleDataNaming');
 
 module.exports = function(req, res) {
 

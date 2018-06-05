@@ -1,6 +1,6 @@
-let articleValidator = require('../models/articles/articleValidator');
-let updateArticle = require('../database/articles/updateArticle');
-let selectArticle = require('../database/articles/selectArticle');
+let articleValidator = require('../../models/articles/articleValidator');
+let updateArticle = require('../../database/articles/updateArticle');
+let selectArticle = require('../../database/articles/selectArticle');
 
 module.exports = function(req, res) {
 
