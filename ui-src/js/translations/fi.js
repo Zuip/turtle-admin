@@ -6,7 +6,6 @@ let translations = {
   save: "Tallenna",
   savingSucceeded: "Tallentaminen onnistui!",
   select: "Valitse",
-  upload: "Lataa",
   urlName: "URL nimi",
   yes: "Kyllä",
   articles: {
@@ -28,9 +27,10 @@ let translations = {
   },
   images: {
     caption: "Kuvateksti",
+    imageSummary: "Lisättävän kuvan tiedot",
+    onlySingleFileUploadAllowed: "Voit ladata vain yhden kuvan kerrallaan!",
     selectImage: "Valitse kuva",
-    uploadFromComputer: "Lataa uusi kuva tietokoneelta",
-    onlySingleFileUploadAllowed: "Voit ladata vain yhden kuvan kerrallaan!"
+    newImage: "Uusi kuva"
   },
   login: {
     login: "Kirjaudu sisään",

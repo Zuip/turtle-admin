@@ -2,8 +2,10 @@
   <div class="popup-grid">
     <div class="popup-grid-content">
       <h3>{{translations.images.selectImage}}</h3>
+      <FolderContent ref="folderContent" />
+      <FileInput :title="translations.images.newImage" @uploadFile="uploadImage"/>
+      <h4>{{translations.images.imageSummary}}</h4>
       <TextInput v-model="caption" :title="translations.images.caption" />
-      <FileInput :title="translations.images.uploadFromComputer" @uploadFile="uploadImage"/>
     </div>
     <div class="popup-grid-footer">
       <button type="button" class="btn btn-primary" v-on:click="select">
@@ -19,12 +21,14 @@
 <script>
 
   import FileInput from '../layout/forms/FileInput.vue';
+  import FolderContent from './FolderContent.vue';
   import postArticleImage from '../../apiCalls/postArticleImage';
   import TextInput from '../layout/forms/TextInput.vue';
 
   export default {
     components: {
       FileInput,
+      FolderContent,
       TextInput
     },
     computed: {
@@ -42,7 +46,7 @@
         this.$emit('cancel');
       },
       select: function() {
-        this.emit('select');
+        this.$emit('select');
       },
       uploadImage: function(file) {
 
@@ -56,6 +60,7 @@
           formData
         ).then(data => {
           this.$store.dispatch('endContentLoading', contentLoadingName);
+          this.$refs.folderContent.getImages();
         }).catch(
           error => console.log(error)
         );

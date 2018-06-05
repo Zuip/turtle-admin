@@ -1,6 +1,5 @@
 <template>
   <p>
-    {{title}}:<br/>
     <label class="custom-file">
 
       <input type="file"
@@ -12,6 +11,10 @@
       <span class="custom-file-control">
         <div class="input-group mb-3">
 
+          <div class="input-group-prepend">
+            <div class="input-group-text">{{title}}</div>
+          </div>
+
           <input type="text"
                  class="form-control"
                  v-on:click="inputClicked"
@@ -19,7 +22,7 @@
 
           <div class="input-group-append" v-if="file !== null">
             <button class="btn btn-outline-secondary" type="button" v-on:click="uploadFile">
-              {{translations.upload}}
+              {{translations.save}}
             </button>
           </div>
 
@@ -69,6 +72,7 @@
       uploadFile: function() {
         this.$emit('uploadFile', this.file);
         this.file = null;
+        this.$refs.fileInput.value = "";
       }
     },
     props: ['title']
