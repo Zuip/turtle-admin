@@ -1,8 +1,9 @@
 let fs = require('fs');
+let getFolderPath = require('../../models/articles/getFolderPath');
 
 module.exports = function(req, res) {
 
-  let path = './public/articles/images/' + req.body.path.join('/');
+  let path = './public/articles/images/' + getFolderPath(req.body.path.join('/'));
 
   if(!fs.existsSync(path)) {
     fs.mkdirSync(path);

@@ -59,7 +59,7 @@
           return;
         }
 
-        if (event.target.files.length > 1){
+        if (event.target.files.length > 1) {
           alert(this.translations.images.onlySingleFileUploadAllowed);
           return;
         }

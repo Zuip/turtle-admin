@@ -1,20 +1,23 @@
 <template>
   <div class="popup-grid">
-    <div class="popup-grid-content">
-      <h3>{{translations.images.selectImage}}</h3>
-      <FolderContent ref="folderContent" />
-      <FileInput :title="translations.images.newImage" @uploadFile="uploadImage"/>
-      <CreateFolderInput :title="translations.images.newFolder" @createFolder="createFolder" />
-      <h4>{{translations.images.imageSummary}}</h4>
-      <TextInput v-model="caption" :title="translations.images.caption" />
-    </div>
-    <div class="popup-grid-footer">
-      <button type="button" class="btn btn-primary" v-on:click="select">
-        {{translations.select}}
-      </button>
-      <button type="button" class="btn btn-danger" v-on:click="cancel">
-        {{translations.cancel}}
-      </button>
+    <div class="article-image-folder">
+      <div class="popup-grid-content">
+        <h3>{{translations.images.selectImage}}</h3>
+        <FolderPathLinks v-model="folderPath" @folderLinkClicked="parentFolderLinkClicked" />
+        <FolderContent ref="folderContent" :folderPath="folderPath" @folderClicked="folderClicked" />
+        <FileInput :title="translations.images.newImage" @uploadFile="uploadImage"/>
+        <CreateFolderInput :title="translations.images.newFolder" @createFolder="createFolder" />
+        <h4>{{translations.images.imageSummary}}</h4>
+        <TextInput v-model="caption" :title="translations.images.caption" />
+      </div>
+      <div class="popup-grid-footer">
+        <button type="button" class="btn btn-primary" v-on:click="select">
+          {{translations.select}}
+        </button>
+        <button type="button" class="btn btn-danger" v-on:click="cancel">
+          {{translations.cancel}}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +27,7 @@
   import CreateFolderInput from './CreateFolderInput.vue';
   import FileInput from '../layout/forms/FileInput.vue';
   import FolderContent from './FolderContent.vue';
+  import FolderPathLinks from './FolderPathLinks.vue';
   import postArticleImage from '../../apiCalls/articles/postArticleImage';
   import postArticleImageFolder from '../../apiCalls/articles/postArticleImageFolder';
   import TextInput from '../layout/forms/TextInput.vue';
@@ -33,6 +37,7 @@
       CreateFolderInput,
       FileInput,
       FolderContent,
+      FolderPathLinks,
       TextInput
     },
     computed: {
@@ -42,7 +47,8 @@
     },
     data: function() {
       return {
-        caption: { value: "" }
+        caption: { value: "" },
+        folderPath: []
       }
     },
     methods: {
@@ -54,7 +60,7 @@
         let contentLoadingName = 'createArticleImageFolder';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        let path = [];
+        let path = this.folderPath.slice();
         path.push(name);
 
         postArticleImageFolder({
@@ -65,6 +71,30 @@
         }).catch(
           error => console.log(error)
         );
+      },
+      folderClicked: function(folderName) {
+        this.folderPath.push(folderName);
+      },
+      parentFolderLinkClicked: function(folderName) {
+
+        if(folderName === '') {
+          this.folderPath = [];
+        }
+
+        let folderFound = false;
+
+        this.folderPath = this.folderPath.filter(function(folderPathFolder) {
+
+          if(folderFound) {
+            return false;
+          }
+
+          if(folderPathFolder === folderName) {
+            folderFound = true;
+          }
+
+          return true;
+        });
       },
       select: function() {
         this.$emit('select');
@@ -78,7 +108,8 @@
         formData.append("articleImage", new Blob([file]), file.name);
 
         postArticleImage(
-          formData
+          formData,
+          this.folderPath
         ).then(data => {
           this.$store.dispatch('endContentLoading', contentLoadingName);
           this.$refs.folderContent.getImages();

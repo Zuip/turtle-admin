@@ -31,7 +31,8 @@ let translations = {
     newFolder: "Uusi kansio",
     newImage: "Uusi kuva",
     onlySingleFileUploadAllowed: "Voit ladata vain yhden kuvan kerrallaan!",
-    selectImage: "Valitse kuva"
+    selectImage: "Valitse kuva",
+    rootFolder: "Juurikansio"
   },
   login: {
     login: "Kirjaudu sisään",

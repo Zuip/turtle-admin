@@ -1,0 +1,27 @@
+.article-image-folder {
+  
+  .folder-path-links a {
+    cursor: pointer;
+  }
+
+  .folder-path-links a:hover {
+    color: $theme-color;
+  }
+
+  .image-folder-content-table {
+
+    tr {
+
+      cursor: pointer;
+
+      .image-folder-icon-column {
+        width: 40px;
+        text-align: center;
+      }
+    }
+
+    tr:hover {
+      background-color: $theme-light-grey;
+    }
+  }
+}

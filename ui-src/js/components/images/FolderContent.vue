@@ -2,7 +2,7 @@
   <div>
     <table class="table image-folder-content-table">
       <tbody>
-        <tr v-for="folder in folders">
+        <tr v-for="folder in folders" v-on:click="folderClicked(folder)">
           <td class="image-folder-icon-column"><i class="far fa-folder"></i></td>
           <td>{{folder}}</td>
         </tr>
@@ -35,13 +35,22 @@
         let contentLoadingName = 'loadingArticleImages';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        getArticleImages().then(data => {
+        getArticleImages(this.folderPath).then(data => {
           this.folders = data.folders;
           this.images = data.images;
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(
           error => console.log(error)
         );
+      },
+      folderClicked(folder) {
+        this.$emit('folderClicked', folder);
+      }
+    },
+    props: [ 'folderPath' ],
+    watch: {
+      'folderPath': function() {
+        this.getImages()
       }
     }
   }
