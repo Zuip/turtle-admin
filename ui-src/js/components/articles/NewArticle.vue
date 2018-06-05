@@ -1,9 +1,9 @@
 <template>
   <div class="popup-grid-container">
-    <div class="popup-grid" v-if="!saved">
+    <div class="popup-grid" v-if="!saved && !selectingImage">
       <div class="popup-grid-content">
         <h3>{{translations.articles.newArticle}}</h3>
-        <ArticleForm v-model="fields" />
+        <ArticleForm v-model="fields" @selectImage="selectImage" />
       </div>
       <div class="popup-grid-footer">
         <button type="button" class="btn btn-primary" v-on:click="save">
@@ -12,6 +12,7 @@
         <ClosePopupButton :text="translations.close" />
       </div>
     </div>
+    <ImageSelect v-if="!saved && selectingImage" @cancel="cancelImageSelect"/>
     <SavingSucceeded v-if="saved" />
   </div>
 </template>
@@ -22,6 +23,7 @@
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import getUsers from '../../apiCalls/getUsers';
   import postArticle from '../../apiCalls/postArticle';
+  import ImageSelect from '../images/ImageSelect.vue';
   import initializeArticle from '../../services/articles/initializeArticle';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
 
@@ -29,12 +31,14 @@
     data: function() {
       return {
         fields: initializeArticle(),
+        selectingImage: false,
         saved: false
       }
     },
     components: {
       ArticleForm,
       ClosePopupButton,
+      ImageSelect,
       SavingSucceeded
     },
     computed: {
@@ -55,6 +59,9 @@
       });
     },
     methods: {
+      cancelImageSelect: function() {
+        this.selectingImage = false;
+      },
       save: function() {
         postArticle({
           categoryId: this.getCategoryId(),
@@ -89,7 +96,10 @@
           console.log(error);
         });
       },
-      getCategoryId() {
+      selectImage: function() {
+        this.selectingImage = true;
+      },
+      getCategoryId: function() {
 
         if(typeof this.$route.params.categoryId !== 'undefined') {
           return parseInt(this.$route.params.categoryId);

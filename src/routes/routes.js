@@ -11,6 +11,7 @@ let getLogoutController = require('../controllers/getLogout');
 let getUserController = require('../controllers/getUser');
 let getUsersController = require('../controllers/getUsers');
 let postArticleController = require('../controllers/postArticle');
+let postArticleImageController = require('../controllers/postArticleImage');
 let postCategoryController = require('../controllers/postCategory');
 let postLoginController = require('../controllers/postLogin');
 let putArticleController = require('../controllers/putArticle');
@@ -36,6 +37,7 @@ module.exports = function(app) {
   app.get('/api/logout', getLogoutController);
   app.get('/api/users', getUsersController);
   app.post('/api/articles', postArticleController);
+  app.post('/api/articles/images', postArticleImageController);
   app.post('/api/categories', postCategoryController);
   app.put('/api/articles/:articleId', putArticleController);
 };

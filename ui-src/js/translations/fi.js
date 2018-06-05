@@ -5,6 +5,8 @@ let translations = {
   published: "Julkaistu",
   save: "Tallenna",
   savingSucceeded: "Tallentaminen onnistui!",
+  select: "Valitse",
+  upload: "Lataa",
   urlName: "URL nimi",
   yes: "Kyllä",
   articles: {
@@ -23,6 +25,12 @@ let translations = {
     confirmDelete: "Oletko varma, että haluat poistaa kategorian",
     description: "Kuvaus",
     newCategory: "Uusi kategoria"
+  },
+  images: {
+    caption: "Kuvateksti",
+    selectImage: "Valitse kuva",
+    uploadFromComputer: "Lataa uusi kuva tietokoneelta",
+    onlySingleFileUploadAllowed: "Voit ladata vain yhden kuvan kerrallaan!"
   },
   login: {
     login: "Kirjaudu sisään",

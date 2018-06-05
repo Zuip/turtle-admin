@@ -1,9 +1,9 @@
 <template>
   <div class="popup-grid-container">
-    <div class="popup-grid" v-if="!saved">
+    <div class="popup-grid" v-if="!saved && !selectingImage">
       <div class="popup-grid-content">
         <h3>{{translations.articles.editArticle}}</h3>
-        <ArticleForm v-model="fields" />
+        <ArticleForm v-model="fields" @selectImage="selectImage" />
       </div>
       <div class="popup-grid-footer">
         <button type="button" class="btn btn-primary" v-on:click="save">
@@ -12,6 +12,7 @@
         <ClosePopupButton :text="translations.close" />
       </div>
     </div>
+    <ImageSelect v-if="!saved && selectingImage" @cancel="cancelImageSelect"/>
     <SavingSucceeded v-if="saved" />
   </div>
 </template>
@@ -24,18 +25,21 @@
   import getArticle from '../../apiCalls/getArticle';
   import getUsers from '../../apiCalls/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
+  import ImageSelect from '../images/ImageSelect.vue';
   import putArticle from '../../apiCalls/putArticle';
 
   export default {
     data: function() {
       return {
         fields: initializeArticle(),
+        selectingImage: false,
         saved: false
       }
     },
     components: {
       ArticleForm,
       ClosePopupButton,
+      ImageSelect,
       SavingSucceeded
     },
     computed: {
@@ -58,6 +62,9 @@
       });
     },
     methods: {
+      cancelImageSelect: function() {
+        this.selectingImage = false;
+      },
       initializeArticle: function() {
 
         let contentLoadingName = 'loadArticleData';
@@ -107,6 +114,9 @@
         }).catch(error => {
           console.log(error);
         });
+      },
+      selectImage: function() {
+        this.selectingImage = true;
       },
       getCategoryId() {
 

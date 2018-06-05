@@ -1,4 +1,5 @@
 let express = require('express');
+let fileUpload = require('express-fileupload');
 let path = require('path');
 let bodyParser = require('body-parser');
 let config = require('./config');
@@ -11,6 +12,9 @@ let root = __dirname + '/public';
 // This makes it easier to handle posted JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Enable file upload
+app.use(fileUpload());
 
 // Start listening to calls
 app.listen(3000, () => console.log('Zui.fi Admin listening on port 3000!'));
