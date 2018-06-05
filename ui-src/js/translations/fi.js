@@ -28,9 +28,10 @@ let translations = {
   images: {
     caption: "Kuvateksti",
     imageSummary: "Lisättävän kuvan tiedot",
+    newFolder: "Uusi kansio",
+    newImage: "Uusi kuva",
     onlySingleFileUploadAllowed: "Voit ladata vain yhden kuvan kerrallaan!",
-    selectImage: "Valitse kuva",
-    newImage: "Uusi kuva"
+    selectImage: "Valitse kuva"
   },
   login: {
     login: "Kirjaudu sisään",
