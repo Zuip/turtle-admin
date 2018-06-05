@@ -30,8 +30,8 @@
   import NewArticleButton from '../articles/NewArticleButton.vue';
   import NewCategoryButton from './NewCategoryButton.vue';
 
-  import getArticles from '../../apiCalls/getArticles';
-  import getCategories from '../../apiCalls/getCategories';
+  import getArticles from '../../apiCalls/articles/getArticles';
+  import getCategories from '../../apiCalls/categories/getCategories';
 
   export default {
     components: {

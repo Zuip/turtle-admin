@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import deleteCategory from '../../apiCalls/deleteCategory';
+  import deleteCategory from '../../apiCalls/categories/deleteCategory';
 
   export default {
     props: ['data'],

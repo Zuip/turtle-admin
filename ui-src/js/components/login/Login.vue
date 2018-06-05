@@ -34,7 +34,7 @@
 
 <script>
 
-  import postLogin from '../../apiCalls/postLogin';
+  import postLogin from '../../apiCalls/users/postLogin';
 
   export default {
     components: { },

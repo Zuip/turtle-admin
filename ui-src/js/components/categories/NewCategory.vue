@@ -25,7 +25,7 @@
 <script>
 
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import postCategory from '../../apiCalls/postCategory';
+  import postCategory from '../../apiCalls/categories/postCategory';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import SelectInput from '../layout/forms/SelectInput.vue';
   import TextInput from '../layout/forms/TextInput.vue';

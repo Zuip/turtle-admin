@@ -16,7 +16,7 @@
 
 <script>
 
-  import getLogout from '../apiCalls/getLogout';
+  import getLogout from '../apiCalls/users/getLogout';
 
   export default {
     computed: {

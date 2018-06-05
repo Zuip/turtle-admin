@@ -22,11 +22,11 @@
   import ArticleForm from './ArticleForm.vue';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import getArticle from '../../apiCalls/getArticle';
-  import getUsers from '../../apiCalls/getUsers';
+  import getArticle from '../../apiCalls/articles/getArticle';
+  import getUsers from '../../apiCalls/users/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
   import ImageSelect from '../images/ImageSelect.vue';
-  import putArticle from '../../apiCalls/putArticle';
+  import putArticle from '../../apiCalls/articles/putArticle';
 
   export default {
     data: function() {

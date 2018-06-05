@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import getCurrentUser from '../apiCalls/getCurrentUser';
+  import getCurrentUser from '../apiCalls/users/getCurrentUser';
   import Header from './Header.vue';
   import Login from './login/Login.vue';
   import LoadingOverlay from './overlay/LoadingOverlay.vue';

@@ -21,8 +21,8 @@
 
   import ArticleForm from './ArticleForm.vue';
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import getUsers from '../../apiCalls/getUsers';
-  import postArticle from '../../apiCalls/postArticle';
+  import getUsers from '../../apiCalls/users/getUsers';
+  import postArticle from '../../apiCalls/articles/postArticle';
   import ImageSelect from '../images/ImageSelect.vue';
   import initializeArticle from '../../services/articles/initializeArticle';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';

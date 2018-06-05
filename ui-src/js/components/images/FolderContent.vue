@@ -17,7 +17,7 @@
 
 <script>
 
-  import getArticleImages from '../../apiCalls/getArticleImages';
+  import getArticleImages from '../../apiCalls/articles/getArticleImages';
 
   export default {
     created: function() {

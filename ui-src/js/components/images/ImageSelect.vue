@@ -24,8 +24,8 @@
   import CreateFolderInput from './CreateFolderInput.vue';
   import FileInput from '../layout/forms/FileInput.vue';
   import FolderContent from './FolderContent.vue';
-  import postArticleImage from '../../apiCalls/postArticleImage';
-  import postArticleImageFolder from '../../apiCalls/postArticleImageFolder';
+  import postArticleImage from '../../apiCalls/articles/postArticleImage';
+  import postArticleImageFolder from '../../apiCalls/articles/postArticleImageFolder';
   import TextInput from '../layout/forms/TextInput.vue';
 
   export default {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import getCategory from '../../apiCalls/getCategory';
+  import getCategory from '../../apiCalls/categories/getCategory';
 
   export default {
     computed: {
