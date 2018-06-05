@@ -4,10 +4,11 @@
       <div class="popup-grid-content">
         <h3>{{translations.images.selectImage}}</h3>
         <FolderPathLinks v-model="folderPath" @folderLinkClicked="parentFolderLinkClicked" />
-        <FolderContent ref="folderContent" :folderPath="folderPath" @folderClicked="folderClicked" />
+        <FolderContent ref="folderContent" :folderPath="folderPath" @folderClicked="folderClicked" @imageClicked="imageClicked" />
         <FileInput :title="translations.images.newImage" @uploadFile="uploadImage"/>
         <CreateFolderInput :title="translations.images.newFolder" @createFolder="createFolder" />
         <h4>{{translations.images.imageSummary}}</h4>
+        <img v-if="imagePath !== null" :src="imagePath" />
         <TextInput v-model="caption" :title="translations.images.caption" />
       </div>
       <div class="popup-grid-footer">
@@ -41,6 +42,21 @@
       TextInput
     },
     computed: {
+      imagePath() {
+        if(this.imageName === null) {
+          return null;
+        }
+
+        let folderPathString = this.folderPath.join('/');
+        if(this.folderPath.length > 0) {
+          folderPathString += '/';
+        }
+
+        return document.getElementsByTagName('base')[0].href
+             + 'articles/images/'
+             + folderPathString
+             + this.imageName;
+      },
       translations() {
         return this.$store.getters.getTranslations;
       }
@@ -48,7 +64,8 @@
     data: function() {
       return {
         caption: { value: "" },
-        folderPath: []
+        folderPath: [],
+        imageName: null
       }
     },
     methods: {
@@ -74,8 +91,14 @@
       },
       folderClicked: function(folderName) {
         this.folderPath.push(folderName);
+        this.imageName = null;
+      },
+      imageClicked: function(imageName) {
+        this.imageName = imageName;
       },
       parentFolderLinkClicked: function(folderName) {
+
+        this.imageName = null;
 
         if(folderName === '') {
           this.folderPath = [];

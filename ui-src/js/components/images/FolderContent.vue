@@ -6,7 +6,7 @@
           <td class="image-folder-icon-column"><i class="far fa-folder"></i></td>
           <td>{{folder}}</td>
         </tr>
-        <tr v-for="image in images">
+        <tr v-for="image in images" v-on:click="imageClicked(image)">
           <td class="image-folder-icon-column"><i class="far fa-file-alt"></i></td>
           <td>{{image}}</td>
         </tr>
@@ -45,6 +45,9 @@
       },
       folderClicked(folder) {
         this.$emit('folderClicked', folder);
+      },
+      imageClicked(image) {
+        this.$emit('imageClicked', image);
       }
     },
     props: [ 'folderPath' ],

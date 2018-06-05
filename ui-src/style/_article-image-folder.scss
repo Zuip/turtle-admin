@@ -1,5 +1,5 @@
 .article-image-folder {
-  
+
   .folder-path-links a {
     cursor: pointer;
   }
@@ -23,5 +23,9 @@
     tr:hover {
       background-color: $theme-light-grey;
     }
+  }
+
+  img {
+    max-width: 100%;
   }
 }
