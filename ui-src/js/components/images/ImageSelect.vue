@@ -52,10 +52,9 @@
           folderPathString += '/';
         }
 
-        return document.getElementsByTagName('base')[0].href
-             + 'articles/images/'
-             + folderPathString
-             + this.imageName;
+        return '/articles/images/'
+               + folderPathString
+               + this.imageName;
       },
       translations() {
         return this.$store.getters.getTranslations;
@@ -120,7 +119,11 @@
         });
       },
       select: function() {
-        this.$emit('select');
+        this.$emit(
+          'select',
+          '<img src="' + this.imagePath + '" />\n'
+          + '<p class="caption">' + this.caption.value + '</p>'
+        );
       },
       uploadImage: function(file) {
 

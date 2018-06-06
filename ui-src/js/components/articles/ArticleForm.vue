@@ -9,11 +9,13 @@
 
     <TextareaInput v-model="value.summary"
                    :title="translations.articles.summary"
+                   :field="'summary'"
                    @selectImage="selectImage" />
 
     <TextareaInput v-model="value.text"
                    :title="translations.articles.text"
                    :rows="10"
+                   :field="'text'"
                    @selectImage="selectImage" />
 
     <UserSelectInput v-model="value.writers"
@@ -48,8 +50,8 @@
       }
     },
     methods: {
-      selectImage() {
-        this.$emit('selectImage');
+      selectImage(parameter) {
+        this.$emit('selectImage', parameter);
       }
     },
     props: ['value']

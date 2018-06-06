@@ -1,6 +1,6 @@
 <template>
   <div class="popup-grid-container">
-    <div class="popup-grid" v-if="!saved && !selectingImage">
+    <div class="popup-grid" v-if="!saved && !selectingImage.active">
       <div class="popup-grid-content">
         <h3>{{translations.articles.editArticle}}</h3>
         <ArticleForm v-model="fields" @selectImage="selectImage" />
@@ -12,13 +12,14 @@
         <ClosePopupButton :text="translations.close" />
       </div>
     </div>
-    <ImageSelect v-if="!saved && selectingImage" @cancel="cancelImageSelect"/>
+    <ImageSelect v-if="!saved && selectingImage.active" @cancel="cancelImageSelect" @select="imageSelected" />
     <SavingSucceeded v-if="saved" />
   </div>
 </template>
 
 <script>
 
+  import addTextInText from '../../services/addTextInText';
   import ArticleForm from './ArticleForm.vue';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
@@ -32,7 +33,9 @@
     data: function() {
       return {
         fields: initializeArticle(),
-        selectingImage: false,
+        selectingImage: {
+          active: false
+        },
         saved: false
       }
     },
@@ -63,7 +66,20 @@
     },
     methods: {
       cancelImageSelect: function() {
-        this.selectingImage = false;
+        this.selectingImage = {
+          active: false
+        };
+      },
+      imageSelected: function(text) {
+
+        this.fields[this.selectingImage.field].value = addTextInText(
+          this.fields[this.selectingImage.field].value,
+          text,
+          this.selectingImage.startPosition,
+          this.selectingImage.endPosition
+        );
+
+        this.cancelImageSelect();
       },
       initializeArticle: function() {
 
@@ -115,8 +131,13 @@
           console.log(error);
         });
       },
-      selectImage: function() {
-        this.selectingImage = true;
+      selectImage: function(data) {
+        this.selectingImage = {
+          active: true,
+          field: data.field,
+          startPosition: data.startPosition,
+          endPosition: data.endPosition
+        };
       },
       getCategoryId() {
 
