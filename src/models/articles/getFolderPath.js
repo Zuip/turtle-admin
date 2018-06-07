@@ -7,6 +7,6 @@ module.exports = function(path) {
   let pathArray = path.split('/');
 
   return pathArray.filter(function(folder) {
-    return folder.match("^[a-zA-Z0-9]+$");
+    return folder.match("^[a-zA-Z0-9_-]+$");
   }).join('/');
 };
