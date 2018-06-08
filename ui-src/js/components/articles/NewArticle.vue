@@ -1,6 +1,6 @@
 <template>
   <div class="popup-grid-container">
-    <div class="popup-grid" v-if="!saved && !selectingImage.active">
+    <div class="popup-grid" v-if="mode === 'edit'">
       <div class="popup-grid-content">
         <h3>{{translations.articles.newArticle}}</h3>
         <ArticleForm v-model="fields" @selectImage="selectImage" />
@@ -9,11 +9,15 @@
         <button type="button" class="btn btn-primary" v-on:click="save">
           {{translations.save}}
         </button>
+        <button type="button" class="btn btn-primary" v-on:click="preview">
+          {{translations.preview}}
+        </button>
         <ClosePopupButton :text="translations.close" />
       </div>
     </div>
-    <ImageSelect v-if="!saved && selectingImage.active" @cancel="cancelImageSelect" @select="imageSelected" />
-    <SavingSucceeded v-if="saved" />
+    <ImageSelect v-if="mode === 'selectingImage'" @cancel="cancelImageSelect" @select="imageSelected" />
+    <PreviewArticle v-if="mode === 'previewing'" :fields="fields" @stopPreviewing="stopPreviewing"/>
+    <SavingSucceeded v-if="mode === 'saved'" />
   </div>
 </template>
 
@@ -24,6 +28,7 @@
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import getUsers from '../../apiCalls/users/getUsers';
   import postArticle from '../../apiCalls/articles/postArticle';
+  import PreviewArticle from './PreviewArticle.vue';
   import ImageSelect from '../images/ImageSelect.vue';
   import initializeArticle from '../../services/articles/initializeArticle';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
@@ -32,6 +37,7 @@
     data: function() {
       return {
         fields: initializeArticle(),
+        previewing: false,
         selectingImage: {
           active: false
         },
@@ -41,12 +47,29 @@
     components: {
       ArticleForm,
       ClosePopupButton,
+      PreviewArticle,
       ImageSelect,
       SavingSucceeded
     },
     computed: {
       translations() {
         return this.$store.getters.getTranslations;
+      },
+      mode() {
+
+        if(this.previewing) {
+          return "previewing";
+        }
+
+        if(this.selectingImage.active) {
+          return "selectingImage";
+        }
+
+        if(this.saved) {
+          return "saved";
+        }
+
+        return "edit";
       }
     },
     created: function() {
@@ -77,6 +100,9 @@
         );
 
         this.cancelImageSelect();
+      },
+      preview: function() {
+        this.previewing = true;
       },
       save: function() {
         postArticle({
@@ -119,6 +145,9 @@
           startPosition: data.startPosition,
           endPosition: data.endPosition
         }
+      },
+      stopPreviewing() {
+        this.previewing = false;
       },
       getCategoryId: function() {
 

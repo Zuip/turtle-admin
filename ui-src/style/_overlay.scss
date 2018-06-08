@@ -51,6 +51,21 @@
           grid-area: content;
           padding: 20px;
 
+          .preview-article {
+
+            img {
+              max-width: 100%;
+            }
+
+            .article-summary {
+              font-weight: 700;
+            }
+
+            .caption {
+              color: grey;
+              font-size: 0.9rem;
+            }
+          }
         }
 
         .popup-grid-footer {

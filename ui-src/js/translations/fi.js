@@ -2,6 +2,7 @@ let translations = {
   cancel: "Peruuta",
   close: "Sulje",
   no: "Ei",
+  preview: "Esikatsele",
   published: "Julkaistu",
   save: "Tallenna",
   savingSucceeded: "Tallentaminen onnistui!",
