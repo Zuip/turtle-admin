@@ -1,9 +1,10 @@
 let fs = require('fs');
 let getFolderPath = require('../../models/articles/getFolderPath');
+let config = require('../../../config');
 
 module.exports = function(req, res) {
 
-  let path = './public/articles/images/' + getFolderPath(req.query.path);
+  let path = config.mainSiteDirectory + 'public/articles/images/' + getFolderPath(req.query.path);
 
   if(!req.files) {
     return res.status(400).send('No files were uploaded.');

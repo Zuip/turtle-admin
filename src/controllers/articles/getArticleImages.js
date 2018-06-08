@@ -1,7 +1,8 @@
 let fs = require('fs');
 let getFolderPath = require('../../models/articles/getFolderPath');
+let config = require('../../../config');
 
-let basePath = './public/articles/images';
+let basePath = config.mainSiteDirectory + 'public/articles/images';
 
 function isDirectory(path, element) {
   return fs.statSync(path + '/' + element).isDirectory();
