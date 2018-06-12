@@ -114,7 +114,7 @@
           this.fields.urlName.value = data.urlName;
           this.fields.summary.value = data.summary;
           this.fields.text.value = data.text;
-          this.fields.publishDate.value = data.publishDate;
+          this.fields.publish.value = data.publish;
           this.fields.published.value = data.published ? 'yes' : 'no';
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(error => {
@@ -130,7 +130,7 @@
           urlName: this.fields.urlName.value,
           summary: this.fields.summary.value,
           text: this.fields.text.value,
-          publishDate: this.fields.publishDate.value,
+          publish: this.fields.publish.value,
           published: this.fields.published.value,
           writers: this.fields.writers.value
         }).then(data => {

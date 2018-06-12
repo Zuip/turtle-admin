@@ -1,5 +1,6 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
+let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(categoryId, topic, urlName, summary, text, publishDate, published, writers) {
 
@@ -35,12 +36,15 @@ module.exports = function(categoryId, topic, urlName, summary, text, publishDate
 };
 
 function insertArticleBase(categoryId, publishDate) {
+
+  let publishDateWithTime = getDateAsUTC(publishDate);
+
   return db.one(
     `
-      INSERT INTO article (category_id) VALUES ($1)
+      INSERT INTO article (category_id, timestamp) VALUES ($1, $2::timestamp)
       RETURNING id AS article_id
     `,
-    [categoryId]
+    [categoryId, publishDateWithTime]
   );
 }
 

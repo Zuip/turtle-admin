@@ -17,8 +17,9 @@ export default function() {
   let text = getDefaultField();
   text.mandatory = true;
 
-  let publishDate = getDefaultField();
-  publishDate.mandatory = true;
+  let publish = getDefaultField();
+  publish.value = { date: '', time: '' };
+  publish.mandatory = true;
 
   let published = getDefaultField();
   published.value = 'no';
@@ -34,6 +35,6 @@ export default function() {
   writers.users = [];
 
   return Object.assign({}, {
-    topic, urlName, summary, text, publishDate, published, writers
+    topic, urlName, summary, text, publish, published, writers
   });
 };

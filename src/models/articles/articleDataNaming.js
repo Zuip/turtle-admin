@@ -22,7 +22,10 @@ module.exports = {
       urlName: DBNamedArticle.url_name,
       summary: DBNamedArticle.summary,
       text: DBNamedArticle.text,
-      publishDate: DBNamedArticle.timestamp,
+      publish: {
+        date: DBNamedArticle.date,
+        time: DBNamedArticle.time
+      },
       published: DBNamedArticle.published
     };
   }

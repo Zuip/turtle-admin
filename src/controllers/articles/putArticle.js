@@ -39,7 +39,7 @@ module.exports = function(req, res) {
         req.body.urlName,
         req.body.summary,
         req.body.text,
-        req.body.publishDate,
+        req.body.publish.date + ' ' + req.body.publish.time,
         articleValidator.getPublishedAsBoolean(),
         req.body.writers
       ).then(function() {

@@ -111,7 +111,7 @@
           urlName: this.fields.urlName.value,
           summary: this.fields.summary.value,
           text: this.fields.text.value,
-          publishDate: this.fields.publishDate.value,
+          publish: this.fields.publish.value,
           published: this.fields.published.value,
           writers: this.fields.writers.value
         }).then(data => {

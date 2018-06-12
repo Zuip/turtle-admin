@@ -21,7 +21,7 @@
     <UserSelectInput v-model="value.writers"
                      :title="translations.articles.writers" />
 
-    <TextInput v-model="value.publishDate"
+    <DateInput v-model="value.publish"
                :title="translations.articles.publishDate" />
 
     <SelectInput v-model="value.published"
@@ -32,6 +32,7 @@
 
 <script>
 
+  import DateInput from '../layout/forms/DateInput.vue';
   import SelectInput from '../layout/forms/SelectInput.vue';
   import TextInput from '../layout/forms/TextInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
@@ -39,6 +40,7 @@
 
   export default {
     components: {
+      DateInput,
       SelectInput,
       TextInput,
       TextareaInput,

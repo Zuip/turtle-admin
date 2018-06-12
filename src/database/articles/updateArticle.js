@@ -1,17 +1,25 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
+let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(articleId, languageId, topic, urlName, summary, text, publishDate, published, writers) {
-  return updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published);
+
+  return Promise.all([
+    updateArticleBase(articleId, publishDate),
+    updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published)
+  ]);
 };
 
 function updateArticleBase(articleId, publishDate) {
+
+  let publishDateWithTime = getDateAsUTC(publishDate);
+
   return db.none(
     `
       UPDATE article SET timestamp = $2
       WHERE article.id = $1
     `,
-    [articleId, publishDate]
+    [articleId, publishDateWithTime]
   );
 }
 
