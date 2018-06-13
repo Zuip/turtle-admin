@@ -1,4 +1,6 @@
 let db = require('../connection');
+let deleteArticleUsers = require('./deleteArticleUsers');
+let insertArticleUsers = require('./insertArticleUsers');
 let selectLanguages = require('../selectLanguages');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
@@ -6,7 +8,8 @@ module.exports = function(articleId, languageId, topic, urlName, summary, text, 
 
   return Promise.all([
     updateArticleBase(articleId, publishDate),
-    updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published)
+    updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published),
+    updateWriters(articleId, writers)
   ]);
 };
 
@@ -37,4 +40,10 @@ function updateTranslatedArticle(articleId, languageId, topic, urlName, summary,
     `,
     [topic, urlName, summary, text, published, languageId, articleId]
   );
+}
+
+function updateWriters(articleId, writers) {
+  deleteArticleUsers.withArticleId(articleId).then(() => {
+    insertArticleUsers.withArticleIdAndUserIds(articleId, writers);
+  });
 }

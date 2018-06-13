@@ -1,5 +1,6 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
+let insertArticleUsers = require('./insertArticleUsers');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(categoryId, topic, urlName, summary, text, publishDate, published, writers) {
@@ -30,6 +31,9 @@ module.exports = function(categoryId, topic, urlName, summary, text, publishDate
         data[0].article_id
       );
     });
+
+    insertArticleUsers.withArticleIdAndUserIds(data[0].article_id, writers);
+
   }).catch(function(error) {
     console.log(error);
   });

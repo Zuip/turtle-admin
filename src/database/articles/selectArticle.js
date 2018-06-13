@@ -29,6 +29,20 @@ let formatDateAndTime = function(article) {
   return article;
 };
 
+function addArticleUsersToArticle(article) {
+  return db.any(
+    `
+      SELECT article_user.user_id
+      FROM article_user
+      WHERE article_user.article_id = $1
+    `,
+    [ article.id ]
+  ).then(articleUsers => {
+    article.users = articleUsers.map(articleUser => articleUser.user_id);
+    return article;
+  });
+}
+
 module.exports = {
   withIdAndLanguage: function(articleId, language) {
     return db.one(
@@ -43,6 +57,8 @@ module.exports = {
       [articleId, language]
     ).then(
       formatDateAndTime
+    ).then(
+      addArticleUsersToArticle
     );
   },
   withUrlName: function(urlName) {
@@ -56,6 +72,8 @@ module.exports = {
       [urlName]
     ).then(
       formatDateAndTime
+    ).then(
+      addArticleUsersToArticle
     );
   }
 };

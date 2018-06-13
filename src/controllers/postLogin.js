@@ -1,9 +1,9 @@
-let userFetcher = require('../database/user');
+let selectUser = require('../database/selectUser');
 let password = require('../models/users/password');
 
 let postLogin = function(req, res) {
 
-  let user = userFetcher.getWithUsername(req.body.username).then(function(data) {
+  let user = selectUser.withUsername(req.body.username).then(function(data) {
 
     password.validate(
       req.body.password,

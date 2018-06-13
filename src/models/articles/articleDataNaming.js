@@ -26,7 +26,8 @@ module.exports = {
         date: DBNamedArticle.date,
         time: DBNamedArticle.time
       },
-      published: DBNamedArticle.published
+      published: DBNamedArticle.published,
+      writers: DBNamedArticle.users
     };
   }
 }

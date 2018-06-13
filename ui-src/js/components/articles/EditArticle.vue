@@ -116,6 +116,7 @@
           this.fields.text.value = data.text;
           this.fields.publish.value = data.publish;
           this.fields.published.value = data.published ? 'yes' : 'no';
+          this.fields.writers.value = data.writers;
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(error => {
           console.log(error);
