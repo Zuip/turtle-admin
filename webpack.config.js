@@ -6,7 +6,6 @@ module.exports = {
   output: {
     filename: './public/app.js'
   },
-  watch: true,
   module: {
     loaders: [
       {

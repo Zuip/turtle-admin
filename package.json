@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc mocha",
     "babel": "babel --presets es2015 ui-src/js/app.js -o public/app.bundle.js",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "webpack-watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
