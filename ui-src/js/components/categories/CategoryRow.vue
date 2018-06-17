@@ -6,9 +6,9 @@
       <button type="button" class="btn btn-danger" v-on:click="remove">
         <i class="far fa-trash-alt"></i>
       </button>
-      <button type="button" class="btn btn-primary">
+      <router-link :to="editCategoryLink" class="btn btn-primary">
         <i class="fas fa-edit"></i>
-      </button>
+      </router-link>
     </td>
   </tr>
 </template>
@@ -18,11 +18,16 @@
 
   export default {
     props: ['data'],
+    computed: {
+      editCategoryLink() {
+        return '/categories/' + this.data.id + '/edit';
+      },
+    },
     data: function() {
       return { };
     },
     methods: {
-      remove: function() {
+      remove() {
         if(confirm(this.$store.getters.getTranslations.categories.confirmDelete + " " + this.data.name + "?")) {
           deleteCategory(this.data.id).then(data => {
             this.updateCategoryList();

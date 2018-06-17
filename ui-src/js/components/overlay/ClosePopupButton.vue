@@ -11,22 +11,14 @@
 
         this.$store.dispatch('closePopup');
 
-        if(this.getCategoryId() === 'root') {
+        if(this.categoryId === 'root') {
           this.$router.push('/');
           return;
         }
 
-        this.$router.push('/categories/' + this.getCategoryId());
-      },
-      getCategoryId() {
-
-        if(typeof this.$route.params.categoryId !== 'undefined') {
-          return parseInt(this.$route.params.categoryId);
-        }
-
-        return 'root';
+        this.$router.push('/categories/' + this.categoryId);
       }
     },
-    props: ['text']
+    props: ['categoryId', 'text']
   }
 </script>

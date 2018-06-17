@@ -5,7 +5,7 @@
       <p>{{translations.savingSucceeded}}</p>
     </div>
     <div class="popup-grid-footer">
-      <ClosePopupButton :text="translations.close" />
+      <ClosePopupButton :text="translations.close" :categoryId="categoryId" />
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@
     },
     components: {
       ClosePopupButton
-    }
+    },
+    props: [ 'categoryId' ]
   };
 </script>

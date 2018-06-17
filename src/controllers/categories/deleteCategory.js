@@ -1,5 +1,5 @@
-let deleteCategory = require('../database/categories/deleteCategory');
-let selectCategory = require('../database/categories/selectCategory');
+let deleteCategory = require('../../database/categories/deleteCategory');
+let selectCategory = require('../../database/categories/selectCategory');
 
 module.exports = function(req, res) {
   selectCategory.withId(req.params.categoryId).then(function() {

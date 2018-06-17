@@ -1,4 +1,8 @@
-import Categories from './components/categories/Categories.vue';
+import ArticleCreateCategoryRouteWrapper from './components/categories/routeWrappers/ArticleCreate.vue';
+import ArticleEditCategoryRouteWrapper from './components/categories/routeWrappers/ArticleEdit.vue';
+import CategoryCreateCategoryRouteWrapper from './components/categories/routeWrappers/CategoryCreate.vue';
+import CategoryEditCategoryRouteWrapper from './components/categories/routeWrappers/CategoryEdit.vue';
+import DefaultCategoryRouteWrapper from './components/categories/routeWrappers/Default.vue';
 
 let routes = {
   mode: 'history',
@@ -6,36 +10,37 @@ let routes = {
     {
       path: '/',
       name: 'Categories',
-      component: Categories
+      component: DefaultCategoryRouteWrapper
     },
     {
       path: '/categories/new',
       name: 'New category',
-      component: Categories,
-      props: { action: 'newCategory' }
+      component: CategoryCreateCategoryRouteWrapper
     },
     {
       path: '/categories/:categoryId',
       name: 'Subcategories',
-      component: Categories
+      component: DefaultCategoryRouteWrapper
+    },
+    {
+      path: '/categories/:categoryId/edit',
+      name: 'Edit category',
+      component: CategoryEditCategoryRouteWrapper,
     },
     {
       path: '/categories/:categoryId/new',
       name: 'New subcategory',
-      component: Categories,
-      props: { action: 'newCategory' }
+      component: CategoryCreateCategoryRouteWrapper
     },
     {
       path: '/categories/:categoryId/articles/new',
       name: 'New article',
-      component: Categories,
-      props: { action: 'newArticle' }
+      component: ArticleCreateCategoryRouteWrapper
     },
     {
-      path: '/categories/:categoryId/articles/:articleId',
+      path: '/articles/:articleId/edit',
       name: 'Edit article',
-      component: Categories,
-      props: { action: 'editArticle' }
+      component: ArticleEditCategoryRouteWrapper
     }
   ]
 };

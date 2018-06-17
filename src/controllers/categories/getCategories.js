@@ -1,6 +1,6 @@
-let selectCategory = require('../database/categories/selectCategory');
-let selectCategories = require('../database/categories/selectCategories');
-let selectLanguage = require('../database/selectLanguage');
+let selectCategory = require('../../database/categories/selectCategory');
+let selectCategories = require('../../database/categories/selectCategories');
+let selectLanguage = require('../../database/selectLanguage');
 
 let postCategory = function(req, res) {
 

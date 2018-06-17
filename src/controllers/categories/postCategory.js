@@ -1,6 +1,6 @@
-let categoryValidator = require('../models/categories/categoryValidator');
-let insertCategory = require('../database/categories/insertCategory');
-let selectCategory = require('../database/categories/selectCategory');
+let categoryValidator = require('../../models/categories/categoryValidator');
+let insertCategory = require('../../database/categories/insertCategory');
+let selectCategory = require('../../database/categories/selectCategory');
 
 module.exports = function(req, res) {
 
@@ -46,7 +46,7 @@ module.exports = function(req, res) {
     );
 
     res.json({ success: true });
-    
+
   }).catch(function(error) {
     console.log(error);
   });

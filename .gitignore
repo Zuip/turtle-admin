@@ -2,6 +2,8 @@ node_modules
 /public/style.css
 /public/style.css.map
 /.sass-cache
+sass-compile.sh
+sass-watch.sh
 /public/app.js
 /public/app.js.map
 /config.js

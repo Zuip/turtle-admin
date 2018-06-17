@@ -1,4 +1,4 @@
-let selectCategory = require('../database/categories/selectCategory');
+let selectCategory = require('../../database/categories/selectCategory');
 
 module.exports = function(req, res) {
 

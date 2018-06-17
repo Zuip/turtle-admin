@@ -1,8 +1,6 @@
 <template>
-  <router-link :to="newCategoryLink">
-    <button type="button" class="btn btn-primary">
-      {{translations.newCategory}}
-    </button>
+  <router-link :to="newCategoryLink" class="btn btn-primary">
+    {{translations.newCategory}}
   </router-link>
 </template>
 

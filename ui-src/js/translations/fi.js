@@ -24,6 +24,7 @@ let translations = {
     categoryName: "Kategorian nimi",
     confirmDelete: "Oletko varma, että haluat poistaa kategorian",
     description: "Kuvaus",
+    editCategory: "Muokkaa kategoriaa",
     newCategory: "Uusi kategoria"
   },
   images: {
