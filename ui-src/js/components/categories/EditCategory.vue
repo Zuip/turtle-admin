@@ -6,10 +6,10 @@
         <button type="button" class="btn btn-primary" v-on:click="save">
           {{translations.save}}
         </button>
-        <ClosePopupButton :text="translations.close" :categoryId="category.parentId" />
+        <ClosePopupButton :text="translations.close" :categoryId="parentCategoryId" />
       </div>
     </div>
-    <SavingSucceeded v-if="saved" :categoryId="category.parentId"/>
+    <SavingSucceeded v-if="saved" :categoryId="parentCategoryId" />
   </div>
 </template>
 
@@ -83,6 +83,6 @@
         });
       }
     },
-    props: ['category', 'updateCategoryList']
+    props: ['category', 'parentCategoryId', 'updateCategoryList']
   }
 </script>

@@ -7,7 +7,6 @@
 <script>
 
   import Categories from '../Categories.vue';
-  import formatCategoryId from '../../../services/categories/formatCategoryId';
   import getCategory from '../../../apiCalls/categories/getCategory';
   import EditCategory from '../EditCategory.vue';
 
@@ -22,7 +21,7 @@
           return null;
         }
 
-        return formatCategoryId(this.category.parentId);
+        return this.category.parentId === null ? 'root' : this.category.parentId;
       }
     },
     created() {
@@ -47,8 +46,9 @@
         this.$store.dispatch('openPopup', {
           component: EditCategory,
           props: {
-            updateCategoryList,
-            category: this.category
+            category: this.category,
+            parentCategoryId: this.parentCategoryId,
+            updateCategoryList
           }
         });
       }
