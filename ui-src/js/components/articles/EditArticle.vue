@@ -17,7 +17,7 @@
     </div>
     <ImageSelect v-if="mode === 'selectingImage'" @cancel="cancelImageSelect" @select="imageSelected" />
     <PreviewArticle v-if="mode === 'previewing'" :fields="fields" @stopPreviewing="stopPreviewing"/>
-    <SavingSucceeded v-if="mode === 'saved'" :categoryId="article.categoryId" />
+    <SavingSucceeded v-if="mode === 'saved'" :categoryId="article.categoryId" :topic="translations.articles.editArticle" />
   </div>
 </template>
 

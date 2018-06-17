@@ -9,7 +9,7 @@
         <ClosePopupButton :text="translations.close" :categoryId="categoryId" />
       </div>
     </div>
-    <SavingSucceeded v-if="saved" :categoryId="categoryId" />
+    <SavingSucceeded v-if="saved" :categoryId="categoryId" :topic="translations.categories.newCategory" />
   </div>
 </template>
 

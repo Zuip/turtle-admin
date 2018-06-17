@@ -1,7 +1,7 @@
 <template>
   <div class="popup-grid">
     <div class="popup-grid-content">
-      <h3>{{translations.categories.newCategory}}</h3>
+      <h3>{{topic}}</h3>
       <p>{{translations.savingSucceeded}}</p>
     </div>
     <div class="popup-grid-footer">
@@ -23,6 +23,6 @@
     components: {
       ClosePopupButton
     },
-    props: [ 'categoryId' ]
+    props: [ 'categoryId', 'topic' ]
   };
 </script>
