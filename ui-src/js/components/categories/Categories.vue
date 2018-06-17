@@ -24,9 +24,6 @@
   import BackToParentCategoryLink from './BackToParentCategoryLink.vue';
   import ArticleRow from '../articles/ArticleRow.vue';
   import CategoryRow from './CategoryRow.vue';
-  import EditArticle from '../articles/EditArticle.vue';
-  import NewArticle from '../articles/NewArticle.vue';
-  import NewCategory from './NewCategory.vue';
   import NewArticleButton from '../articles/NewArticleButton.vue';
   import NewCategoryButton from './NewCategoryButton.vue';
 
@@ -42,14 +39,6 @@
       NewCategoryButton
     },
     computed: {
-      categoryId() {
-
-        if(typeof this.$route.params.categoryId === 'undefined') {
-          return 'root';
-        }
-
-        return this.$route.params.categoryId;
-      },
       translations() {
         return this.$store.getters.getTranslations.categories;
       }
@@ -58,16 +47,8 @@
 
       this.updateCategoryList();
 
-      if(this.$attrs.action === 'newCategory') {
-        this.openNewCategoryPopup();
-      }
-
-      if(this.$attrs.action === 'newArticle') {
-        this.openNewArticlePopup();
-      }
-
-      if(this.$attrs.action === 'editArticle') {
-        this.openEditArticlePopup();
+      if(typeof this.openLayover !== 'undefined') {
+        this.openLayover(this.updateCategoryList);
       }
     },
     data: function() {
@@ -77,38 +58,6 @@
       };
     },
     methods: {
-      openEditArticlePopup: function() {
-        this.$store.dispatch('openPopup', {
-          component: EditArticle,
-          props: {
-            updateCategoryList: this.updateCategoryList
-          }
-        });
-      },
-      openNewArticlePopup: function() {
-        this.$store.dispatch('openPopup', {
-          component: NewArticle,
-          props: {
-            updateCategoryList: this.updateCategoryList
-          }
-        });
-      },
-      openNewCategoryPopup: function() {
-        this.$store.dispatch('openPopup', {
-          component: NewCategory,
-          props: {
-            updateCategoryList: this.updateCategoryList
-          }
-        });
-      },
-      openEditCategoryPopup: function() {
-        this.$store.dispatch('openPopup', {
-          component: EditCategory,
-          props: {
-            updateCategoryList: this.updateCategoryList
-          }
-        });
-      },
       updateCategoryList: function() {
 
         let contentLoadingName = 'updateCategoryContent';
@@ -131,21 +80,8 @@
         });
       }
     },
+    props: [ 'categoryId', 'openLayover' ],
     watch: {
-      '$attrs.action': function(action) {
-
-        if(action === 'newCategory') {
-          this.openNewCategoryPopup();
-        }
-
-        if(action === 'newArticle') {
-          this.openNewArticlePopup();
-        }
-
-        if(action === 'editArticle') {
-          this.openEditArticlePopup();
-        }
-      },
       categoryId: function(newCategoryId, oldCategoryId) {
         if(newCategoryId !== oldCategoryId) {
           this.updateCategoryList();

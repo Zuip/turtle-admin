@@ -12,12 +12,12 @@
         <button type="button" class="btn btn-primary" v-on:click="preview">
           {{translations.preview}}
         </button>
-        <ClosePopupButton :text="translations.close" />
+        <ClosePopupButton :text="translations.close" :categoryId="article.categoryId" />
       </div>
     </div>
     <ImageSelect v-if="mode === 'selectingImage'" @cancel="cancelImageSelect" @select="imageSelected" />
     <PreviewArticle v-if="mode === 'previewing'" :fields="fields" @stopPreviewing="stopPreviewing"/>
-    <SavingSucceeded v-if="mode === 'saved'" />
+    <SavingSucceeded v-if="mode === 'saved'" :categoryId="article.categoryId" />
   </div>
 </template>
 
@@ -27,7 +27,6 @@
   import ArticleForm from './ArticleForm.vue';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import getArticle from '../../apiCalls/articles/getArticle';
   import getUsers from '../../apiCalls/users/getUsers';
   import PreviewArticle from './PreviewArticle.vue';
   import initializeArticle from '../../services/articles/initializeArticle';
@@ -105,22 +104,13 @@
         this.cancelImageSelect();
       },
       initializeArticle: function() {
-
-        let contentLoadingName = 'loadArticleData';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getArticle(this.$route.params.articleId, 'fi').then(data => {
-          this.fields.topic.value = data.topic;
-          this.fields.urlName.value = data.urlName;
-          this.fields.summary.value = data.summary;
-          this.fields.text.value = data.text;
-          this.fields.publish.value = data.publish;
-          this.fields.published.value = data.published ? 'yes' : 'no';
-          this.fields.writers.value = data.writers;
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
+        this.fields.topic.value = this.article.topic;
+        this.fields.urlName.value = this.article.urlName;
+        this.fields.summary.value = this.article.summary;
+        this.fields.text.value = this.article.text;
+        this.fields.publish.value = this.article.publish;
+        this.fields.published.value = this.article.published ? 'yes' : 'no';
+        this.fields.writers.value = this.article.writers;
       },
       preview: function() {
         this.previewing = true;
@@ -168,16 +158,8 @@
       },
       stopPreviewing() {
         this.previewing = false;
-      },
-      getCategoryId() {
-
-        if(typeof this.$route.params.categoryId !== 'undefined') {
-          return parseInt(this.$route.params.categoryId);
-        }
-
-        return null;
       }
     },
-    props: ['updateCategoryList']
+    props: ['article', 'updateCategoryList']
   }
 </script>

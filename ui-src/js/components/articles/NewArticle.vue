@@ -12,12 +12,12 @@
         <button type="button" class="btn btn-primary" v-on:click="preview">
           {{translations.preview}}
         </button>
-        <ClosePopupButton :text="translations.close" />
+        <ClosePopupButton :text="translations.close" :categoryId="categoryId" />
       </div>
     </div>
     <ImageSelect v-if="mode === 'selectingImage'" @cancel="cancelImageSelect" @select="imageSelected" />
     <PreviewArticle v-if="mode === 'previewing'" :fields="fields" @stopPreviewing="stopPreviewing"/>
-    <SavingSucceeded v-if="mode === 'saved'" />
+    <SavingSucceeded v-if="mode === 'saved'" :categoryId="categoryId" />
   </div>
 </template>
 
@@ -106,7 +106,7 @@
       },
       save: function() {
         postArticle({
-          categoryId: this.getCategoryId(),
+          categoryId: this.categoryId,
           topic: this.fields.topic.value,
           urlName: this.fields.urlName.value,
           summary: this.fields.summary.value,
@@ -148,16 +148,8 @@
       },
       stopPreviewing() {
         this.previewing = false;
-      },
-      getCategoryId: function() {
-
-        if(typeof this.$route.params.categoryId !== 'undefined') {
-          return parseInt(this.$route.params.categoryId);
-        }
-
-        return null;
       }
     },
-    props: ['updateCategoryList']
+    props: ['categoryId', 'updateCategoryList']
   }
 </script>

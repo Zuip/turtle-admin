@@ -24,22 +24,25 @@
       return { };
     },
     methods: {
+      getConfirmMessage() {
+        return this.$store.getters.getTranslations.categories.confirmDelete
+             + " "
+             + this.data.name + "?";
+      },
       editArticleLink() {
-
-        if(this.categoryId === 'root') {
-          return '/articles/' + this.data.id;
-        }
-
-        return '/categories/' + this.data.categoryId + '/articles/' + this.data.id;
+        return '/articles/' + this.data.id + '/edit';
       },
       remove() {
-        if(confirm(this.$store.getters.getTranslations.categories.confirmDelete + " " + this.data.name + "?")) {
-          deleteCategory(this.data.id).then(data => {
-            this.updateCategoryList();
-          }).catch(error => {
-            console.log(error);
-          });
+
+        if(!confirm(this.getConfirmMessage())) {
+          return;
         }
+
+        deleteCategory(this.data.id).then(data => {
+          this.updateCategoryList();
+        }).catch(error => {
+          console.log(error);
+        });
       },
       updateCategoryList() {
         this.$emit('updateCategoryList');
