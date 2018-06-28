@@ -4,6 +4,7 @@ let authenticatedMiddleware = require('../middlewares/authenticated');
 // Route files
 let articleRoutes = require('./articleRoutes');
 let categoryRoutes = require('./categoryRoutes');
+let countryRoutes = require('./countryRoutes');
 
 // Controllers
 let getLogoutController = require('../controllers/getLogout');
@@ -33,4 +34,5 @@ module.exports = function(app) {
   // Route files
   articleRoutes(app);
   categoryRoutes(app);
+  countryRoutes(app);
 };

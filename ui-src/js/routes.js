@@ -3,14 +3,15 @@ import ArticleEditCategoryRouteWrapper from './components/categories/routeWrappe
 import CategoryCreateCategoryRouteWrapper from './components/categories/routeWrappers/CategoryCreate.vue';
 import CategoryEditCategoryRouteWrapper from './components/categories/routeWrappers/CategoryEdit.vue';
 import DefaultCategoryRouteWrapper from './components/categories/routeWrappers/Default.vue';
+import Index from './components/Index.vue';
 
 let routes = {
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Categories',
-      component: DefaultCategoryRouteWrapper
+      name: 'Index',
+      component: Index
     },
     {
       path: '/categories/new',

@@ -49,4 +49,26 @@
       }
     }
   }
+
+  .countries {
+    
+    .countries-list {
+
+      tr:hover {
+        background-color: $theme-grey;
+      }
+
+      tr {
+        cursor: pointer;
+      }
+    }
+
+    .countries-topic-link:hover {
+      color: $theme-color;
+    }
+
+    .countries-topic-link {
+      cursor: pointer;
+    }
+  }
 }

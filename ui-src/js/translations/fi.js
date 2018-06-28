@@ -1,6 +1,7 @@
 let translations = {
   cancel: "Peruuta",
   close: "Sulje",
+  name: "Nimi",
   no: "Ei",
   preview: "Esikatsele",
   published: "Julkaistu",
@@ -26,6 +27,11 @@ let translations = {
     description: "Kuvaus",
     editCategory: "Muokkaa kategoriaa",
     newCategory: "Uusi kategoria"
+  },
+  countries: {
+    countries: "Maat",
+    newCity: "Uusi kaupunki",
+    newCountry: "Uusi maa"
   },
   images: {
     caption: "Kuvateksti",
