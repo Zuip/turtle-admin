@@ -1,11 +1,12 @@
+import deleteCall from '../functions/delete';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
 export default function(categoryId) {
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/categories/' + categoryId,
-    {
-      method: 'DELETE',
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+  return pipe(
+    deleteCall,
+    promiseJSON
+  )(
+    'api/categories/' + categoryId
   );
 };

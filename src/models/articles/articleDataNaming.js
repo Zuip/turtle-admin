@@ -17,6 +17,7 @@ module.exports = {
     APINamedArticle = {
       id: DBNamedArticle.id,
       categoryId: DBNamedArticle.category_id,
+      cityId: DBNamedArticle.city_id,
       languageId: DBNamedArticle.language_id,
       topic: DBNamedArticle.topic,
       urlName: DBNamedArticle.url_name,

@@ -1,3 +1,7 @@
+import get from '../functions/get';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
 export default function(categoryId, language) {
 
   // Root level can't have articles
@@ -5,13 +9,10 @@ export default function(categoryId, language) {
     return Promise.resolve([]);
   }
 
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/categories/' + categoryId + '/articles?language=' + language,
-    {
-      method: 'GET',
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+  return pipe(
+    get,
+    promiseJSON
+  )(
+    'api/categories/' + categoryId + '/articles?language=' + language
   );
 };

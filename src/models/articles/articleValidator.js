@@ -1,59 +1,63 @@
-let failedFields = [];
-let articleData = { };
+let categoryIdValidator = require('../categories/validators/id');
+let cityIdValidator = require('../countries/validators/cityId');
+let urlNameValidator = require('./validators/urlName');
 
 module.exports = {
-  initialize: function() {
-    failedFields = [];
-    categoryData = {
-      topic: null,
-      urlName: null,
-      text: null,
-      published: null
-    };
-  },
-  setTopic: function(topic) {
-    if(topic !== "") {
-      articleData.topic = topic;
-    }
-  },
-  setUrlName: function(urlName) {
-    if(urlName !== "") {
-      articleData.urlName = urlName;
-    }
-  },
-  setText: function(text) {
-    if(text !== "") {
-      articleData.text = text;
-    }
-  },
-  setPublished: function(published) {
-    if(published === "yes") {
-      articleData.published = true;
-    } else if(published === "no") {
-      articleData.published = false;
-    }
-  },
-  getPublishedAsBoolean: function() {
-    return articleData.published;
-  },
-  addFailedField: function(failedField) {
-    failedFields.push(failedField);
-  },
-  initializeFailedFields: function() {
+  failedFields: [],
+  validate(article, mode) {
 
-    if(articleData.name === null) {
-      failedFields.push("name");
+    this.failedFields = [];
+
+    if(isEmptyString(article.topic)) {
+      this.failedFields.push("topic");
     }
 
-    if(articleData.urlName === null) {
-      failedFields.push("urlName");
+    if(isEmptyString(article.urlName)) {
+      this.failedFields.push("urlName");
     }
 
-    if(articleData.published === null) {
-      failedFields.push("published");
+    categoryIdValidator.setInvalidCallback(() => {
+      this.failedFields.push("categoryId");
+    });
+
+    cityIdValidator.setInvalidCallback(() => {
+      this.failedFields.push("cityId");
+    });
+
+    urlNameValidator.setInvalidCallback(function(articleId) {
+      if(mode === 'post' || articleId !== parseInt(article.id)) {
+        this.failedFields.push("urlName");
+      }
+    });
+
+    let validateFromDatabase = [
+      urlNameValidator.validate(article.urlName),
+      cityIdValidator.validate(article.cityId)
+    ];
+
+    if(mode === 'post') {
+      validateFromDatabase.push(
+        categoryIdValidator.validate(article.categoryId)
+      );
     }
-  },
-  getFailedFields: function() {
-    return failedFields;
+
+    return Promise.all(validateFromDatabase);
   }
 };
+
+function isEmptyString(value) {
+
+  if(typeof value !== 'string') {
+    return true;
+  }
+
+  if(value === null) {
+    return true;
+  }
+
+  if(value === '') {
+    return true;
+  }
+
+  return false;
+}

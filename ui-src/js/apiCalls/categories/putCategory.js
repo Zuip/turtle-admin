@@ -1,15 +1,12 @@
-export default function(categoryId, putData) {
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/categories/' + categoryId + '?language=fi',
-    {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(putData),
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+import put from '../functions/put';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
+export default function(categoryId, data) {
+  return pipe(
+    put(data),
+    promiseJSON
+  )(
+    'api/categories/' + categoryId + '?language=fi'
   );
 };

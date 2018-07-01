@@ -1,18 +1,21 @@
-export default function(postData, folderPath) {
+import postRaw from '../functions/postRaw';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
 
-  let folderPathParam = '';
-  if(folderPath.length > 0) {
-    folderPathParam = '?path=' + folderPath.join('/');
-  }
-
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/articles/images' + folderPathParam,
-    {
-      method: 'POST',
-      body: postData,
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+export default function(data, folderPath) {
+  return pipe(
+    postRaw(data),
+    promiseJSON
+  )(
+    'api/articles/images' + getFolderPathParam(folderPath)
   );
 };
+
+function getFolderPathParam(folderPath) {
+
+  if(folderPath.length === 0) {
+    return '';
+  }
+
+  return '?path=' + folderPath.join('/');
+}

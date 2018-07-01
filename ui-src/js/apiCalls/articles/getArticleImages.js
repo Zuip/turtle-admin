@@ -1,17 +1,21 @@
+import get from '../functions/get';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
 export default function(folderPath) {
-
-  let folderPathParam = '';
-  if(folderPath.length > 0) {
-    folderPathParam = '?path=' + folderPath.join('/');
-  }
-
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/articles/images' + folderPathParam,
-    {
-      method: 'GET',
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+  return pipe(
+    get,
+    promiseJSON
+  )(
+    'api/articles/images' + getFolderPathParam(folderPath)
   );
 };
+
+function getFolderPathParam(folderPath) {
+
+  if(folderPath.length === 0) {
+    return '';
+  }
+
+  return '?path=' + folderPath.join('/');
+}

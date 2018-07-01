@@ -20,7 +20,7 @@
 
 <script>
 
-  import SelectInput from '../layout/forms/SelectInput.vue';
+  import SelectInput from '../layout/forms/SelectInput/SelectInput.vue';
   import TextInput from '../layout/forms/TextInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
 

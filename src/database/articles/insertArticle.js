@@ -3,9 +3,9 @@ let selectLanguages = require('../selectLanguages');
 let insertArticleUsers = require('./insertArticleUsers');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
-module.exports = function(categoryId, topic, urlName, summary, text, publishDate, published, writers) {
+module.exports = function(article) {
 
-  let articleId = insertArticleBase(categoryId, publishDate);
+  let articleId = insertArticleBase(article);
   let languages = selectLanguages.all();
 
   Promise.all([articleId, languages]).then(function(data) {
@@ -22,13 +22,9 @@ module.exports = function(categoryId, topic, urlName, summary, text, publishDate
       firstAdded = true;
 
       insertTranslatedArticle(
-        topic,
-        urlName + languageEnding,
-        summary,
-        text,
-        published,
+        data[0].article_id,
         language.id,
-        data[0].article_id
+        article
       );
     });
 
@@ -39,20 +35,22 @@ module.exports = function(categoryId, topic, urlName, summary, text, publishDate
   });
 };
 
-function insertArticleBase(categoryId, publishDate) {
+function insertArticleBase(article) {
 
-  let publishDateWithTime = getDateAsUTC(publishDate);
+  let publishDateWithTime = getDateAsUTC(
+    article.publish.date + ' ' + article.publish.time
+  );
 
   return db.one(
     `
-      INSERT INTO article (category_id, timestamp) VALUES ($1, $2::timestamp)
+      INSERT INTO article (category_id, city_id, timestamp) VALUES ($1, $2, $3::timestamp)
       RETURNING id AS article_id
     `,
-    [categoryId, publishDateWithTime]
+    [article.categoryId, article.cityId, publishDateWithTime]
   );
 }
 
-function insertTranslatedArticle(topic, urlName, summary, text, published, languageId, articleId) {
+function insertTranslatedArticle(articleId, languageId, article) {
   db.none(
     `
       INSERT INTO translated_article (
@@ -60,6 +58,14 @@ function insertTranslatedArticle(topic, urlName, summary, text, published, langu
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `,
-    [topic, urlName, summary, text, published, languageId, articleId]
+    [
+      article.topic,
+      article.urlName,
+      article.summary,
+      article.text,
+      article.published,
+      languageId,
+      articleId
+    ]
   );
 }

@@ -1,11 +1,12 @@
+import get from '../functions/get';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
 export default function() {
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/users',
-    {
-      method: 'GET',
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+  return pipe(
+    get,
+    promiseJSON
+  )(
+    'api/users'
   );
 };

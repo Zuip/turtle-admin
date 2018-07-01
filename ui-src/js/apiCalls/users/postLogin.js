@@ -1,13 +1,15 @@
+import post from '../functions/post';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
 export default function(username, password) {
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/login',
-    {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+  return pipe(
+    post({
+      username,
+      password
+    }),
+    promiseJSON
+  )(
+    'api/login'
   );
 };

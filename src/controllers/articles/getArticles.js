@@ -41,7 +41,7 @@ module.exports = function(req, res) {
     res.json(data);
   }).catch(function(error) {
     console.log(error);
-    res.status(500).json({ result: "Internal server error" });
+    res.status(500).json({ result: "Internal server error in fetching articles" });
   });
 }
 

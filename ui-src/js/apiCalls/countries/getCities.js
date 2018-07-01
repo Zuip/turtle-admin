@@ -1,11 +1,12 @@
-export default function(countryId, language) {
-  return fetch(
-    document.getElementsByTagName('base')[0].href + 'api/countries/' + countryId + '/cities?language=' + language,
-    {
-      method: 'GET',
-      credentials: 'same-origin'
-    }
-  ).then(
-    data => data.json()
+import get from '../functions/get';
+import promiseJSON from '../functions/promiseJSON';
+import pipe from '../../services/pipe';
+
+export default function(language) {
+  return pipe(
+    get,
+    promiseJSON
+  )(
+    'api/cities?language=' + language
   );
 };

@@ -2,21 +2,27 @@
   <p>
     {{title}}:<br/>
     <select class="form-control" v-model="inputVal.value">
-      <option v-for="option in value.options" :value="option.value">
-        {{option.translation}}
-      </option>
+      <SelectOption v-for="option in value.options"
+              :option="option"
+              :key="'select-option-' + value.options.indexOf(option)" />
     </select>
   </p>
 </template>
 
 <script>
+
+  import SelectOption from './SelectOption.vue';
+
   export default {
-    props: ['value', 'title'],
+    components: {
+      SelectOption
+    },
     data() {
       return {
         inputVal: this.value
       }
     },
+    props: ['value', 'title'],
     watch: {
       inputVal(val) {
         this.$emit('input', val);

@@ -1,124 +1,80 @@
 <template>
-  <div class="popup-grid-container">
-    <div class="popup-grid" v-if="mode === 'edit'">
-      <div class="popup-grid-content">
-        <h3>{{translations.articles.editArticle}}</h3>
-        <ArticleForm v-model="fields" @selectImage="selectImage" />
-      </div>
-      <div class="popup-grid-footer">
-        <button type="button" class="btn btn-primary" v-on:click="save">
-          {{translations.save}}
-        </button>
-        <button type="button" class="btn btn-primary" v-on:click="preview">
-          {{translations.preview}}
-        </button>
-        <ClosePopupButton :text="translations.close" :categoryId="article.categoryId" />
-      </div>
-    </div>
-    <ImageSelect v-if="mode === 'selectingImage'" @cancel="cancelImageSelect" @select="imageSelected" />
-    <PreviewArticle v-if="mode === 'previewing'" :fields="fields" @stopPreviewing="stopPreviewing"/>
-    <SavingSucceeded v-if="mode === 'saved'" :categoryId="article.categoryId" :topic="translations.articles.editArticle" />
-  </div>
+  <EditArticleSkeleton v-model="fields"
+                       :topic="translations.articles.editArticle"
+                       :save="save"
+                       :categoryId="article.categoryId"
+                       :saved="saved" />
 </template>
 
 <script>
 
-  import addTextInText from '../../services/addTextInText';
-  import ArticleForm from './ArticleForm.vue';
-  import SavingSucceeded from '../overlay/SavingSucceeded.vue';
-  import ClosePopupButton from '../overlay/ClosePopupButton.vue';
+  import citiesObjectToOptionsFormat from '../../services/countries/citiesObjectToOptionsFormat';
+  import EditArticleSkeleton from './EditArticleSkeleton.vue';
+  import getCities from '../../apiCalls/countries/getCities';
   import getUsers from '../../apiCalls/users/getUsers';
-  import PreviewArticle from './PreviewArticle.vue';
   import initializeArticle from '../../services/articles/initializeArticle';
-  import ImageSelect from '../images/ImageSelect.vue';
   import putArticle from '../../apiCalls/articles/putArticle';
 
   export default {
     data: function() {
       return {
         fields: initializeArticle(),
-        previewing: false,
-        selectingImage: {
-          active: false
-        },
         saved: false
       }
     },
     components: {
-      ArticleForm,
-      ClosePopupButton,
-      ImageSelect,
-      PreviewArticle,
-      SavingSucceeded
+      EditArticleSkeleton
     },
     computed: {
       translations() {
         return this.$store.getters.getTranslations;
-      },
-      mode() {
-
-        if(this.previewing) {
-          return "previewing";
-        }
-
-        if(this.selectingImage.active) {
-          return "selectingImage";
-        }
-
-        if(this.saved) {
-          return "saved";
-        }
-
-        return "edit";
       }
     },
     created: function() {
-
+      this.loadCities();
+      this.loadUsers();
       this.initializeArticle();
-
-      let contentLoadingName = 'loadUsersToUserSelect';
-      this.$store.dispatch('startContentLoading', contentLoadingName);
-
-      getUsers().then(data => {
-        this.fields.writers.users = data;
-        this.$store.dispatch('endContentLoading', contentLoadingName);
-      }).catch(error => {
-        console.log(error);
-      });
     },
     methods: {
-      cancelImageSelect: function() {
-        this.selectingImage = {
-          active: false
-        };
+      loadCities() {
+
+        let contentLoadingName = 'loadCities';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        getCities('fi').then(data => {
+          this.fields.city.options = citiesObjectToOptionsFormat(data);
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
       },
-      imageSelected: function(text) {
+      loadUsers() {
 
-        this.fields[this.selectingImage.field].value = addTextInText(
-          this.fields[this.selectingImage.field].value,
-          text,
-          this.selectingImage.startPosition,
-          this.selectingImage.endPosition
-        );
+        let contentLoadingName = 'loadUsersToUserSelect';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        this.cancelImageSelect();
+        getUsers().then(data => {
+          this.fields.writers.users = data;
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
       },
       initializeArticle: function() {
         this.fields.topic.value = this.article.topic;
         this.fields.urlName.value = this.article.urlName;
+        this.fields.city.value = this.article.cityId;
         this.fields.summary.value = this.article.summary;
         this.fields.text.value = this.article.text;
         this.fields.publish.value = this.article.publish;
         this.fields.published.value = this.article.published ? 'yes' : 'no';
         this.fields.writers.value = this.article.writers;
       },
-      preview: function() {
-        this.previewing = true;
-      },
       save: function() {
         putArticle(this.$route.params.articleId, 'fi', {
           topic: this.fields.topic.value,
           urlName: this.fields.urlName.value,
+          cityId: this.fields.city.value,
           summary: this.fields.summary.value,
           text: this.fields.text.value,
           publish: this.fields.publish.value,
@@ -147,17 +103,6 @@
         }).catch(error => {
           console.log(error);
         });
-      },
-      selectImage: function(data) {
-        this.selectingImage = {
-          active: true,
-          field: data.field,
-          startPosition: data.startPosition,
-          endPosition: data.endPosition
-        };
-      },
-      stopPreviewing() {
-        this.previewing = false;
       }
     },
     props: ['article', 'updateCategoryList']

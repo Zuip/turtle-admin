@@ -4,29 +4,30 @@ let insertArticleUsers = require('./insertArticleUsers');
 let selectLanguages = require('../selectLanguages');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
-module.exports = function(articleId, languageId, topic, urlName, summary, text, publishDate, published, writers) {
-
+module.exports = function(article) {
   return Promise.all([
-    updateArticleBase(articleId, publishDate),
-    updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published),
-    updateWriters(articleId, writers)
+    updateArticleBase(article),
+    updateTranslatedArticle(article),
+    updateWriters(article)
   ]);
 };
 
-function updateArticleBase(articleId, publishDate) {
+function updateArticleBase(article) {
 
-  let publishDateWithTime = getDateAsUTC(publishDate);
+  let publishDateWithTime = getDateAsUTC(
+    article.publish.date + ' ' + article.publish.time
+  );
 
   return db.none(
     `
-      UPDATE article SET timestamp = $2
+      UPDATE article SET city_id = $2, timestamp = $3
       WHERE article.id = $1
     `,
-    [articleId, publishDateWithTime]
+    [article.id, article.cityId, publishDateWithTime]
   );
 }
 
-function updateTranslatedArticle(articleId, languageId, topic, urlName, summary, text, published) {
+function updateTranslatedArticle(article) {
   return db.none(
     `
       UPDATE translated_article
@@ -38,12 +39,19 @@ function updateTranslatedArticle(articleId, languageId, topic, urlName, summary,
       WHERE translated_article.article_id = $7
       AND translated_article.language_id = $6
     `,
-    [topic, urlName, summary, text, published, languageId, articleId]
+    [
+      article.topic,
+      article.urlName,
+      article.summary,
+      article.text,
+      article.published,
+      article.languageId,
+      article.id]
   );
 }
 
-function updateWriters(articleId, writers) {
-  deleteArticleUsers.withArticleId(articleId).then(() => {
-    insertArticleUsers.withArticleIdAndUserIds(articleId, writers);
+function updateWriters(article) {
+  deleteArticleUsers.withArticleId(article.id).then(() => {
+    insertArticleUsers.withArticleIdAndUserIds(article.id, article.writers);
   });
 }

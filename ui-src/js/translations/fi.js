@@ -11,6 +11,7 @@ let translations = {
   urlName: "URL nimi",
   yes: "Kyllä",
   articles: {
+    city: "Kaupunki",
     editArticle: "Muokkaa artikkelia",
     newArticle: "Uusi artikkeli",
     publishDate: "Julkaisupäivämäärä",

@@ -33,7 +33,7 @@
 
 <script>
 
-  import getCities from '../../apiCalls/countries/getCities';
+  import getCountryCities from '../../apiCalls/countries/getCountryCities';
   import getCountries from '../../apiCalls/countries/getCountries';
   import NewCity from './NewCity.vue';
   import NewCountry from './NewCountry.vue';
@@ -73,7 +73,7 @@
         let contentLoadingName = 'loadCities';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        getCities(this.selectedCountry.id, 'fi').then(cities => {
+        getCountryCities(this.selectedCountry.id, 'fi').then(cities => {
           this.cities = cities;
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(error => {
