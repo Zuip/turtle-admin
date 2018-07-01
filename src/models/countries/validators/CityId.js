@@ -1,12 +1,14 @@
 let selectCity = require('../../../database/countries/selectCity');
 
-let invalidUrlNameCallback = function() { };
+module.exports = function() {
 
-module.exports = {
-  setInvalidCallback(callback) {
+  let invalidUrlNameCallback = function() { };
+
+  this.setInvalidCallback = function(callback) {
     invalidURLNameCallback = callback;
-  },
-  validate(id) {
+  };
+
+  this.validate = function(id) {
 
     if(id === null) {
       return Promise.resolve();
@@ -19,5 +21,5 @@ module.exports = {
     }).catch(function(error) {
       invalidCityCallback();
     });
-  }
+  };
 };

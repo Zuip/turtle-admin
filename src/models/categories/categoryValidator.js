@@ -1,56 +1,58 @@
-let failedFields = [];
+let CategoryIdValidator = require('../categories/validators/Id');
+let URLNameValidator = require('./validators/URLName');
 
-let categoryData = { };
+module.exports = {
+  failedFields: [],
+  validate: function(category, mode) {
 
-let categoryValidator = {
-  initialize: function() {
-    failedFields = [];
-    categoryData = {
-      name: null,
-      urlName: null,
-      published: null
-    };
-  },
-  setName: function(name) {
-    if(name !== "") {
-      categoryData.name = name;
-    }
-  },
-  setUrlName: function(urlName) {
-    if(urlName !== "") {
-      categoryData.urlName = urlName;
-    }
-  },
-  setPublished: function(published) {
-    if(published === "yes") {
-      categoryData.published = true;
-    } else if(published === "no") {
-      categoryData.published = false;
-    }
-  },
-  getPublishedAsBoolean: function() {
-    return categoryData.published;
-  },
-  addFailedField: function(failedField) {
-    failedFields.push(failedField);
-  },
-  initializeFailedFields: function() {
+    let categoryIdValidator = new CategoryIdValidator();
+    let urlNameValidator = new URLNameValidator();
 
-    if(categoryData.name === null) {
-      failedFields.push("name");
+    if(isEmptyString(category.name)) {
+      this.failedFields.push("name");
     }
 
-    if(categoryData.urlName === null) {
-      failedFields.push("urlName");
+    if(isEmptyString(category.urlName)) {
+      this.failedFields.push("urlName");
     }
 
-    if(categoryData.published === null) {
-      failedFields.push("published");
+    urlNameValidator.setInvalidCallback(categoryId => {
+      if(mode === 'post' || categoryId !== parseInt(category.id)) {
+        this.failedFields.push("urlName");
+      }
+    });
+
+    categoryIdValidator.setInvalidCallback(() => {
+      this.failedFields.push("parent");
+    });
+
+    let validateFromDatabase = [
+      urlNameValidator.validate(category.urlName)
+    ];
+
+    if(mode === 'post') {
+      validateFromDatabase.push(
+        categoryIdValidator.validate(category.parentId)
+      );
     }
-  },
-  getFailedFields: function() {
-    return failedFields;
+
+    return Promise.all(validateFromDatabase);
   }
 };
 
-module.exports = categoryValidator;
+function isEmptyString(value) {
+
+  if(typeof value !== 'string') {
+    return true;
+  }
+
+  if(value === null) {
+    return true;
+  }
+
+  if(value === '') {
+    return true;
+  }
+
+  return false;
+}

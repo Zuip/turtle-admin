@@ -1,33 +1,19 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
 
-let insertCategory = function (parentId, name, urlName, description, published) {
-
-  let categoryId = insertCategoryBase(parentId);
-  let languages = selectLanguages.all();
-
-  Promise.all([categoryId, languages]).then(function(data) {
-
-    let firstAdded = false;
-
-    data[1].map(function(language) {
-
-      let languageEnding = '';
-      if(firstAdded) {
-        languageEnding = '-' + language.code;
-      }
-
-      firstAdded = true;
-
-      insertTranslatedCategory(
-        name,
-        urlName + languageEnding,
-        description,
-        published,
-        language.id,
-        data[0].category_id
-      );
-    });
+module.exports = function(category) {
+  Promise.all([
+    insertCategoryBase(category.parentId),
+    selectLanguages.all()
+  ]).then(function(data) {
+    category.id = data[0].category_id;
+    return data[1];
+  }).then(languages => {
+    return Promise.all(
+      languages.map(function(language) {
+        insertTranslatedCategory(category, language.id);
+      })
+    );
   }).catch(function(error) {
     console.log(error);
   });
@@ -50,16 +36,21 @@ function insertCategoryBase(parentId) {
   );
 }
 
-function insertTranslatedCategory(name, urlName, description, published, languageId, categoryId) {
+function insertTranslatedCategory(category, languageId) {
   db.none(
     `
       INSERT INTO translated_category (
-        name, url_name, description, published, language_id, category_id
+        category_id, name, url_name, description, published, language_id
       )
       VALUES ($1, $2, $3, $4, $5, $6)
     `,
-    [name, urlName, description, published, languageId, categoryId]
+    [
+      category.id,
+      category.name,
+      category.urlName,
+      category.description,
+      category.published,
+      languageId
+    ]
   );
 }
-
-module.exports = insertCategory;

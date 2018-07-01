@@ -1,12 +1,14 @@
 let selectCategory = require('../../../database/categories/selectCategory');
 
-let invalidUrlNameCallback = function() { };
+module.exports = function() {
 
-module.exports = {
-  setInvalidCallback(callback) {
+  let invalidUrlNameCallback = function() { };
+
+  this.setInvalidCallback = function(callback) {
     invalidURLNameCallback = callback;
-  },
-  validate(id) {
+  };
+
+  this.validate = function(id) {
 
     if(id === null) {
       return Promise.resolve();
@@ -17,7 +19,7 @@ module.exports = {
     ).then(function(data) {
       // A category id was found or category id is null
     }).catch(function(error) {
-      invalidURLNameCallback();
+      this.invalidURLNameCallback();
     });
-  }
+  };
 };

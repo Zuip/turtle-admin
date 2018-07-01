@@ -17,7 +17,7 @@ module.exports = function(req, res) {
 
     return insertArticle(article);
 
-  }).then(function(data) {
+  }).then(() => {
     res.json({ success: true });
   }).catch(function(error) {
     console.log(error);

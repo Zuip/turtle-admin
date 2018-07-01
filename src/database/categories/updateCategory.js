@@ -1,8 +1,8 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
 
-module.exports = function (categoryId, languageId, name, urlName, description, published) {
-  db.none(
+module.exports = function(category) {
+  return db.none(
     `
       UPDATE translated_category
       SET name = $3,
@@ -12,6 +12,13 @@ module.exports = function (categoryId, languageId, name, urlName, description, p
       WHERE category_id = $1
       AND language_id = $2
     `,
-    [categoryId, languageId, name, urlName, description, published]
+    [
+      category.id,
+      category.languageId,
+      category.name,
+      category.urlName,
+      category.description,
+      category.published
+    ]
   );
 };

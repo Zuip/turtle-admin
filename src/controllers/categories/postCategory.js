@@ -1,53 +1,27 @@
 let categoryValidator = require('../../models/categories/categoryValidator');
+let initializeCategoryFromReq = require('../../models/categories/initializeCategoryFromReq');
 let insertCategory = require('../../database/categories/insertCategory');
-let selectCategory = require('../../database/categories/selectCategory');
 
 module.exports = function(req, res) {
 
-  categoryValidator.initialize();
-  categoryValidator.setName(req.body.name);
-  categoryValidator.setUrlName(req.body.urlName);
-  categoryValidator.setPublished(req.body.published);
-  categoryValidator.initializeFailedFields();
+  let category = initializeCategoryFromReq(req);
 
-  selectCategory.withUrlName(
-    req.body.urlName
-  ).then(function(data) {
-    categoryValidator.addFailedField("urlName");
-  }).catch(function() {
-    // The category with same url name was not found, so we ended up in here
-  }).then(function() {
+  categoryValidator.validate(
+    category,
+    'post'
+  ).then(() => {
 
-    if(req.body.parent === null) {
-      return;
-    }
-
-    return selectCategory.withId(req.body.parent);
-
-  }).then(function(data) {
-    // A category id with selected parent id was found or parent id is null
-  }).catch(function(error) {
-    categoryValidator.addFailedField("parent");
-  }).then(function(data) {
-
-    if(categoryValidator.getFailedFields().length > 0) {
+    if(categoryValidator.failedFields.length > 0) {
       return res.json({
         success: false,
-        failedFields: categoryValidator.getFailedFields()
+        failedFields: categoryValidator.failedFields
       });
     }
 
-    insertCategory(
-      req.body.parent,
-      req.body.name,
-      req.body.urlName,
-      req.body.description,
-      categoryValidator.getPublishedAsBoolean()
-    );
-
+    return insertCategory(category);
+  }).then(() => {
     res.json({ success: true });
-
-  }).catch(function(error) {
+  }).catch(error => {
     console.log(error);
   });
 };

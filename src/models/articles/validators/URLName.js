@@ -1,12 +1,14 @@
 let selectArticle = require('../../../database/articles/selectArticle');
 
-let invalidUrlNameCallback = function() { };
+module.exports = function() {
 
-module.exports = {
-  setInvalidCallback(callback) {
+  let invalidUrlNameCallback = function() { };
+
+  this.setInvalidCallback = function(callback) {
     invalidURLNameCallback = callback;
-  },
-  validate(urlName) {
+  };
+
+  this.validate = function(urlName) {
     return selectArticle.withUrlName(
       urlName
     ).then(function(data) {
@@ -15,5 +17,5 @@ module.exports = {
       // The article with same url name was not found, so we can continue
       // editing the article
     });
-  }
+  };
 };

@@ -5,12 +5,21 @@ let selectArticle = require('../../database/articles/selectArticle');
 
 module.exports = function(req, res) {
 
+  let language = req.query.language;
+
+  if(typeof language === 'undefined') {
+    return res.status(404).json({
+      success: false,
+      message: "Missing mandatory get parameter: language"
+    });
+  }
+
   let article = initializeArticleFromReq(req);
 
   articleValidator.validate(article, 'put').then(() => {
     return selectArticle.withIdAndLanguage(
       article.id,
-      req.query.language
+      language
     );
   }).then(function(articleData) {
     article.languageId = articleData.language_id;

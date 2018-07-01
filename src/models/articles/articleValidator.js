@@ -1,12 +1,16 @@
-let categoryIdValidator = require('../categories/validators/id');
-let cityIdValidator = require('../countries/validators/cityId');
-let urlNameValidator = require('./validators/urlName');
+let CategoryIdValidator = require('../categories/validators/Id');
+let CityIdValidator = require('../countries/validators/CityId');
+let URLNameValidator = require('./validators/URLName');
 
 module.exports = {
   failedFields: [],
   validate(article, mode) {
 
     this.failedFields = [];
+
+    let categoryIdValidator = new CategoryIdValidator();
+    let cityIdValidator = new CityIdValidator();
+    let urlNameValidator = new URLNameValidator();
 
     if(isEmptyString(article.topic)) {
       this.failedFields.push("topic");

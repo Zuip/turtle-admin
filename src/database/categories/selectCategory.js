@@ -25,7 +25,9 @@ module.exports = {
   withIdAndLanguage: function(categoryId, language) {
     return db.one(
       `
-        SELECT ${selectColumns}
+        SELECT ${selectColumns},
+               language.code AS language_code,
+               language.id AS language_id
         FROM category
         JOIN translated_category ON translated_category.category_id = category.id
         JOIN language ON translated_category.language_id = language.id
