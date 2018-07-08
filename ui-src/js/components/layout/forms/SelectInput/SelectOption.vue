@@ -2,7 +2,7 @@
   <optgroup v-if="isOptgroup" :label="translation">
 
     <SelectOption v-for="optgroupOption in value"
-            :key="'select-optgroup-option-' + optgroupOption"
+            :key="'select-optgroup-option-' + value.indexOf(optgroupOption)"
             :option="optgroupOption" />
 
   </optgroup>

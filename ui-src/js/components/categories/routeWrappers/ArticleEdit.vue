@@ -19,7 +19,10 @@
       let contentLoadingName = 'loadArticleData';
       this.$store.dispatch('startContentLoading', contentLoadingName);
 
-      getArticle(this.$route.params.articleId, 'fi').then(data => {
+      getArticle(
+        this.$route.params.articleId,
+        this.$route.params.language
+      ).then(data => {
         this.article = data;
         this.$store.dispatch('endContentLoading', contentLoadingName);
       }).catch(error => {
@@ -36,8 +39,9 @@
         this.$store.dispatch('openPopup', {
           component: EditArticle,
           props: {
-            updateCategoryList,
-            article: this.article
+            article: this.article,
+            language: this.$route.params.language,
+            updateCategoryList
           }
         });
       }

@@ -39,7 +39,7 @@ let routes = {
       component: ArticleCreateCategoryRouteWrapper
     },
     {
-      path: '/articles/:articleId/edit',
+      path: '/articles/:articleId/:language/edit',
       name: 'Edit article',
       component: ArticleEditCategoryRouteWrapper
     }

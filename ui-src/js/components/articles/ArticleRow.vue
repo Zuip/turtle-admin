@@ -3,12 +3,12 @@
     <td class="row-type-icon-column"><i class="far fa-file-alt"></i></td>
     <td>{{data.topic}}</td>
     <td class="actions-column">
-      <button type="button" class="btn btn-danger" v-on:click="remove">
+      <button type="button" class="btn btn-danger">
         <i class="far fa-trash-alt"></i>
       </button>
-      <router-link :to="editArticleLink()">
+      <router-link v-for="language in data.languages" :to="editArticleLink(language)">
         <button type="button" class="btn btn-primary">
-          <i class="fas fa-edit"></i>
+          <i class="fas fa-edit"></i> {{language.code}}
         </button>
       </router-link>
     </td>
@@ -29,8 +29,8 @@
              + " "
              + this.data.name + "?";
       },
-      editArticleLink() {
-        return '/articles/' + this.data.id + '/edit';
+      editArticleLink(language) {
+        return '/articles/' + this.data.id + '/' + language.code + '/edit';
       },
       remove() {
 

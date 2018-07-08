@@ -19,6 +19,7 @@ module.exports = {
       categoryId: DBNamedArticle.category_id,
       cityId: DBNamedArticle.city_id,
       languageId: DBNamedArticle.language_id,
+      languages: DBNamedArticle.languages,
       topic: DBNamedArticle.topic,
       urlName: DBNamedArticle.url_name,
       summary: DBNamedArticle.summary,

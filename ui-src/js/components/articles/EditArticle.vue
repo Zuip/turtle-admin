@@ -41,7 +41,7 @@
         let contentLoadingName = 'loadCities';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        getCities('fi').then(data => {
+        getCities(this.language).then(data => {
           this.fields.city.options = citiesObjectToOptionsFormat(data);
           this.$store.dispatch('endContentLoading', contentLoadingName);
         }).catch(error => {
@@ -71,16 +71,20 @@
         this.fields.writers.value = this.article.writers;
       },
       save: function() {
-        putArticle(this.$route.params.articleId, 'fi', {
-          topic: this.fields.topic.value,
-          urlName: this.fields.urlName.value,
-          cityId: this.fields.city.value,
-          summary: this.fields.summary.value,
-          text: this.fields.text.value,
-          publish: this.fields.publish.value,
-          published: this.fields.published.value,
-          writers: this.fields.writers.value
-        }).then(data => {
+        putArticle(
+          this.$route.params.articleId,
+          this.language,
+          {
+            topic: this.fields.topic.value,
+            urlName: this.fields.urlName.value,
+            cityId: this.fields.city.value,
+            summary: this.fields.summary.value,
+            text: this.fields.text.value,
+            publish: this.fields.publish.value,
+            published: this.fields.published.value,
+            writers: this.fields.writers.value
+          }
+        ).then(data => {
 
           if(data.success) {
             this.saved = true;
@@ -105,6 +109,6 @@
         });
       }
     },
-    props: ['article', 'updateCategoryList']
+    props: ['article', 'language', 'updateCategoryList']
   }
 </script>

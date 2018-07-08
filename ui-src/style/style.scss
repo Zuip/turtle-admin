@@ -21,6 +21,9 @@ $header-height: 70px;
 $footer-color: $theme-grey;
 $footer-height: 120px;
 
+$max-mobile-mode-width: 720px;
+$min-wide-mode-width: 1024px;
+
 .clearfix:after {
   content: " ";
   visibility: hidden;
@@ -32,9 +35,13 @@ $footer-height: 120px;
 #grid-container {
 
   display: grid;
-  grid-template-columns: [page-start] 2fr [content-start] 4fr [content-end] 2fr [page-end];
+  grid-template-columns: [page-start] 0 [content-start] 4fr [content-end] 0 [page-end];
   grid-template-rows: [header-start] 70px [header-end] 1fr [footer-start] $footer-height [footer-end];
   min-height: 100vh;
+
+  @media only screen and (min-width: $min-wide-mode-width)   {
+    grid-template-columns: [page-start] 1fr [content-start] $min-wide-mode-width [content-end] 1fr [page-end];
+  }
 
   @import "header";
   @import "content";
