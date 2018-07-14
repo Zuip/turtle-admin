@@ -1,7 +1,12 @@
-let config = {
+module.exports = {
   production: true,
   basePath: '/',
   mainSiteDirectory: '',
+  integrations: {
+    users: {
+      url: ''
+    }
+  },
   session: {
     secret: ''
   },
@@ -13,5 +18,3 @@ let config = {
     schema: ''
   }
 };
-
-module.exports = config;

@@ -1,28 +1,27 @@
-let selectUser = require('../database/selectUser');
-let password = require('../models/users/password');
+let getUser = require('../integrations/users/getUser');
 
-let postLogin = function(req, res) {
+module.exports = function(req, res) {
 
-  let user = selectUser.withUsername(req.body.username).then(function(data) {
+  getUser.withUsernameAndPassword(
+    req.body.username,
+    req.body.password
+  ).then(function(user) {
 
-    password.validate(
-      req.body.password,
-      data.password,
-      function isValid() {
-        req.session.user = data;
-        res.json({
-          username: data.name,
-          success: true
-        });
-      },
-      function isNotValid() {
-        res.json({ success: false });
-      }
-    );
+    req.session.user = user;
 
-  }).catch(function(err) {
-    res.json({ success: false });
+    res.json({
+      username: user.name,
+      success: true
+    });
+
+  }).catch(function(error) {
+
+    if(error.code === 404) {
+      return res.status(401).json({
+        success: false
+      });
+    }
+
+    res.status(500).json({ success: false, error });
   });
 };
-
-module.exports = postLogin;

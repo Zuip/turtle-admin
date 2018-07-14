@@ -1,7 +1,7 @@
-let selectUsers = require('../database/selectUsers');
+let getUsers = require('../integrations/users/getUsers');
 
 module.exports = function(req, res) {
-  selectUsers.all().then(function(data) {
+  getUsers.all().then(data => {
 
     let users = [];
 

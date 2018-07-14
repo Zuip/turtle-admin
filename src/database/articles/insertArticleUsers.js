@@ -1,11 +1,11 @@
 let db = require('../connection');
-let selectUser = require('../selectUser');
+let getUser = require('../../integrations/users/getUser');
 
 module.exports = {
   withArticleIdAndUserIds(articleId, userIds) {
 
     let insertUserPromises = userIds.map(userId => {
-      return selectUser.withId(userId).then(user => {
+      return getUser.withId(userId).then(user => {
         return db.none(
           `
             INSERT INTO article_user (
