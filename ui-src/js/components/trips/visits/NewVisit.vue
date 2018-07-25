@@ -80,7 +80,7 @@
             end: this.fields.end.value
           }
         ).then(data => {
-          console.log(data);
+          this.saved = true;
         }).catch(
           error => console.log(error)
         );

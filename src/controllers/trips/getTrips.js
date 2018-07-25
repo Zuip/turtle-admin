@@ -11,7 +11,8 @@ module.exports = function(req, res) {
     });
   }
 
-  selectTrips.withLanguage(
+  selectTrips.withUserIdAndLanguage(
+    req.session.user.id,
     language
   ).then(trips => {
     return trips.map(trip => {
@@ -26,7 +27,7 @@ module.exports = function(req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: "There was an error in selecting trips from database"
+      message: "There was an error in selecting trips from database" + error
     });
   });
 };

@@ -4,6 +4,7 @@ let selectLanguages = require('../selectLanguages');
 module.exports = function(name, urlName, languageId) {
   return insertTripBase().then(trip => {
     insertTranslatedTrip(trip.trip_id, name, urlName, languageId);
+    return trip.trip_id;
   });
 };
 

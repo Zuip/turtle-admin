@@ -1,5 +1,6 @@
 let selectLanguage = require('../../database/selectLanguage');
 let insertTrip = require('../../database/trips/insertTrip');
+let insertTripUser = require('../../database/trips/insertTripUser');
 let selectTrip = require('../../database/trips/selectTrip');
 
 module.exports = function(req, res) {
@@ -41,7 +42,12 @@ module.exports = function(req, res) {
       req.body.name,
       req.body.urlName,
       language.id
-    ).then(data => {
+    ).then(tripId => {
+      return insertTripUser(
+        tripId,
+        req.session.user.id
+      );
+    }).then(() => {
       return res.json({
         success: true
       });
