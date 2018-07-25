@@ -17,7 +17,7 @@ module.exports = function() {
     return selectCity.withId(
       id
     ).then(function(data) {
-      // A category id was found or category id is null
+      // City id was found
     }).catch(function(error) {
       invalidCityCallback();
     });

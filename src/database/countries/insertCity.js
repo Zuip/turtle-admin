@@ -1,18 +1,18 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
 
-module.exports = function(countryId, name) {
+module.exports = function(countryId, name, urlName) {
   return Promise.all([
     insertCityBase(countryId).then(city => city.city_id),
     selectLanguages.all()
   ]).then(data => {
-    createTranslatedCities(name, data[0], data[1]);
+    createTranslatedCities(name, urlName, data[0], data[1]);
   });
 };
 
-function createTranslatedCities(name, cityId, languages) {
+function createTranslatedCities(name, urlName, cityId, languages) {
   languages.map(language => {
-    insertTranslatedCity(cityId, name, language.id);
+    insertTranslatedCity(cityId, name, urlName, language.id);
   });
 }
 
@@ -26,12 +26,12 @@ function insertCityBase(countryId) {
   );
 }
 
-function insertTranslatedCity(cityId, name, languageId) {
+function insertTranslatedCity(cityId, name, urlName, languageId) {
   db.none(
     `
-      INSERT INTO translated_city (city_id, name, language_id)
-      VALUES ($1, $2, $3)
+      INSERT INTO translated_city (city_id, name, url_name, language_id)
+      VALUES ($1, $2, $3, $4)
     `,
-    [cityId, name, languageId]
+    [cityId, name, urlName, languageId]
   );
 }

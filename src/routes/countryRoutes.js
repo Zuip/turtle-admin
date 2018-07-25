@@ -10,4 +10,4 @@ module.exports = function(app) {
   app.get('/api/countries/:countryId/cities', getCountryCitiesController);
   app.post('/api/countries', postCountryController);
   app.post('/api/countries/:countryId/cities', postCityController);
-}
+};

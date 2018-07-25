@@ -1,15 +1,6 @@
 <template>
   <div>
 
-    <TextInput v-model="value.topic"
-               :title="translations.articles.topic" />
-
-    <TextInput v-model="value.urlName"
-               :title="translations.urlName" />
-
-    <SelectInput v-model="value.city"
-                 :title="translations.articles.city" />
-
     <TextareaInput v-model="value.summary"
                    :title="translations.articles.summary"
                    :field="'summary'"
@@ -37,7 +28,6 @@
 
   import DateInput from '../layout/forms/DateInput.vue';
   import SelectInput from '../layout/forms/SelectInput/SelectInput.vue';
-  import TextInput from '../layout/forms/TextInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
   import UserSelectInput from '../layout/forms/UserSelectInput.vue';
 
@@ -45,7 +35,6 @@
     components: {
       DateInput,
       SelectInput,
-      TextInput,
       TextareaInput,
       UserSelectInput
     },

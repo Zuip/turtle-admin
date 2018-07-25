@@ -17,11 +17,12 @@ module.exports = function(req, res) {
   let article = initializeArticleFromReq(req);
 
   articleValidator.validate(article, 'put').then(() => {
-    return selectArticle.withIdAndLanguage(
-      article.id,
+    return selectArticle.withVisitIdAndLanguage(
+      article.visitId,
       language
     );
   }).then(function(articleData) {
+    article.id = articleData.id;
     article.languageId = articleData.language_id;
   }).catch(function() {
     return res.status(404).json({

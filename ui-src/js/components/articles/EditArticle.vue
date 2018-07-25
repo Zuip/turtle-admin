@@ -2,15 +2,13 @@
   <EditArticleSkeleton v-model="fields"
                        :topic="translations.articles.editArticle"
                        :save="save"
-                       :categoryId="article.categoryId"
+                       :visitId="$route.params.visitId"
                        :saved="saved" />
 </template>
 
 <script>
 
-  import citiesObjectToOptionsFormat from '../../services/countries/citiesObjectToOptionsFormat';
   import EditArticleSkeleton from './EditArticleSkeleton.vue';
-  import getCities from '../../apiCalls/countries/getCities';
   import getUsers from '../../apiCalls/users/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
   import putArticle from '../../apiCalls/articles/putArticle';
@@ -31,23 +29,10 @@
       }
     },
     created: function() {
-      this.loadCities();
       this.loadUsers();
       this.initializeArticle();
     },
     methods: {
-      loadCities() {
-
-        let contentLoadingName = 'loadCities';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getCities(this.language).then(data => {
-          this.fields.city.options = citiesObjectToOptionsFormat(data);
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
-      },
       loadUsers() {
 
         let contentLoadingName = 'loadUsersToUserSelect';
@@ -61,9 +46,6 @@
         });
       },
       initializeArticle: function() {
-        this.fields.topic.value = this.article.topic;
-        this.fields.urlName.value = this.article.urlName;
-        this.fields.city.value = this.article.cityId;
         this.fields.summary.value = this.article.summary;
         this.fields.text.value = this.article.text;
         this.fields.publish.value = this.article.publish;
@@ -72,12 +54,9 @@
       },
       save: function() {
         putArticle(
-          this.$route.params.articleId,
-          this.language,
+          this.$route.params.visitId,
+          this.$route.params.language,
           {
-            topic: this.fields.topic.value,
-            urlName: this.fields.urlName.value,
-            cityId: this.fields.city.value,
             summary: this.fields.summary.value,
             text: this.fields.text.value,
             publish: this.fields.publish.value,
@@ -88,19 +67,10 @@
 
           if(data.success) {
             this.saved = true;
-            this.updateCategoryList();
+            this.updateVisitPage();
           } else {
-
             if(data.failedFields.includes("text")) {
               this.fields.text.failed = true;
-            }
-
-            if(data.failedFields.includes("topic")) {
-              this.fields.topic.failed = true;
-            }
-
-            if(data.failedFields.includes("urlName")) {
-              this.fields.urlName.failed = true;
             }
           }
 
@@ -109,6 +79,6 @@
         });
       }
     },
-    props: ['article', 'language', 'updateCategoryList']
+    props: ['article', 'updateVisitPage']
   }
 </script>

@@ -4,7 +4,7 @@ module.exports = {
   withId(id) {
     return db.one(
       `
-        SELECT city.id
+        SELECT city.id AS city_id
         FROM city
         WHERE city.id = $1
       `,

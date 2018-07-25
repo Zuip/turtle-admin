@@ -1,9 +1,10 @@
-import ArticleCreateCategoryRouteWrapper from './components/categories/routeWrappers/ArticleCreate.vue';
-import ArticleEditCategoryRouteWrapper from './components/categories/routeWrappers/ArticleEdit.vue';
-import CategoryCreateCategoryRouteWrapper from './components/categories/routeWrappers/CategoryCreate.vue';
-import CategoryEditCategoryRouteWrapper from './components/categories/routeWrappers/CategoryEdit.vue';
-import DefaultCategoryRouteWrapper from './components/categories/routeWrappers/Default.vue';
+import CreateTripRouteWrapper from './components/trips/routeWrappers/CreateTrip.vue';
+import CreateVisitArticleRouteWrapper from './components/trips/routeWrappers/CreateVisitArticle.vue';
+import CreateVisitRouteWrapper from './components/trips/routeWrappers/CreateVisit.vue';
+import EditVisitArticleRouteWrapper from './components/trips/routeWrappers/EditVisitArticle.vue';
 import Index from './components/Index.vue';
+import Visit from './components/trips/visits/visit/Visit.vue';
+import Visits from './components/trips/visits/Visits.vue';
 
 let routes = {
   mode: 'history',
@@ -14,34 +15,34 @@ let routes = {
       component: Index
     },
     {
-      path: '/categories/new',
-      name: 'New category',
-      component: CategoryCreateCategoryRouteWrapper
-    },
-    {
-      path: '/categories/:categoryId',
-      name: 'Subcategories',
-      component: DefaultCategoryRouteWrapper
-    },
-    {
-      path: '/categories/:categoryId/edit',
-      name: 'Edit category',
-      component: CategoryEditCategoryRouteWrapper,
-    },
-    {
-      path: '/categories/:categoryId/new',
-      name: 'New subcategory',
-      component: CategoryCreateCategoryRouteWrapper
-    },
-    {
-      path: '/categories/:categoryId/articles/new',
+      path: '/visits/:visitId/articles/new',
       name: 'New article',
-      component: ArticleCreateCategoryRouteWrapper
+      component: CreateVisitArticleRouteWrapper
     },
     {
-      path: '/articles/:articleId/:language/edit',
+      path: '/visits/:visitId/articles/:language',
       name: 'Edit article',
-      component: ArticleEditCategoryRouteWrapper
+      component: EditVisitArticleRouteWrapper
+    },
+    {
+      path: '/trips/new',
+      name: 'New trip',
+      component: CreateTripRouteWrapper
+    },
+    {
+      path: '/trips/:tripId',
+      name: 'Trip page',
+      component: Visits
+    },
+    {
+      path: '/trips/:tripId/visits/new',
+      name: 'New visit',
+      component: CreateVisitRouteWrapper
+    },
+    {
+      path: '/visits/:visitId',
+      name: 'Visit page',
+      component: Visit
     }
   ]
 };

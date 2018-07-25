@@ -2,9 +2,6 @@ import translations from '../../translations/translations';
 
 export default function() {
   return Object.assign({}, {
-    topic: getTopic(),
-    urlName: getURLName(),
-    city: getCity(),
     summary: getDefaultField(),
     text: getText(),
     publish: getPublish(),
@@ -19,25 +16,6 @@ function getDefaultField() {
     failed: false,
     mandatory: false
   });
-}
-
-function getTopic() {
-  let topic = getDefaultField();
-  topic.mandatory = true;
-  return topic;
-}
-
-function getURLName() {
-  let urlName = getDefaultField();
-  urlName.mandatory = true;
-  return urlName;
-}
-
-function getCity() {
-  let city = getDefaultField();
-  city.value = null;
-  city.options = [];
-  return city;
 }
 
 function getText() {

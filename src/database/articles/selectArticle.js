@@ -61,6 +61,24 @@ module.exports = {
       addArticleUsersToArticle
     );
   },
+  withVisitIdAndLanguage: function(visitId, language) {
+    return db.one(
+      `
+        SELECT ${ArticleColumns.getSelectQuery()}
+        FROM city_visit
+        JOIN article ON article.id = city_visit.article_id
+        JOIN translated_article ON translated_article.article_id = article.id
+        JOIN language ON language.id = translated_article.language_id
+        WHERE city_visit.id = $1
+        AND language.code = $2
+      `,
+      [visitId, language]
+    ).then(
+      formatDateAndTime
+    ).then(
+      addArticleUsersToArticle
+    );
+  },
   withUrlName: function(urlName) {
     return db.one(
       `

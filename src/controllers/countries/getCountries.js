@@ -1,3 +1,4 @@
+let CountryDataNaming = require('../../services/dataNaming/cities/Country');
 let selectCountries = require('../../database/countries/selectCountries');
 
 module.exports = function(req, res) {
@@ -13,6 +14,13 @@ module.exports = function(req, res) {
   selectCountries.withLanguage(
     language
   ).then(countries => {
+    return countries.map(country => {
+      let countryDataNaming = new CountryDataNaming();
+      countryDataNaming.DBNamed = country;
+      countryDataNaming.transformDBToAPINamed();
+      return countryDataNaming.APINamed;
+    });
+  }).then(countries => {
     res.json(countries);
   }).catch(error => {
     console.log(error);

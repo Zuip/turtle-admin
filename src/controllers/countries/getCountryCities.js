@@ -1,3 +1,4 @@
+let CityDataNaming = require('../../services/dataNaming/cities/City');
 let selectCities = require('../../database/countries/selectCities');
 let selectCountry = require('../../database/countries/selectCountry');
 
@@ -16,6 +17,13 @@ module.exports = function(req, res) {
       req.params.countryId,
       language
     ).then(cities => {
+      return cities.map(city => {
+        let cityDataNaming = new CityDataNaming();
+        cityDataNaming.DBNamed = city;
+        cityDataNaming.transformDBToAPINamed();
+        return cityDataNaming.APINamed;
+      });
+    }).then(cities => {
       res.json(cities);
     }).catch(error => {
       console.log(error);

@@ -11,17 +11,17 @@ module.exports = function(req, res) {
     });
   }
 
-  let articleId = req.params.articleId;
-
-  selectArticle.withIdAndLanguage(articleId, language).then(function(data) {
+  selectArticle.withVisitIdAndLanguage(
+    req.params.visitId,
+    language
+  ).then(function(data) {
     articleDataNaming.setDBNamed(data);
     articleDataNaming.transformDBToAPINamed();
     res.json(articleDataNaming.getAPINamed());
   }).catch(function(error) {
-    console.log(error);
     res.status(404).json({
       success: false,
       message: "The article does not exist!"
     });
   });
-}
+};

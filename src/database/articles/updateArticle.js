@@ -1,7 +1,6 @@
 let db = require('../connection');
 let deleteArticleUsers = require('./deleteArticleUsers');
 let insertArticleUsers = require('./insertArticleUsers');
-let selectLanguages = require('../selectLanguages');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(article) {
@@ -20,10 +19,10 @@ function updateArticleBase(article) {
 
   return db.none(
     `
-      UPDATE article SET city_id = $2, timestamp = $3
+      UPDATE article SET timestamp = $2
       WHERE article.id = $1
     `,
-    [article.id, article.cityId, publishDateWithTime]
+    [article.id, publishDateWithTime]
   );
 }
 
@@ -31,22 +30,19 @@ function updateTranslatedArticle(article) {
   return db.none(
     `
       UPDATE translated_article
-      SET topic = $1,
-          url_name = $2,
-          summary = $3,
-          text = $4,
-          published = $5
-      WHERE translated_article.article_id = $7
-      AND translated_article.language_id = $6
+      SET summary = $1,
+          text = $2,
+          published = $3
+      WHERE translated_article.article_id = $5
+      AND translated_article.language_id = $4
     `,
     [
-      article.topic,
-      article.urlName,
       article.summary,
       article.text,
       article.published,
       article.languageId,
-      article.id]
+      article.id
+    ]
   );
 }
 

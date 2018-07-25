@@ -1,5 +1,6 @@
 let selectCities = require('../../database/countries/selectCities');
-let CityDataNaming = require('../../models/countries/CityDataNaming');
+let CityDataNaming = require('../../services/dataNaming/cities/City');
+let mapCitiesToCountries = require('../../services/cities/mapCitiesToCountries');
 
 module.exports = function(req, res) {
 
@@ -15,9 +16,10 @@ module.exports = function(req, res) {
     language
   ).then(cities => {
     return cities.map(city => {
-      CityDataNaming.setDBNamed(city);
-      CityDataNaming.transformDBToAPINamed();
-      return CityDataNaming.getAPINamed();
+      cityDataNaming = new CityDataNaming();
+      cityDataNaming.DBNamed = city;
+      cityDataNaming.transformDBToAPINamed();
+      return cityDataNaming.APINamed;
     });
   }).then(cities => {
     res.json(mapCitiesToCountries(cities));
@@ -29,34 +31,3 @@ module.exports = function(req, res) {
     });
   });
 };
-
-function mapCitiesToCountries(cities) {
-
-  let countries = {};
-
-  cities.map(city => {
-
-    if(typeof countries[city.countryId] === 'undefined') {
-      countries[city.countryId] = initializeCountry(city);
-    }
-
-    countries[city.countryId].cities.push(initializeCity(city));
-  });
-
-  return Object.values(countries);
-}
-
-function initializeCountry(city) {
-  return {
-    id: city.countryId,
-    name: city.countryName,
-    cities: []
-  };
-}
-
-function initializeCity(city) {
-  return {
-    id: city.id,
-    name: city.name
-  };
-}

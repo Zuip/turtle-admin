@@ -4,7 +4,9 @@ module.exports = {
   withCountryIdAndLanguage(countryId, language) {
     return db.any(
       `
-        SELECT city.id, country.id AS country_id, translated_city.name
+        SELECT city.id AS city_id,
+               country.id AS country_id,
+               translated_city.name AS city_name
         FROM country
         JOIN city ON city.country_id = country.id
         JOIN translated_city ON translated_city.city_id = city.id
@@ -18,9 +20,9 @@ module.exports = {
   withLanguage(language) {
     return db.any(
       `
-        SELECT city.id,
+        SELECT city.id AS city_id,
                country.id AS country_id,
-               translated_city.name,
+               translated_city.name AS city_name,
                translated_country.name AS country_name
         FROM country
         JOIN city ON city.country_id = country.id

@@ -1,10 +1,7 @@
 module.exports = function() {
   this.id = null;
   this.languageId = null;
-  this.categoryId = null;
-  this.cityId = null;
-  this.topic = '';
-  this.urlName = '';
+  this.visitId = null;
   this.summary = '';
   this.text = '';
   this.publish = {

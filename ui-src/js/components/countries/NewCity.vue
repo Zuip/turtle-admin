@@ -13,6 +13,11 @@
              class="form-control"
              :class="{ failed }"
              :placeholder="translations.name">
+      <input v-model="urlName"
+             type="text"
+             class="form-control"
+             :class="{ failed }"
+             :placeholder="translations.urlName">
       <div class="input-group-append">
         <button class="btn btn-danger" v-on:click="stopSavingCity">
           {{translations.cancel}}
@@ -40,6 +45,7 @@
     data() {
       return {
         cityName: '',
+        urlName: '',
         creatingNewCity: false,
         failed: false
       }
@@ -50,7 +56,13 @@
         let contentLoadingName = 'saveNewCity';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
-        postCity(this.countryId, this.cityName).then(data => {
+        postCity(
+          this.countryId,
+          {
+            name: this.cityName,
+            urlName: this.urlName
+          }
+        ).then(data => {
           this.$emit('updateCityList');
           this.stopSavingCity();
           this.$store.dispatch('endContentLoading', contentLoadingName);

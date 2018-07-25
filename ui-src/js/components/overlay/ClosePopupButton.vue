@@ -8,17 +8,10 @@
   export default {
     methods: {
       close: function() {
-
         this.$store.dispatch('closePopup');
-
-        if(this.categoryId === 'root') {
-          this.$router.push('/');
-          return;
-        }
-
-        this.$router.push('/categories/' + this.categoryId);
+        this.$router.push(this.closeToAddress);
       }
     },
-    props: ['categoryId', 'text']
+    props: ['closeToAddress', 'text']
   }
 </script>

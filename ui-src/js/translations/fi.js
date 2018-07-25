@@ -11,6 +11,7 @@ let translations = {
   urlName: "URL nimi",
   yes: "Kyllä",
   articles: {
+    article: "Artikkeli",
     city: "Kaupunki",
     editArticle: "Muokkaa artikkelia",
     newArticle: "Uusi artikkeli",
@@ -19,15 +20,6 @@ let translations = {
     text: "Teksti",
     topic: "Otsikko",
     writers: "Kirjoittajat"
-  },
-  categories: {
-    backToParent: "Takaisin ylemmälle kategoriatasolle",
-    categoriesAndArticles: "Kategoriat ja artikkelit",
-    categoryName: "Kategorian nimi",
-    confirmDelete: "Oletko varma, että haluat poistaa kategorian",
-    description: "Kuvaus",
-    editCategory: "Muokkaa kategoriaa",
-    newCategory: "Uusi kategoria"
   },
   countries: {
     countries: "Maat",
@@ -50,6 +42,17 @@ let translations = {
     loginFailedExplanation: "Salasanasi tai käyttäjätunnuksesi oli väärin",
     password: "Salasana",
     username: "Käyttäjätunnus"
+  },
+  trips: {
+    newTrip: "Uusi matka",
+    trips: "Matkat",
+    visits: {
+      city: "Kaupunki",
+      newVisit: "Lisää vierailtu kaupunki",
+      visits: "Vieraillut kaupungit",
+      visitEnd: "Vierailun viimeinen päivä",
+      visitStart: "Vierailun ensimmäinen päivä"
+    }
   }
 };
 

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <DefaultCategoryRouteWrapper />
+    <Trips />
+    <br />
     <Countries />
   </div>
 </template>
@@ -8,12 +9,12 @@
 <script>
 
   import Countries from './countries/Countries.vue';
-  import DefaultCategoryRouteWrapper from './categories/routeWrappers/Default.vue';
+  import Trips from './trips/Trips.vue'
 
   export default {
     components: {
       Countries,
-      DefaultCategoryRouteWrapper
+      Trips
     }
   };
 </script>

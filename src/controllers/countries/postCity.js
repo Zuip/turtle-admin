@@ -3,17 +3,25 @@ let selectCountry = require('../../database/countries/selectCountry');
 
 module.exports = function(req, res) {
 
-  if(!validCityName(req.body.name)) {
+  if(!validName(req.body.name)) {
     return res.status(400).json({
       success: false,
       message: "Invalid country name"
     });
   }
 
+  if(!validName(req.body.urlName)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid url name"
+    });
+  }
+
   selectCountry.withId(req.params.countryId).then(data => {
     insertCity(
       req.params.countryId,
-      req.body.name
+      req.body.name,
+      req.body.urlName
     ).then(data => {
       return res.json({
         success: true
@@ -33,7 +41,7 @@ module.exports = function(req, res) {
   });
 };
 
-function validCityName(name) {
+function validName(name) {
 
   if(typeof name !== 'string') {
     return false;

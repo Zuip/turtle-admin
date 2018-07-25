@@ -2,14 +2,24 @@ let insertCountry = require('../../database/countries/insertCountry');
 
 module.exports = function(req, res) {
 
-  if(!validCountryName(req.body.name)) {
+  if(!validName(req.body.name)) {
     return res.status(400).json({
       success: false,
       message: "Invalid country name"
     });
   }
 
-  insertCountry(req.body.name).then(data => {
+  if(!validName(req.body.urlName)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid country url name"
+    });
+  }
+
+  insertCountry(
+    req.body.name,
+    req.body.urlName
+  ).then(data => {
     return res.json({
       success: true
     });
@@ -22,7 +32,7 @@ module.exports = function(req, res) {
   });
 };
 
-function validCountryName(name) {
+function validName(name) {
 
   if(typeof name !== 'string') {
     return false;

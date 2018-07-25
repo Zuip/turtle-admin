@@ -13,7 +13,7 @@
           {{translations.preview}}
         </button>
         <ClosePopupButton :text="translations.close"
-                          :categoryId="categoryId" />
+                          :closeToAddress="closeToAddress" />
       </div>
     </div>
 
@@ -26,7 +26,7 @@
                     @stopPreviewing="stopPreviewing"/>
 
     <SavingSucceeded v-if="mode === 'saved'"
-                    :categoryId="categoryId"
+                    :closeToAddress="closeToAddress"
                     :topic="topic" />
   </div>
 </template>
@@ -49,6 +49,9 @@
       SavingSucceeded
     },
     computed: {
+      closeToAddress() {
+        return '/visits/' + this.visitId;
+      },
       translations() {
         return this.$store.getters.getTranslations;
       },
@@ -109,6 +112,6 @@
         this.previewing = false;
       }
     },
-    props: ['categoryId', 'save', 'saved', 'topic', 'value']
+    props: ['visitId', 'save', 'saved', 'topic', 'value']
   }
 </script>

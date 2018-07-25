@@ -1,6 +1,4 @@
-let CategoryIdValidator = require('../categories/validators/Id');
-let CityIdValidator = require('../countries/validators/CityId');
-let URLNameValidator = require('./validators/URLName');
+let VisitIdValidator = require('../../services/validators/trips/cityVisits/Id');
 
 module.exports = {
   failedFields: [],
@@ -8,40 +6,20 @@ module.exports = {
 
     this.failedFields = [];
 
-    let categoryIdValidator = new CategoryIdValidator();
-    let cityIdValidator = new CityIdValidator();
-    let urlNameValidator = new URLNameValidator();
+    let visitIdValidator = new VisitIdValidator();
+    let validateFromDatabase = [];
 
-    if(isEmptyString(article.topic)) {
-      this.failedFields.push("topic");
+    if(isEmptyString(article.text)) {
+      this.failedFields.push("text");
     }
 
-    if(isEmptyString(article.urlName)) {
-      this.failedFields.push("urlName");
-    }
-
-    categoryIdValidator.setInvalidCallback(() => {
-      this.failedFields.push("categoryId");
+    visitIdValidator.setInvalidCallback(() => {
+      this.failedFields.push("visitId");
     });
-
-    cityIdValidator.setInvalidCallback(() => {
-      this.failedFields.push("cityId");
-    });
-
-    urlNameValidator.setInvalidCallback(function(articleId) {
-      if(mode === 'post' || articleId !== parseInt(article.id)) {
-        this.failedFields.push("urlName");
-      }
-    });
-
-    let validateFromDatabase = [
-      urlNameValidator.validate(article.urlName),
-      cityIdValidator.validate(article.cityId)
-    ];
 
     if(mode === 'post') {
       validateFromDatabase.push(
-        categoryIdValidator.validate(article.categoryId)
+        visitIdValidator.validate(article.visitId)
       );
     }
 
