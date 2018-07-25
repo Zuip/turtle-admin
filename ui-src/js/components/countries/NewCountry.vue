@@ -79,6 +79,7 @@
         this.creatingNewCountry = false;
         this.countryName = '';
         this.failed = false;
+        this.urlName = '';
       }
     }
   }

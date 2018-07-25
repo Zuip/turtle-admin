@@ -82,6 +82,7 @@
         this.creatingNewCity = false;
         this.cityName = '';
         this.failed = false;
+        this.urlName = '';
       }
     },
     props: [ 'countryId' ]

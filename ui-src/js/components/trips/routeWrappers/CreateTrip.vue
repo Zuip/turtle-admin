@@ -1,15 +1,15 @@
 <template>
-  <Trips :openLayover="openNewTripLayover" />
+  <Index :openLayover="openNewTripLayover" />
 </template>
 
 <script>
 
   import NewTrip from '../NewTrip.vue';
-  import Trips from '../Trips.vue';
+  import Index from '../../Index.vue';
 
   export default {
     components: {
-      Trips
+      Index
     },
     methods: {
       openNewTripLayover: function(updateTripList) {

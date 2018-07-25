@@ -1,7 +1,16 @@
+let selectLanguage = require('../../database/selectLanguage');
 let insertTrip = require('../../database/trips/insertTrip');
 let selectTrip = require('../../database/trips/selectTrip');
 
 module.exports = function(req, res) {
+
+  let language = req.query.language;
+  if(typeof language === 'undefined') {
+    return res.status(404).json({
+      success: false,
+      message: "Missing mandatory get parameter: language"
+    });
+  }
 
   if(!validTripName(req.body.name)) {
     return res.status(400).json({
@@ -18,17 +27,20 @@ module.exports = function(req, res) {
   }
 
   selectTrip.withUrlNameAndLanguage(
-    req.body.name,
-    req.body.urlName
+    req.body.urlName,
+    language
   ).then(() => {
     return res.status(400).json({
       success: false,
       message: "URL name already in use"
     });
   }).catch(() => {
+    return selectLanguage.withCode(language);
+  }).then(language => {
     return insertTrip(
       req.body.name,
-      req.body.urlName
+      req.body.urlName,
+      language.id
     ).then(data => {
       return res.json({
         success: true

@@ -15,6 +15,12 @@
     components: {
       Countries,
       Trips
-    }
+    },
+    created() {
+      if(typeof this.openLayover !== 'undefined') {
+        this.openLayover(function() {});
+      }
+    },
+    props: ['openLayover']
   };
 </script>

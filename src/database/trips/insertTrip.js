@@ -1,20 +1,11 @@
 let db = require('../connection');
 let selectLanguages = require('../selectLanguages');
 
-module.exports = function(name, urlName) {
-  return Promise.all([
-    insertTripBase().then(trip => trip.trip_id),
-    selectLanguages.all()
-  ]).then(data => {
-    createTranslatedTrips(name, urlName, data[0], data[1]);
+module.exports = function(name, urlName, languageId) {
+  return insertTripBase().then(trip => {
+    insertTranslatedTrip(trip.trip_id, name, urlName, languageId);
   });
 };
-
-function createTranslatedTrips(name, urlName, tripId, languages) {
-  languages.map(language => {
-    insertTranslatedTrip(tripId, name, urlName, language.id);
-  });
-}
 
 function insertTripBase() {
   return db.one(`

@@ -53,11 +53,14 @@
     },
     methods: {
       save() {
-        postTrip({
-          name: this.fields.name.value,
-          urlName: this.fields.urlName.value
-        }).then(data => {
-          console.log(data);
+        postTrip(
+          {
+            name: this.fields.name.value,
+            urlName: this.fields.urlName.value
+          },
+          'fi'
+        ).then(() => {
+          this.saved = true;
         }).catch(
           error => console.log(error)
         );
