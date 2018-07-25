@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{translations.visits}}</h3>
+    <h3>{{trip.name}} &gt; {{translations.visits}}</h3>
     <VisitsList :visits="visits" />
     <NewVisitButton />
   </div>
@@ -8,6 +8,7 @@
 
 <script>
 
+  import getTrip from '../../../apiCalls/trips/getTrip';
   import getTripCityVisits from '../../../apiCalls/trips/getTripCityVisits';
   import NewVisitButton from './NewVisitButton.vue';
   import VisitsList from './visitsList/VisitsList.vue';
@@ -24,6 +25,7 @@
     },
     created() {
 
+      this.updateTrip();
       this.updateVisitList();
 
       if(typeof this.openLayover !== 'undefined') {
@@ -32,6 +34,9 @@
     },
     data() {
       return {
+        trip: {
+          name: null
+        },
         visits: []
       };
     },
@@ -43,6 +48,17 @@
         getTripCityVisits(this.$route.params.tripId, 'fi').then(visits => {
           this.visits = visits;
           this.$store.dispatch('endContentLoading', 'loadVisits');
+        }).catch(error => {
+          console.log(error);
+        });
+      },
+      updateTrip() {
+
+        this.$store.dispatch('startContentLoading', 'loadTrip');
+
+        getTrip(this.$route.params.tripId, 'fi').then(trip => {
+          this.trip = trip;
+          this.$store.dispatch('endContentLoading', 'loadTrip');
         }).catch(error => {
           console.log(error);
         });

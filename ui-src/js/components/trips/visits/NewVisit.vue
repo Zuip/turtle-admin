@@ -42,6 +42,9 @@
       VisitForm
     },
     computed: {
+      closeToAddress() {
+        return '/trips/' + this.$route.params.tripId;
+      },
       translations() {
         return this.$store.getters.getTranslations;
       }
@@ -51,7 +54,6 @@
     },
     data() {
       return {
-        closeToAddress: '/',
         fields: initializeVisit(),
         saved: false
       }
