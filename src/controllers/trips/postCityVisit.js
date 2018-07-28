@@ -20,7 +20,9 @@ module.exports = function(req, res) {
   ]).then(data => {
     return insertCityVisit(
       req.params.tripId,
-      req.body.cityId
+      req.body.cityId,
+      req.body.start,
+      req.body.end
     ).then(data => {
       return res.json({
         success: true
