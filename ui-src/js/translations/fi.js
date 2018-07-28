@@ -26,6 +26,10 @@ let translations = {
     newCity: "Uusi kaupunki",
     newCountry: "Uusi maa"
   },
+  header: {
+    admin: "Asetukset",
+    toTheMainSite: "Takaisin pääsivustolle"
+  },
   images: {
     caption: "Kuvateksti",
     imageSummary: "Lisättävän kuvan tiedot",
@@ -36,12 +40,8 @@ let translations = {
     rootFolder: "Juurikansio"
   },
   login: {
-    login: "Kirjaudu sisään",
-    loginShort: "Kirjaudu",
-    loginFailedTopic: "Kirjautuminen epäonnistui!",
-    loginFailedExplanation: "Salasanasi tai käyttäjätunnuksesi oli väärin",
-    password: "Salasana",
-    username: "Käyttäjätunnus"
+    loginFromHere: "Kirjaudu sisään tästä",
+    youAreNotLoggedIn: "Et ole kirjautuneena järjestelmään"
   },
   trips: {
     newTrip: "Uusi matka",

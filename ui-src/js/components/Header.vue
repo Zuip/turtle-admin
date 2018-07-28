@@ -3,44 +3,33 @@
     <div id="navigation-header-content">
       <router-link :to="'/'">
         <div id="site-name" class="header-element">
-          <h1>Zui.fi</h1>
+          <h1>Turtle.travel</h1>
+          <h5>{{translations.admin}}</h5>
         </div>
       </router-link>
-      <div class="header-element logout-button" v-on:click="logout" v-if="userIsLoggedIn">
-        <i class="fas fa-power-off"></i>
+      <div class="header-element float-right">
+        <a href="/" class="btn btn-primary">
+          {{translations.toTheMainSite}}
+        </a>
       </div>
-      <div class="header-element username" v-if="userIsLoggedIn">{{user.username}}</div>
+      <div class="header-element username float-right" v-if="userIsLoggedIn">
+        {{user.username}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
-  import getLogout from '../apiCalls/users/getLogout';
-
   export default {
     computed: {
-      userIsLoggedIn() {
-        return this.$store.getters.userIsLoggedIn;
+      translations() {
+        return this.$store.getters.getTranslations.header;
       },
       user() {
         return this.$store.getters.getUser;
-      }
-    },
-    methods: {
-      logout: function(event) {
-
-        let contentLoadingName = 'logout';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getLogout().then(data => {
-          if(data.success === true) {
-            this.$store.dispatch('logout');
-          }
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
+      },
+      userIsLoggedIn() {
+        return this.$store.getters.userIsLoggedIn;
       }
     }
   }

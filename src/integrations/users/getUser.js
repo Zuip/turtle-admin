@@ -13,7 +13,7 @@ module.exports = {
   withUsernameAndPassword(username, password) {
 
     return get(
-      '/api/users/' + username + '/password/' + password
+      '/api/users?username=' + username + '&password=' + password
     ).then(response => {
 
       if(response.status === 404 || response.status === 500) {

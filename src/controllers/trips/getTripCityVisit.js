@@ -22,7 +22,8 @@ module.exports = function(req, res) {
     return visitDataNaming.APINamed;
   }).then(visit => {
 
-    if(typeof visit.article === 'undefined') {
+    if(visit.article.id === null) {
+      visit.article = null;
       return visit;
     }
 

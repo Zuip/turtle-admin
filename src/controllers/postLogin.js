@@ -1,7 +1,7 @@
 let getUser = require('../integrations/users/getUser');
 
 module.exports = function(req, res) {
-
+  
   getUser.withUsernameAndPassword(
     req.body.username,
     req.body.password
