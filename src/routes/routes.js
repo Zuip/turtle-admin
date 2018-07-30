@@ -5,11 +5,10 @@ let authenticatedMiddleware = require('../middlewares/authenticated');
 let articleRoutes = require('./articleRoutes');
 let countryRoutes = require('./countryRoutes');
 let tripRoutes = require('./tripRoutes');
+let userRoutes = require('./userRoutes');
 
 // Controllers
-let getLogoutController = require('../controllers/getLogout');
 let getUserController = require('../controllers/getUser');
-let getUsersController = require('../controllers/getUsers');
 let postLoginController = require('../controllers/postLogin');
 
 module.exports = function(app) {
@@ -24,15 +23,9 @@ module.exports = function(app) {
   // Authentication middleware
   app.all('/api/*', authenticatedMiddleware);
 
-  /*
-  * Routes with authentication
-  */
-
-  app.get('/api/logout', getLogoutController);
-  app.get('/api/users', getUsersController);
-
   // Route files
   articleRoutes(app);
   countryRoutes(app);
   tripRoutes(app);
+  userRoutes(app);
 };

@@ -1,10 +1,10 @@
 <template>
-  <div class="countries">
+  <div class="countries" v-if="userHasRequiredPermissions">
     <div v-if="!selectedCountry">
       <h3>{{translations.countries}}</h3>
       <table class="table countries-list">
         <tbody>
-          <tr v-for="country in countries">
+          <tr v-for="(country, index) in countries" :key="'country_' + index">
             <td v-on:click="selectCountry(country)">{{country.name}}</td>
           </tr>
         </tbody>
@@ -20,7 +20,7 @@
       </h3>
       <table class="table">
         <tbody>
-          <tr v-for="city in cities">
+          <tr v-for="(city, index) in cities" :key="'city_' + index">
             <td>{{city.name}}</td>
           </tr>
         </tbody>
@@ -35,6 +35,7 @@
 
   import getCountryCities from '../../apiCalls/countries/getCountryCities';
   import getCountries from '../../apiCalls/countries/getCountries';
+  import getUserPermissionsTo from '../../apiCalls/users/getUserPermissionsTo';
   import NewCity from './NewCity.vue';
   import NewCountry from './NewCountry.vue';
 
@@ -49,13 +50,16 @@
       }
     },
     created() {
-      this.updateCountryList();
+      this.updateUserHasRequiredPermissions().then(() => {
+        this.updateCountryList();
+      });
     },
     data() {
       return {
         cities: [],
         countries: [],
-        selectedCountry: null
+        selectedCountry: null,
+        userHasRequiredPermissions: false
       };
     },
     methods: {
@@ -70,6 +74,10 @@
       },
       updateCityList() {
 
+        if(!this.userHasRequiredPermissions) {
+          return;
+        }
+
         let contentLoadingName = 'loadCities';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
@@ -82,6 +90,10 @@
       },
       updateCountryList() {
 
+        if(!this.userHasRequiredPermissions) {
+          return;
+        }
+
         let contentLoadingName = 'loadCountries';
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
@@ -91,7 +103,19 @@
         }).catch(error => {
           console.log(error);
         });
-      }
+      },
+      updateUserHasRequiredPermissions() {
+
+        let contentLoadingName = 'loadUserCityPermissions';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        return getUserPermissionsTo('cities').then(permissions => {
+          this.userHasRequiredPermissions = permissions.length > 0;
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
+      },
     }
   };
 </script>
