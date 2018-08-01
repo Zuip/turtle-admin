@@ -1,5 +1,10 @@
 <template>
-  <StandardTable v-model="tableData" />
+  <div>
+    <StandardTable v-model="tableData" v-if="trips.length" />
+    <div v-if="!trips.length" class="no-trips-message">
+      {{$store.getters.getTranslations.trips.noTripsExists}}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -39,3 +44,9 @@
     props: ['trips']
   };
 </script>
+
+<style>
+  .no-trips-message {
+    margin-bottom: 10px;
+  }
+</style>

@@ -1,15 +1,4 @@
 let translations = {
-  cancel: "Peruuta",
-  close: "Sulje",
-  name: "Nimi",
-  no: "Ei",
-  preview: "Esikatsele",
-  published: "Julkaistu",
-  save: "Tallenna",
-  savingSucceeded: "Tallentaminen onnistui!",
-  select: "Valitse",
-  urlName: "URL nimi",
-  yes: "Kyllä",
   articles: {
     article: "Artikkeli",
     city: "Kaupunki",
@@ -20,6 +9,21 @@ let translations = {
     text: "Teksti",
     topic: "Otsikko",
     writers: "Kirjoittajat"
+  },
+  common: {
+    cancel: "Peruuta",
+    close: "Sulje",
+    languageVersions: "Kieliversiot",
+    name: "Nimi",
+    newLanguageVersion: "Uusi kieliversio",
+    no: "Ei",
+    preview: "Esikatsele",
+    published: "Julkaistu",
+    save: "Tallenna",
+    savingSucceeded: "Tallentaminen onnistui!",
+    select: "Valitse",
+    urlName: "URL nimi",
+    yes: "Kyllä"
   },
   countries: {
     countries: "Maat",
@@ -45,7 +49,9 @@ let translations = {
     youAreNotLoggedIn: "Et ole kirjautuneena järjestelmään"
   },
   trips: {
+    lastLanguageVersionCannotBeRemoved: "Matkalla on oltava ainakin yksi kieliversio",
     newTrip: "Uusi matka",
+    noTripsExists: "Et ole vielä lisännyt yhtään matkaa",
     trips: "Matkat",
     visits: {
       city: "Kaupunki",

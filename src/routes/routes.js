@@ -8,6 +8,7 @@ let tripRoutes = require('./tripRoutes');
 let userRoutes = require('./userRoutes');
 
 // Controllers
+let getLanguagesController = require('../controllers/getLanguages');
 let getUserController = require('../controllers/getUser');
 let postLoginController = require('../controllers/postLogin');
 
@@ -22,6 +23,8 @@ module.exports = function(app) {
 
   // Authentication middleware
   app.all('/api/*', authenticatedMiddleware);
+
+  app.get('/api/languages', getLanguagesController);
 
   // Route files
   articleRoutes(app);

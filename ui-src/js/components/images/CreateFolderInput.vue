@@ -9,7 +9,7 @@
 
     <div class="input-group-append" v-if="folderName !== ''">
       <button class="btn btn-outline-secondary" type="button" v-on:click="createFolder">
-        {{translations.save}}
+        {{translations.common.save}}
       </button>
     </div>
 

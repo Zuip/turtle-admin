@@ -10,7 +10,7 @@
       </div>
       <div class="popup-grid-footer">
         <button type="button" class="btn btn-primary" v-on:click="close">
-          {{translations.close}}
+          {{translations.common.close}}
         </button>
       </div>
     </div>

@@ -12,20 +12,20 @@
              type="text"
              class="form-control"
              :class="{ failed }"
-             :placeholder="translations.name">
+             :placeholder="translations.common.name">
       <input v-model="urlName"
              type="text"
              class="form-control"
              :class="{ failed }"
-             :placeholder="translations.urlName">
+             :placeholder="translations.common.urlName">
       <div class="input-group-append">
         <button class="btn btn-danger" v-on:click="stopSavingCountry">
-          {{translations.cancel}}
+          {{translations.common.cancel}}
         </button>
       </div>
       <div class="input-group-append">
         <button class="btn btn-primary" v-on:click="saveCountry">
-          {{translations.save}}
+          {{translations.common.save}}
         </button>
       </div>
     </div>

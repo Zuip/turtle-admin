@@ -13,10 +13,10 @@
       </div>
       <div class="popup-grid-footer">
         <button type="button" class="btn btn-primary" v-on:click="select">
-          {{translations.select}}
+          {{translations.common.select}}
         </button>
         <button type="button" class="btn btn-danger" v-on:click="cancel">
-          {{translations.cancel}}
+          {{translations.common.cancel}}
         </button>
       </div>
     </div>

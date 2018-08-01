@@ -1,20 +1,18 @@
 import getDefaultField from '../getDefaultField';
+import initializeTripLanguageVersion from './initializeTripLanguageVersion';
 
 export default function() {
   return Object.assign({}, {
-    name: getName(),
-    urlName: getURLName()
+    languageVersions: [
+      initializeTripLanguageVersion()
+    ],
+    users: getUsers()
   });
 };
 
-function getName() {
-  let topic = getDefaultField();
-  topic.mandatory = true;
-  return topic;
-}
-
-function getURLName() {
-  let urlName = getDefaultField();
-  urlName.mandatory = true;
-  return urlName;
+function getUsers() {
+  let users = getDefaultField();
+  users.mandatory = true;
+  users.value = [];
+  return users;
 }

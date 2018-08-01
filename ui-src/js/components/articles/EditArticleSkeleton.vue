@@ -7,12 +7,12 @@
       </div>
       <div class="popup-grid-footer">
         <button type="button" class="btn btn-primary" v-on:click="save">
-          {{translations.save}}
+          {{translations.common.save}}
         </button>
         <button type="button" class="btn btn-primary" v-on:click="preview">
-          {{translations.preview}}
+          {{translations.common.preview}}
         </button>
-        <ClosePopupButton :text="translations.close"
+        <ClosePopupButton :text="translations.common.close"
                           :closeToAddress="closeToAddress" />
       </div>
     </div>

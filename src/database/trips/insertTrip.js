@@ -1,9 +1,17 @@
 let db = require('../connection');
-let selectLanguages = require('../selectLanguages');
 
-module.exports = function(name, urlName, languageId) {
+module.exports = function(tripLanguageVersions) {
   return insertTripBase().then(trip => {
-    insertTranslatedTrip(trip.trip_id, name, urlName, languageId);
+
+    tripLanguageVersions.map(tripLanguageVersion => {
+      insertTranslatedTrip(
+        trip.trip_id,
+        tripLanguageVersion.name,
+        tripLanguageVersion.urlName,
+        tripLanguageVersion.languageId
+      );
+    });
+
     return trip.trip_id;
   });
 };

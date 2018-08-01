@@ -19,7 +19,7 @@
                :title="translations.articles.publishDate" />
 
     <SelectInput v-model="value.published"
-                 :title="translations.published" />
+                 :title="translations.common.published" />
 
   </div>
 </template>

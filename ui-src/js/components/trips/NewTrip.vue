@@ -9,10 +9,10 @@
       <div class="popup-grid-footer">
 
         <button type="button" class="btn btn-primary" v-on:click="save">
-          {{translations.save}}
+          {{translations.common.save}}
         </button>
 
-        <ClosePopupButton :text="translations.close"
+        <ClosePopupButton :text="translations.common.close"
                           :closeToAddress="closeToAddress" />
 
       </div>
@@ -55,10 +55,12 @@
       save() {
         postTrip(
           {
-            name: this.fields.name.value,
-            urlName: this.fields.urlName.value
-          },
-          'fi'
+            languageVersions: this.fields.languageVersions.map(languageVersion => ({
+              name: languageVersion.name.value,
+              urlName: languageVersion.urlName.value,
+              language: languageVersion.language.value
+            }))
+          }
         ).then(() => {
           this.saved = true;
         }).catch(

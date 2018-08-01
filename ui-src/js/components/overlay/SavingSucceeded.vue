@@ -2,11 +2,11 @@
   <div class="popup-grid">
     <div class="popup-grid-content">
       <h3>{{topic}}</h3>
-      <p>{{translations.savingSucceeded}}</p>
+      <p>{{translations.common.savingSucceeded}}</p>
     </div>
     <div class="popup-grid-footer">
 
-      <ClosePopupButton :text="translations.close"
+      <ClosePopupButton :text="translations.common.close"
                         :closeToAddress="closeToAddress" />
                         
     </div>

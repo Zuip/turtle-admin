@@ -22,7 +22,7 @@
 
           <div class="input-group-append" v-if="file !== null">
             <button class="btn btn-outline-secondary" type="button" v-on:click="uploadFile">
-              {{translations.save}}
+              {{translations.common.save}}
             </button>
           </div>
 
