@@ -9,5 +9,17 @@ module.exports = {
     ).then(
       data => data.json()
     );
+  },
+  withUserIds(userIds) {
+
+    if(userIds.length === 0) {
+      return [];
+    }
+
+    return get(
+      '/api/users?ids=' + userIds.join(',')
+    ).then(
+      data => data.json()
+    );
   }
 };

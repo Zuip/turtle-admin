@@ -57,6 +57,8 @@ let translations = {
     visits: {
       city: "Kaupunki",
       newVisit: "Lisää vierailtu kaupunki",
+      noVisitsExists: "Et ole vielä lisännyt yhtään kaupunkia matkaasi",
+      users: "Kaupungissa mukana olleet",
       visits: "Vieraillut kaupungit",
       visitEnd: "Vierailun viimeinen päivä",
       visitStart: "Vierailun ensimmäinen päivä"

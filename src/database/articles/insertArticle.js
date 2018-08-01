@@ -1,6 +1,5 @@
 let db = require('../connection');
 let selectLanguage = require('../selectLanguage');
-let insertArticleUsers = require('./insertArticleUsers');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(article, languageCode) {
@@ -12,10 +11,6 @@ module.exports = function(article, languageCode) {
     return data[1];
   }).then(language => {
     return Promise.all([
-      insertArticleUsers.withArticleIdAndUserIds(
-        article.id,
-        article.writers
-      ),
       insertTranslatedArticle(
         article,
         language.id

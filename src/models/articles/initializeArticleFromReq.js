@@ -13,7 +13,6 @@ module.exports = function(req) {
   article.published = req.body.published === 'yes' ? true : false;
   article.publish.date = req.body.publish.date;
   article.publish.time = req.body.publish.time;
-  article.writers = req.body.writers;
 
   return article;
 };

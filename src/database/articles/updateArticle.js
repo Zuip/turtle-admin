@@ -1,13 +1,10 @@
 let db = require('../connection');
-let deleteArticleUsers = require('./deleteArticleUsers');
-let insertArticleUsers = require('./insertArticleUsers');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
 module.exports = function(article) {
   return Promise.all([
     updateArticleBase(article),
-    updateTranslatedArticle(article),
-    updateWriters(article)
+    updateTranslatedArticle(article)
   ]);
 };
 
@@ -44,10 +41,4 @@ function updateTranslatedArticle(article) {
       article.id
     ]
   );
-}
-
-function updateWriters(article) {
-  deleteArticleUsers.withArticleId(article.id).then(() => {
-    insertArticleUsers.withArticleIdAndUserIds(article.id, article.writers);
-  });
 }

@@ -1,6 +1,10 @@
 <template>
   <div>
     <h3>
+      <router-link :to="'/trips'">
+        {{translations.trips}}
+      </router-link>
+      &gt;
       <router-link :to="tripLink">
         {{trip.name}}
       </router-link>
@@ -28,6 +32,9 @@
     computed: {
       tripLink() {
         return '/trips/' + this.trip.id;
+      },
+      translations() {
+        return this.$store.getters.getTranslations.trips;
       }
     },
     created() {

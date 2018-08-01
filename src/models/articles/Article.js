@@ -9,5 +9,4 @@ module.exports = function() {
     time: ''
   };
   this.published = false;
-  this.writers = [];
 };

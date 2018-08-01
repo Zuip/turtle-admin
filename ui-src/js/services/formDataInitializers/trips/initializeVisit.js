@@ -4,7 +4,8 @@ export default function() {
   return Object.assign({}, {
     city: getCity(),
     start: getStart(),
-    end: getEnd()
+    end: getEnd(),
+    users: getUsers()
   });
 };
 
@@ -24,4 +25,12 @@ function getStart() {
 function getEnd() {
   let end = getDefaultField();
   return end;
+}
+
+function getUsers() {
+  let users = getDefaultField();
+  users.mandatory = true;
+  users.value = [];
+  users.users = [];
+  return users;
 }

@@ -24,7 +24,7 @@
 <script>
 
   import DateInput from '../layout/forms/DateInput.vue';
-  import SelectInput from '../layout/forms/SelectInput/SelectInput.vue';
+  import SelectInput from '../layout/forms/SelectInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
 
   export default {

@@ -29,7 +29,7 @@ module.exports = function(req, res) {
       console.log(error);
       return res.status(500).json({
         success: false,
-        message: "There was an error in selecting city visits from database" + error
+        message: "There was an error in selecting city visits from database"
       });
     });
   }).catch(error => {

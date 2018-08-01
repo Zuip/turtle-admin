@@ -12,18 +12,23 @@
     <MultipleFieldDate v-model="value.end"
                        :title="translations.visitEnd" />
 
+    <UserSelectInput v-model="value.users"
+                     :title="translations.users" />
+
   </div>
 </template>
 
 <script>
 
   import MultipleFieldDate from '../../layout/forms/MultipleFieldDate.vue';
-  import SelectInput from '../../layout/forms/SelectInput/SelectInput.vue';
+  import SelectInput from '../../layout/forms/SelectInput.vue';
+  import UserSelectInput from '../../layout/forms/UserSelectInput.vue';
 
   export default {
     components: {
       MultipleFieldDate,
-      SelectInput
+      SelectInput,
+      UserSelectInput
     },
     computed: {
       translations() {

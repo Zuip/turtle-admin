@@ -11,7 +11,7 @@
 
 <script>
 
-  import SelectOption from './SelectOption.vue';
+  import SelectOption from './src/selectInput/SelectOption.vue';
 
   export default {
     components: {

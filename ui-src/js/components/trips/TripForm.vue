@@ -7,7 +7,7 @@
                                class="trip-language-versions-input"/>
 
     <UserSelectInput v-model="value.users"
-                     :title="translations.trips.users" /> 
+                     :title="translations.trips.users" />
   </div>
 </template>
 

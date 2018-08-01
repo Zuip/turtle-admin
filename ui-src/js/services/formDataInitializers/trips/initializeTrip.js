@@ -12,13 +12,6 @@ export default function() {
 
 function getUsers() {
   let users = getDefaultField();
-  users.mandatory = true;
-  users.value = [];
-  return users;
-}
-
-function getUsers() {
-  let users = getDefaultField();
   users.value = [];
   users.mandatory = true;
   users.users = [];

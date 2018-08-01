@@ -36,8 +36,8 @@ function getPublished() {
   published.value = 'no';
   published.mandatory = true;
   published.options = [
-    Object.assign({}, { value: 'no', translation: translations.get.no }),
-    Object.assign({}, { value: 'yes', translation: translations.get.yes })
+    Object.assign({}, { value: 'no', translation: translations.get.common.no }),
+    Object.assign({}, { value: 'yes', translation: translations.get.common.yes })
   ];
 
   return published;

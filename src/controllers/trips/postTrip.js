@@ -41,7 +41,7 @@ module.exports = function(req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: "Saving trip failed" + error
+      message: "Saving trip failed"
     });
   });
 };

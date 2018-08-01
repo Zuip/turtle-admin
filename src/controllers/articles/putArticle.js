@@ -21,10 +21,10 @@ module.exports = function(req, res) {
       article.visitId,
       language
     );
-  }).then(function(articleData) {
+  }).then(articleData => {
     article.id = articleData.id;
     article.languageId = articleData.language_id;
-  }).catch(function() {
+  }).catch(() => {
     return res.status(404).json({
       success: false,
       message: "Article was not found"

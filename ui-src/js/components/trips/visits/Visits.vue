@@ -1,7 +1,18 @@
 <template>
   <div>
-    <h3>{{trip.name}} &gt; {{translations.visits}}</h3>
-    <VisitsList :visits="visits" />
+    <h3>
+      <router-link :to="'/trips'">
+        {{translations.trips}}
+      </router-link>
+      &gt;
+      {{trip.name}}
+      &gt;
+      {{translations.visits.visits}}
+    </h3>
+    <VisitsList :visits="visits" v-if="visits.length" />
+    <div v-if="!visits.length" class="no-visits-exists">
+      {{translations.visits.noVisitsExists}}
+    </div>
     <NewVisitButton />
   </div>
 </template>
@@ -20,7 +31,7 @@
     },
     computed: {
       translations() {
-        return this.$store.getters.getTranslations.trips.visits;
+        return this.$store.getters.getTranslations.trips;
       }
     },
     created() {
@@ -67,3 +78,9 @@
     props: ['openLayover']
   };
 </script>
+
+<style>
+  .no-visits-exists {
+    margin-bottom: 10px;
+  }
+</style>

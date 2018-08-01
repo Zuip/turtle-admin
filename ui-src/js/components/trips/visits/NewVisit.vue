@@ -30,6 +30,7 @@
   import citiesObjectToOptionsFormat from '../../../services/countries/citiesObjectToOptionsFormat';
   import ClosePopupButton from '../../overlay/ClosePopupButton.vue';
   import getCities from '../../../apiCalls/countries/getCities';
+  import getTripUsers from '../../../apiCalls/trips/getTripUsers';
   import initializeVisit from '../../../services/formDataInitializers/trips/initializeVisit';
   import postTripCityVisit from '../../../apiCalls/trips/postTripCityVisit';
   import SavingSucceeded from '../../overlay/SavingSucceeded.vue';
@@ -51,6 +52,7 @@
     },
     created() {
       this.loadCities();
+      this.loadUsers();
     },
     data() {
       return {
@@ -71,13 +73,28 @@
           console.log(error);
         });
       },
+      loadUsers() {
+
+        let contentLoadingName = 'loadTripUsersToUserSelect';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        getTripUsers(
+          this.$route.params.tripId
+        ).then(data => {
+          this.fields.users.users = data;
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
+      },
       save() {
         postTripCityVisit(
           this.$route.params.tripId,
           {
             cityId: this.fields.city.value,
             start: this.fields.start.value,
-            end: this.fields.end.value
+            end: this.fields.end.value,
+            users: this.fields.users.value
           }
         ).then(data => {
           this.saved = true;

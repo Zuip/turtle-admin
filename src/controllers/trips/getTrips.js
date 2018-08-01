@@ -27,7 +27,7 @@ module.exports = function(req, res) {
     console.log(error);
     return res.status(500).json({
       success: false,
-      message: "There was an error in selecting trips from database" + error
+      message: "There was an error in selecting trips from database"
     });
   });
 };

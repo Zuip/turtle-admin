@@ -22,7 +22,8 @@ module.exports = function(req, res) {
       req.params.tripId,
       req.body.cityId,
       req.body.start,
-      req.body.end
+      req.body.end,
+      req.body.users
     ).then(data => {
       return res.json({
         success: true
