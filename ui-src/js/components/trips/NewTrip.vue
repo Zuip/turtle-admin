@@ -46,7 +46,7 @@
     },
     data() {
       return {
-        closeToAddress: '/',
+        closeToAddress: '/trips',
         fields: initializeTrip(),
         saved: false
       }

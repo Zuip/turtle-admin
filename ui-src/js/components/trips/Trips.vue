@@ -23,7 +23,12 @@
       }
     },
     created() {
+      
       this.updateTripList();
+
+      if(typeof this.openLayover !== 'undefined') {
+        this.openLayover(this.updateTripList);
+      }
     },
     data() {
       return {
@@ -42,6 +47,7 @@
           console.log(error);
         });
       }
-    }
+    },
+    props: ['openLayover']
   };
 </script>

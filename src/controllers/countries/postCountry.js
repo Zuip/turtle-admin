@@ -1,5 +1,5 @@
 let insertCountry = require('../../database/countries/insertCountry');
-let user = require('../../services/permissions/userIsAllowedTo');
+let user = require('../../services/permissions/getUserPermissionTo');
 
 module.exports = function(req, res) {
 

@@ -23,6 +23,7 @@ let translations = {
   },
   countries: {
     countries: "Maat",
+    countriesAndCities: "Maat ja kaupungit",
     newCity: "Uusi kaupunki",
     newCountry: "Uusi maa"
   },
@@ -53,6 +54,12 @@ let translations = {
       visitEnd: "Vierailun viimeinen päivä",
       visitStart: "Vierailun ensimmäinen päivä"
     }
+  },
+  user: {
+    userInformation: 'Omat tiedot'
+  },
+  users: {
+    users: "Käyttäjät"
   }
 };
 

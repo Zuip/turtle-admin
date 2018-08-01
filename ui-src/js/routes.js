@@ -1,8 +1,10 @@
+import Countries from './components/countries/Countries.vue';
 import CreateTripRouteWrapper from './components/trips/routeWrappers/CreateTrip.vue';
 import CreateVisitArticleRouteWrapper from './components/trips/routeWrappers/CreateVisitArticle.vue';
 import CreateVisitRouteWrapper from './components/trips/routeWrappers/CreateVisit.vue';
 import EditVisitArticleRouteWrapper from './components/trips/routeWrappers/EditVisitArticle.vue';
-import Index from './components/Index.vue';
+import Frontpage from './components/frontpage/Frontpage.vue';
+import Trips from './components/trips/Trips.vue';
 import Visit from './components/trips/visits/visit/Visit.vue';
 import Visits from './components/trips/visits/Visits.vue';
 
@@ -11,8 +13,13 @@ let routes = {
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
+      name: 'Frontpage',
+      component: Frontpage
+    },
+    {
+      path: '/countries',
+      name: 'Countries',
+      component: Countries
     },
     {
       path: '/visits/:visitId/articles/new',
@@ -30,19 +37,24 @@ let routes = {
       component: CreateTripRouteWrapper
     },
     {
-      path: '/trips/:tripId',
-      name: 'Trip page',
-      component: Visits
-    },
-    {
       path: '/trips/:tripId/visits/new',
       name: 'New visit',
       component: CreateVisitRouteWrapper
     },
     {
+      path: '/trips',
+      name: 'Trips',
+      component: Trips
+    },
+    {
       path: '/visits/:visitId',
       name: 'Visit page',
       component: Visit
+    },
+    {
+      path: '/trips/:tripId',
+      name: 'Trip page',
+      component: Visits
     }
   ]
 };
