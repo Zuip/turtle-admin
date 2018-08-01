@@ -5,6 +5,7 @@ import CreateVisitRouteWrapper from './components/trips/routeWrappers/CreateVisi
 import EditVisitArticleRouteWrapper from './components/trips/routeWrappers/EditVisitArticle.vue';
 import Frontpage from './components/frontpage/Frontpage.vue';
 import Trips from './components/trips/Trips.vue';
+import Users from './components/users/Users.vue';
 import Visit from './components/trips/visits/visit/Visit.vue';
 import Visits from './components/trips/visits/Visits.vue';
 
@@ -45,6 +46,11 @@ let routes = {
       path: '/trips',
       name: 'Trips',
       component: Trips
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
     },
     {
       path: '/visits/:visitId',
