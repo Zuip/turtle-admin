@@ -5,8 +5,7 @@ export default function() {
     summary: getDefaultField(),
     text: getText(),
     publish: getPublish(),
-    published: getPublished(),
-    writers: getWriters()
+    published: getPublished()
   });
 };
 
@@ -42,12 +41,4 @@ function getPublished() {
   ];
 
   return published;
-}
-
-function getWriters() {
-  let writers = getDefaultField();
-  writers.value = [];
-  writers.mandatory = true;
-  writers.users = [];
-  return writers;
 }

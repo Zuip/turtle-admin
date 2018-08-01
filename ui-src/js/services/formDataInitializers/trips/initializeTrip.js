@@ -16,3 +16,11 @@ function getUsers() {
   users.value = [];
   return users;
 }
+
+function getUsers() {
+  let users = getDefaultField();
+  users.value = [];
+  users.mandatory = true;
+  users.users = [];
+  return users;
+}

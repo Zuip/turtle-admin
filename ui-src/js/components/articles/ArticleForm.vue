@@ -12,9 +12,6 @@
                    :field="'text'"
                    @selectImage="selectImage" />
 
-    <UserSelectInput v-model="value.writers"
-                     :title="translations.articles.writers" />
-
     <DateInput v-model="value.publish"
                :title="translations.articles.publishDate" />
 
@@ -29,14 +26,12 @@
   import DateInput from '../layout/forms/DateInput.vue';
   import SelectInput from '../layout/forms/SelectInput/SelectInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
-  import UserSelectInput from '../layout/forms/UserSelectInput.vue';
 
   export default {
     components: {
       DateInput,
       SelectInput,
-      TextareaInput,
-      UserSelectInput
+      TextareaInput
     },
     computed: {
       translations() {

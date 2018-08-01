@@ -9,7 +9,6 @@
 <script>
 
   import EditArticleSkeleton from './EditArticleSkeleton.vue';
-  import getUsers from '../../apiCalls/users/getUsers';
   import postArticle from '../../apiCalls/articles/postArticle';
   import initializeArticle from '../../services/articles/initializeArticle';
 
@@ -28,22 +27,7 @@
         return this.$store.getters.getTranslations;
       }
     },
-    created: function() {
-      this.loadUsers();
-    },
     methods: {
-      loadUsers() {
-
-        let contentLoadingName = 'loadUsersToUserSelect';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getUsers().then(data => {
-          this.fields.writers.users = data;
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
-      },
       save() {
         postArticle(
           this.$route.params.visitId,
@@ -52,8 +36,7 @@
             summary: this.fields.summary.value,
             text: this.fields.text.value,
             publish: this.fields.publish.value,
-            published: this.fields.published.value,
-            writers: this.fields.writers.value
+            published: this.fields.published.value
           }
         ).then(data => {
 

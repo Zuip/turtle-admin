@@ -9,7 +9,6 @@
 <script>
 
   import EditArticleSkeleton from './EditArticleSkeleton.vue';
-  import getUsers from '../../apiCalls/users/getUsers';
   import initializeArticle from '../../services/articles/initializeArticle';
   import putArticle from '../../apiCalls/articles/putArticle';
 
@@ -28,29 +27,15 @@
         return this.$store.getters.getTranslations;
       }
     },
-    created: function() {
-      this.loadUsers();
+    created() {
       this.initializeArticle();
     },
     methods: {
-      loadUsers() {
-
-        let contentLoadingName = 'loadUsersToUserSelect';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getUsers().then(data => {
-          this.fields.writers.users = data;
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
-      },
       initializeArticle: function() {
         this.fields.summary.value = this.article.summary;
         this.fields.text.value = this.article.text;
         this.fields.publish.value = this.article.publish;
         this.fields.published.value = this.article.published ? 'yes' : 'no';
-        this.fields.writers.value = this.article.writers;
       },
       save: function() {
         putArticle(
@@ -60,8 +45,7 @@
             summary: this.fields.summary.value,
             text: this.fields.text.value,
             publish: this.fields.publish.value,
-            published: this.fields.published.value,
-            writers: this.fields.writers.value
+            published: this.fields.published.value
           }
         ).then(data => {
 

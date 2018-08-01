@@ -28,6 +28,7 @@
 <script>
 
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
+  import getUsers from '../../apiCalls/users/getUsers';
   import initializeTrip from '../../services/formDataInitializers/trips/initializeTrip';
   import postTrip from '../../apiCalls/trips/postTrip';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
@@ -44,6 +45,9 @@
         return this.$store.getters.getTranslations;
       }
     },
+    created() {
+      this.loadUsers();
+    },
     data() {
       return {
         closeToAddress: '/trips',
@@ -52,6 +56,18 @@
       }
     },
     methods: {
+      loadUsers() {
+
+        let contentLoadingName = 'loadUsersToUserSelect';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        getUsers().then(data => {
+          this.fields.users.users = data;
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+        }).catch(error => {
+          console.log(error);
+        });
+      },
       save() {
         postTrip(
           {
@@ -59,7 +75,8 @@
               name: languageVersion.name.value,
               urlName: languageVersion.urlName.value,
               language: languageVersion.language.value
-            }))
+            })),
+            users: this.fields.users.value
           }
         ).then(() => {
           this.saved = true;

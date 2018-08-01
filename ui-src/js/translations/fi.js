@@ -53,6 +53,7 @@ let translations = {
     newTrip: "Uusi matka",
     noTripsExists: "Et ole vielä lisännyt yhtään matkaa",
     trips: "Matkat",
+    users: "Matkalla mukana olleet",
     visits: {
       city: "Kaupunki",
       newVisit: "Lisää vierailtu kaupunki",

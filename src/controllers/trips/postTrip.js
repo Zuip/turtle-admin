@@ -1,5 +1,5 @@
 let insertTrip = require('../../database/trips/insertTrip');
-let insertTripUser = require('../../database/trips/insertTripUser');
+let insertTripUsers = require('../../database/trips/insertTripUsers');
 let selectLanguages = require('../../database/selectLanguages');
 let selectTrip = require('../../database/trips/selectTrip');
 let validUrlName = require('../../services/validators/urlName');
@@ -28,9 +28,9 @@ module.exports = function(req, res) {
     return insertTrip(
       tripLanguageVersionsWithLanguageId
     ).then(tripId => {
-      return insertTripUser(
+      return insertTripUsers(
         tripId,
-        req.session.user.id
+        req.body.users
       );
     }).then(() => {
       return res.json({
