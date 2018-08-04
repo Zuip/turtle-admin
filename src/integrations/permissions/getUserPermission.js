@@ -8,16 +8,6 @@ module.exports = {
       '/api/users/' + userId + '/permissions'
       + '?target=' + target
       + '&action=' + action
-    ).then(response => {
-
-      if(response.status === 404) {
-        return Promise.reject(404);
-      }
-
-      return response;
-      
-    }).then(
-      response => response.json()
     );
   }
 };

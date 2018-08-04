@@ -6,8 +6,6 @@ module.exports = {
   all() {
     return get(
       '/api/users'
-    ).then(
-      data => data.json()
     );
   },
   withUserIds(userIds) {
@@ -18,8 +16,6 @@ module.exports = {
 
     return get(
       '/api/users?ids=' + userIds.join(',')
-    ).then(
-      data => data.json()
     );
   }
 };

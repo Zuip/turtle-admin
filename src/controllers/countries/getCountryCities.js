@@ -1,41 +1,16 @@
-let CityDataNaming = require('../../services/dataNaming/cities/City');
-let selectCities = require('../../database/countries/selectCities');
-let selectCountry = require('../../database/countries/selectCountry');
+let getCities = require('../../integrations/cities/getCities');
 
 module.exports = function(req, res) {
-
-  let language = req.query.language;
-  if(typeof language === 'undefined') {
-    return res.status(404).json({
-      success: false,
-      message: "Missing mandatory get parameter: language"
-    });
-  }
-
-  selectCountry.withIdAndLanguage(req.params.countryId, language).then(data => {
-    selectCities.withCountryIdAndLanguage(
-      req.params.countryId,
-      language
-    ).then(cities => {
-      return cities.map(city => {
-        let cityDataNaming = new CityDataNaming();
-        cityDataNaming.DBNamed = city;
-        cityDataNaming.transformDBToAPINamed();
-        return cityDataNaming.APINamed;
-      });
-    }).then(cities => {
-      res.json(cities);
-    }).catch(error => {
-      console.log(error);
-      return res.status(500).json({
-        success: false,
-        message: "There was an error in selecting cities from database"
-      });
-    });
-  }).catch(error => {
-    return res.status(404).json({
-      success: false,
-      message: "The country does not exist!"
-    });
-  });
+  getCities.withCountryIdAndLanguage(
+    req.params.countryId,
+    req.query.language
+  ).then(
+    response => res.json(response)
+  ).catch(
+    response => res.status(
+      response.status
+    ).json(
+      response.message
+    )
+  );
 };

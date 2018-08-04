@@ -2,10 +2,16 @@ let fetch = require('node-fetch');
 let handleStatus = require('./handleStatus');
 
 module.exports = function(root) {
-  return function(path) {
+  return function(path, data) {
     return fetch(
       root + path,
-      { method: 'GET' }
+      {
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      }
     ).then(
       response => handleStatus(response)
     ).then(

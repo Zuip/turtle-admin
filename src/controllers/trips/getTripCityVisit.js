@@ -1,20 +1,30 @@
+let getCity = require('../../integrations/cities/getCity');
 let selectArticleLanguageVersions = require('../../database/articles/selectArticleLanguageVersions');
 let selectCityVisit = require('../../database/trips/selectCityVisit');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
+let validateLanguage = require('../../services/routing/validateLanguage');
 let VisitDataNaming = require('../../services/dataNaming/trips/Visit');
 
 module.exports = function(req, res) {
 
-  let language = req.query.language;
-  if(typeof language === 'undefined') {
-    return res.status(404).json({
-      success: false,
-      message: "Missing mandatory get parameter: language"
-    });
-  }
+  let sendFailure = sendFailureToRes(res);
 
-  selectCityVisit.withIdAndLanguage(
-    req.params.visitId,
-    language
+  Promise.resolve().then(
+    () => validateLanguage(
+      req.query.language
+    ).catch(
+      () => sendFailure(
+        404,
+        'Missing mandatory get parameter: language'
+      )
+    )
+  ).then(
+    () => selectCityVisit.withIdAndLanguage(
+      req.params.visitId,
+      req.query.language
+    ).catch(
+      () => sendFailure(404, "The visit does not exist!")
+    )
   ).then(visit => {
     let visitDataNaming = new VisitDataNaming();
     visitDataNaming.DBNamed = visit;
@@ -36,14 +46,27 @@ module.exports = function(req, res) {
       });
 
       return visit;
-    });
+    }).catch(
+      () => sendFailure(
+        500,
+        "There was an error in selecting articles from database!"
+      )
+    );
+  }).then(visit => {
+
+    return getCity.withIdAndLanguage(
+      visit.city.id,
+      req.query.language
+    ).then(city => {
+      visit.city.name = city.name;
+      return visit;
+    }).catch(
+      error => sendFailure(error.status, error.message)
+    );
 
   }).then(visit => {
     res.json(visit);
   }).catch(() => {
-    return res.status(404).json({
-      success: false,
-      message: "The visit does not exist!"
-    });
+    // Promise chain ended
   });
 };

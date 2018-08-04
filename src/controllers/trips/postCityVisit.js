@@ -1,39 +1,45 @@
 let insertCityVisit = require('../../database/trips/insertCityVisit');
-let selectCity = require('../../database/countries/selectCity');
+let getCity = require('../../integrations/cities/getCity');
 let selectTrip = require('../../database/trips/selectTrip');
 
 module.exports = function(req, res) {
 
   Promise.all([
-    selectCity.withId(req.body.cityId).catch(error => {
-      return res.status(404).json({
-        success: false,
-        message: "The city does not exist!"
-      });
+    getCity.withId(
+      req.body.cityId
+    ).catch((error) => {
+      res.status(error.status).json(error.message);
+      return Promise.reject();
     }),
     selectTrip.withId(req.params.tripId).catch(error => {
-      return res.status(404).json({
+
+      res.status(404).json({
         success: false,
         message: "The trip does not exist!"
       });
+
+      return Promise.reject();
     })
   ]).then(data => {
+
     return insertCityVisit(
       req.params.tripId,
       req.body.cityId,
       req.body.start,
       req.body.end,
       req.body.users
-    ).then(data => {
-      return res.json({
-        success: true
+    ).catch(() => {
+
+      return res.status(500).json({
+        success: false,
+        message: "Saving city failed"
       });
+
+      return Promise.reject();
     });
-  }).catch(error => {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Saving city failed"
-    });
+  }).then(
+    () => res.json({ success: true })
+  ).catch(() => {
+    // Promise chain ended
   });
 };

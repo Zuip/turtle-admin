@@ -2,9 +2,9 @@
   <div class="popup-grid-container">
     <div class="popup-grid" v-if="!saved">
 
-      <TripForm class="popup-grid-content"
-                v-model="fields"
-                :topic="translations.trips.newTrip" />
+      <CountryForm class="popup-grid-content"
+                   v-model="fields"
+                   :topic="translations.countries.newCountry" />
 
       <div class="popup-grid-footer">
 
@@ -19,7 +19,7 @@
 
     <SavingSucceeded v-if="saved"
                      :closeToAddress="closeToAddress"
-                     :topic="translations.trips.newTrip" />
+                     :topic="translations.countries.newCountry" />
 
   </div>
 </template>
@@ -27,55 +27,38 @@
 <script>
 
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import getUsers from '../../apiCalls/users/getUsers';
-  import initializeTrip from '../../services/formDataInitializers/trips/initializeTrip';
-  import postTrip from '../../apiCalls/trips/postTrip';
+  import CountryForm from './CountryForm.vue';
+  import initializeCountry from '../../services/formDataInitializers/cities/initializeCountry';
+  import postCountry from '../../apiCalls/countries/postCountry';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
-  import TripForm from './TripForm.vue';
 
   export default {
     components: {
       ClosePopupButton,
-      SavingSucceeded,
-      TripForm
+      CountryForm,
+      SavingSucceeded
     },
     computed: {
       translations() {
         return this.$store.getters.getTranslations;
       }
     },
-    created() {
-      this.loadUsers();
-    },
     data() {
       return {
-        closeToAddress: '/trips',
-        fields: initializeTrip(),
+        closeToAddress: '/countries',
+        fields: initializeCountry(),
         saved: false
       }
     },
     methods: {
-      loadUsers() {
-
-        let contentLoadingName = 'loadUsersToUserSelect';
-        this.$store.dispatch('startContentLoading', contentLoadingName);
-
-        getUsers().then(data => {
-          this.fields.users.users = data;
-          this.$store.dispatch('endContentLoading', contentLoadingName);
-        }).catch(error => {
-          console.log(error);
-        });
-      },
       save() {
-        postTrip(
+        postCountry(
           {
             languageVersions: this.fields.languageVersions.map(languageVersion => ({
               name: languageVersion.name.value,
               urlName: languageVersion.urlName.value,
               language: languageVersion.language.value
-            })),
-            users: this.fields.users.value
+            }))
           }
         ).then(() => {
           this.saved = true;

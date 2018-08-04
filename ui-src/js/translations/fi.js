@@ -26,10 +26,14 @@ let translations = {
     yes: "Kyllä"
   },
   countries: {
+    cities: "Kaupungit",
     countries: "Maat",
     countriesAndCities: "Maat ja kaupungit",
     newCity: "Uusi kaupunki",
     newCountry: "Uusi maa"
+  },
+  forms: {
+    lastLanguageVersionCannotBeRemoved: "Kieliversioita on oltava vähintään yksi",
   },
   header: {
     admin: "Asetukset",
@@ -44,12 +48,14 @@ let translations = {
     selectImage: "Valitse kuva",
     rootFolder: "Juurikansio"
   },
+  overlay: {
+    closeConfirmation: "Oletko varma, että haluat sulkea ikkunan?"
+  },
   login: {
     loginFromHere: "Kirjaudu sisään tästä",
     youAreNotLoggedIn: "Et ole kirjautuneena järjestelmään"
   },
   trips: {
-    lastLanguageVersionCannotBeRemoved: "Matkalla on oltava ainakin yksi kieliversio",
     newTrip: "Uusi matka",
     noTripsExists: "Et ole vielä lisännyt yhtään matkaa",
     trips: "Matkat",

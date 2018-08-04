@@ -5,10 +5,7 @@
       <p>{{translations.common.savingSucceeded}}</p>
     </div>
     <div class="popup-grid-footer">
-
-      <ClosePopupButton :text="translations.common.close"
-                        :closeToAddress="closeToAddress" />
-                        
+      <ClosePopupButton :closeToAddress="closeToAddress" />
     </div>
   </div>
 </template>

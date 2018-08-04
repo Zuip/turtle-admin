@@ -5,10 +5,10 @@
               v-model="value.language.value"
               v-on:change="emitChanges()">
 
-        <option v-for="languageVersion in availableLanguageVersions"
-                :value="languageVersion.code"
-                :key="'languageVersion_' + languageVersion.code">
-          {{languageVersion.code}}
+        <option v-for="language in availableLanguages"
+                :value="language.code"
+                :key="'language_' + language.code">
+          {{language.code}}
         </option>
 
       </select>
@@ -27,7 +27,7 @@
            v-on:change="emitChanges()" />
     <div class="input-group-append">
       <button class="btn btn-danger"
-              v-on:click="$emit('removeTripLanguageVersion')">
+              v-on:click="$emit('removeLanguageVersion')">
 
         <i class="fas fa-trash-alt"></i>
       
@@ -39,14 +39,14 @@
 <script>
   export default {
     computed: {
-      availableLanguageVersions() {
-        return this.languageVersions.filter(languageVersion => {
+      availableLanguages() {
+        return this.languages.filter(language => {
 
-          if(languageVersion.code === this.value.language.value) {
+          if(language.code === this.value.language.value) {
             return true;
           }
 
-          if(this.reservedLanguages.includes(languageVersion.code)) {
+          if(this.reservedLanguages.includes(language.code)) {
             return false;
           }
 
@@ -78,7 +78,7 @@
         this.$emit('input', this.value);
       }
     },
-    props: ['value', 'languageVersions', 'reservedLanguages']
+    props: ['value', 'languages', 'reservedLanguages']
   }
 </script>
 

@@ -1,26 +1,25 @@
 <template>
   <div>
     <p>{{translations.common.languageVersions}}</p>
-    <LanguageVersion v-for="(tripLanguageVersion, index) in value"
-                     v-on:input="updateTripLanguageVersion(index, $event)"
+    <LanguageVersion v-for="(languageVersion, index) in value"
+                     v-on:input="updateLanguageVersion(index, $event)"
                      class="language-version-input-row"
                      :key="'language_version_' + index"
-                     :value="tripLanguageVersion"
-                     :languageVersions="languageVersions"
+                     :value="languageVersion"
+                     :languages="languages"
                      :reservedLanguages="reservedLanguages"
-                     @removeTripLanguageVersion="removeTripLanguageVersion(index)" />
+                     @removeLanguageVersion="removeLanguageVersion(index)" />
     <Button :text="translations.common.newLanguageVersion"
             v-on:click="addNewLanguageVersion"
-            v-if="languageVersions.length !== reservedLanguages.length" />
+            v-if="languages.length !== reservedLanguages.length" />
   </div>
 </template>
 
 <script>
 
   import Button from '../buttons/PrimaryButton.vue';
-  import getLanguageVersions from '../../../apiCalls/getLanguageVersions';
-  import initializeTripLanguageVersion from '../../../services/formDataInitializers/trips/initializeTripLanguageVersion';
-  import LanguageVersion from './src/tripLanguageVersionsInput/LanguageVersion.vue';
+  import getLanguages from '../../../apiCalls/getLanguageVersions';
+  import LanguageVersion from './src/languageVersionsInput/LanguageVersion.vue';
 
   export default {
     components: {
@@ -30,7 +29,7 @@
     computed: {
       reservedLanguages() {
         return this.value.map(
-          tripLanguageVersion => tripLanguageVersion.language.value
+          languageVersion => languageVersion.language.value
         );
       },
       translations() {
@@ -42,31 +41,31 @@
     },
     data() {
       return {
-        languageVersions: []
+        languages: []
       }
     },
     methods: {
       addNewLanguageVersion() {
         
-        let tripLanguageVersion = initializeTripLanguageVersion();
+        let languageVersion = this.initializeLanguageVersion();
 
-        tripLanguageVersion.language.value = this.languageVersions.filter(
+        languageVersion.language.value = this.languages.filter(
           languageVersion => !this.reservedLanguages.includes(languageVersion.code)
         )[0].code;
 
-        this.value.push(tripLanguageVersion);
+        this.value.push(languageVersion);
         this.$emit('input', this.value);
       },
       loadLanguageVersions() {
 
         this.$store.dispatch('startContentLoading', 'loadLanguageVersions');
 
-        getLanguageVersions().then(languageVersions => {
+        getLanguages().then(languages => {
 
-          this.languageVersions = languageVersions;
+          this.languages = languages;
 
           if(this.value[0].language.value === "") {
-            this.value[0].language.value = languageVersions[0].code;
+            this.value[0].language.value = languages[0].code;
             this.$emit('input', this.value);
           }
 
@@ -76,24 +75,24 @@
           console.log(error);
         });
       },
-      removeTripLanguageVersion(indexToRemove) {
+      removeLanguageVersion(indexToRemove) {
 
         if(this.reservedLanguages.length === 1) {
-          alert(this.translations.trips.lastLanguageVersionCannotBeRemoved);
+          alert(this.translations.forms.lastLanguageVersionCannotBeRemoved);
           return;
         }
 
         let newValue = this.value.filter(
-          (tripLanguageVersion, index) => index !== indexToRemove
+          (languageVersion, index) => index !== indexToRemove
         );
         this.$emit('input', newValue);
       },
-      updateTripLanguageVersion(index, newTripLanguageVersionValue) {
-        this.value[index] = newTripLanguageVersionValue;
+      updateLanguageVersion(index, newLanguageVersionValue) {
+        this.value[index] = newLanguageVersionValue;
         this.$emit('input', this.value);
       }
     },
-    props: ['value']
+    props: ['initializeLanguageVersion', 'value']
   }
 </script>
 

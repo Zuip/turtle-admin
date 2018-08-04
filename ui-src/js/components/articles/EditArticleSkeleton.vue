@@ -12,8 +12,7 @@
         <button type="button" class="btn btn-primary" v-on:click="preview">
           {{translations.common.preview}}
         </button>
-        <ClosePopupButton :text="translations.common.close"
-                          :closeToAddress="closeToAddress" />
+        <ClosePopupButton :closeToAddress="closeToAddress" :confirmClose="true" />
       </div>
     </div>
 

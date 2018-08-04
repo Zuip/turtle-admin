@@ -1,32 +1,15 @@
-let CountryDataNaming = require('../../services/dataNaming/cities/Country');
-let selectCountries = require('../../database/countries/selectCountries');
+let getCountries = require('../../integrations/cities/getCountries');
 
 module.exports = function(req, res) {
-
-  let language = req.query.language;
-  if(typeof language === 'undefined') {
-    return res.status(404).json({
-      success: false,
-      message: "Missing mandatory get parameter: language"
-    });
-  }
-
-  selectCountries.withLanguage(
-    language
-  ).then(countries => {
-    return countries.map(country => {
-      let countryDataNaming = new CountryDataNaming();
-      countryDataNaming.DBNamed = country;
-      countryDataNaming.transformDBToAPINamed();
-      return countryDataNaming.APINamed;
-    });
-  }).then(countries => {
-    res.json(countries);
-  }).catch(error => {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "There was an error in selecting countries from database"
-    });
-  });
+  return getCountries.withLanguage(
+    req.query.language
+  ).then(
+    response => res.json(response)
+  ).catch(
+    response => res.status(
+      response.status
+    ).json(
+      response.message
+    )
+  );
 };

@@ -12,8 +12,7 @@
           {{translations.common.save}}
         </button>
 
-        <ClosePopupButton :text="translations.common.close"
-                          :closeToAddress="closeToAddress" />
+        <ClosePopupButton :closeToAddress="closeToAddress" :confirmClose="true" />
 
       </div>
     </div>

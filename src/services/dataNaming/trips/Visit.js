@@ -1,5 +1,4 @@
 let ArticleDataNaming = require('../articles/Article');
-let CityDataNaming = require('../cities/City');
 let isEmptyObject = require('../../objectFunctionalities/isEmptyObject');
 let TripDataNaming = require('./Trip');
 
@@ -18,10 +17,6 @@ module.exports = function() {
     articleDataNaming.DBNamed = this.DBNamed;
     articleDataNaming.transformDBToAPINamed();
 
-    let cityDataNaming = new CityDataNaming();
-    cityDataNaming.DBNamed = this.DBNamed;
-    cityDataNaming.transformDBToAPINamed();
-
     let tripDataNaming = new TripDataNaming();
     tripDataNaming.DBNamed = this.DBNamed;
     tripDataNaming.transformDBToAPINamed();
@@ -29,7 +24,9 @@ module.exports = function() {
     this.APINamed = {
       id: this.DBNamed.city_visit_id,
       article: articleDataNaming.APINamed,
-      city: cityDataNaming.APINamed,
+      city: {
+        id: this.DBNamed.city_id
+      },
       trip: tripDataNaming.APINamed
     };
 

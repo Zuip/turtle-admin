@@ -6,8 +6,6 @@ module.exports = {
   withId(id) {
     return get(
       '/api/users/' + id
-    ).then(
-      response => response.json()
     );
   },
   withUsernameAndPassword(username, password) {
@@ -22,8 +20,6 @@ module.exports = {
 
       return response;
 
-    }).then(
-      response => response.json()
-    );
+    });
   }
 };

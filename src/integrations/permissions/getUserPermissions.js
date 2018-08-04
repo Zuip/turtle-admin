@@ -6,15 +6,11 @@ module.exports = {
   withUserId(userId) {
     return get(
       '/api/users/' + userId + '/permissions'
-    ).then(
-      response => response.json()
     );
   },
   withUserIdAndTarget(userId, target) {
     return get(
       '/api/users/' + userId + '/permissions?target=' + target
-    ).then(
-      response => response.json()
     );
   }
 };

@@ -3,6 +3,9 @@ module.exports = {
   basePath: '/',
   mainSiteDirectory: '',
   integrations: {
+    cities: {
+      url: ''
+    },
     users: {
       url: ''
     }
