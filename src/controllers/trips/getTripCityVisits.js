@@ -47,18 +47,38 @@ module.exports = function(req, res) {
       cityVisit => cityVisit.city.id
     );
 
+    if(cityIds.length === 0) {
+      return cityVisits;
+    }
+
     return getCities.withIdsAndLanguage(
       cityIds,
       req.query.language
     ).then(citiesByCountries => {
 
-      let cities = citiesByCountries[0].cities;
+      let cities = [];
+      for(let i in citiesByCountries) {
+        for(let j in citiesByCountries[i].cities) {
+          cities.push({
+            id: citiesByCountries[i].cities[j].id,
+            name: citiesByCountries[i].cities[j].name,
+            country: {
+              id: citiesByCountries[i].id,
+              name: citiesByCountries[i].name
+            }
+          });
+        }
+      };
 
       return cityVisits.map(cityVisit => {
         let city = cities.find(city => city.id === cityVisit.city.id);
         cityVisit.city.name = city.name;
+        cityVisit.city.country = {};
+        cityVisit.city.country.id = city.country.id;
+        cityVisit.city.country.name = city.country.name;
         return cityVisit;
       });
+
     }).catch(
       error => sendFailure(
         error.status,

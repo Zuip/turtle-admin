@@ -31,9 +31,7 @@
           content: CityNameCellContent,
           props: {
             id: visit.id,
-            city: {
-              name: visit.city.name
-            }
+            city: visit.city
           }
         };
       }
