@@ -1,5 +1,7 @@
-let insertCityVisit = require('../../database/trips/insertCityVisit');
+let createArrayFromYmdFormat = require('../../services/dates/createArrayFromYmdFormat');
 let getCity = require('../../integrations/cities/getCity');
+let getCityVisitFailedFields = require('../../services/failedFields/trips/cityVisit');
+let insertCityVisit = require('../../database/trips/insertCityVisit');
 let selectTrip = require('../../database/trips/selectTrip');
 
 module.exports = function(req, res) {
@@ -11,7 +13,9 @@ module.exports = function(req, res) {
       res.status(error.status).json(error.message);
       return Promise.reject();
     }),
-    selectTrip.withId(req.params.tripId).catch(error => {
+    selectTrip.withId(
+      req.params.tripId
+    ).catch(() => {
 
       res.status(404).json({
         success: false,
@@ -20,19 +24,42 @@ module.exports = function(req, res) {
 
       return Promise.reject();
     })
-  ]).then(data => {
+  ]).then(() => {
+
+    let startDate = createArrayFromYmdFormat(req.body.start, '-');
+    let endDate = createArrayFromYmdFormat(req.body.end, '-');
+
+    let fieldsToValidate = {
+      startDate,
+      endDate,
+      originalValues: {
+        start: req.body.start,
+        end: req.body.end
+      }
+    };
+
+    let failedFields = getCityVisitFailedFields(fieldsToValidate);
+    if(failedFields.length > 0) {
+
+      res.status(400).json({
+        success: false,
+        failedFields
+      });
+
+      return Promise.reject();
+    }
 
     return insertCityVisit(
       req.params.tripId,
       req.body.cityId,
-      req.body.start,
-      req.body.end,
+      startDate,
+      endDate,
       req.body.users
-    ).catch(() => {
+    ).catch(error => {
 
       return res.status(500).json({
         success: false,
-        message: "Saving city failed"
+        message: "Saving visit failed" + error
       });
 
       return Promise.reject();

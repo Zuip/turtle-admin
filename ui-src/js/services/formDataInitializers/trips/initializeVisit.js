@@ -18,12 +18,24 @@ function getCity() {
 }
 
 function getStart() {
-  let start = getDefaultField();
+
+  let start = Object.assign({}, {
+    year: getDefaultField(),
+    month: getDefaultField(),
+    day: getDefaultField()
+  });
+
   return start;
 }
 
 function getEnd() {
-  let end = getDefaultField();
+  
+  let end = Object.assign({}, {
+    year: getDefaultField(),
+    month: getDefaultField(),
+    day: getDefaultField()
+  });
+
   return end;
 }
 

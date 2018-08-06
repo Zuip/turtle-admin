@@ -87,19 +87,55 @@
         });
       },
       save() {
+
+        this.fields.start.year.failed = false;
+        this.fields.start.month.failed = false;
+        this.fields.start.day.failed = false;
+        this.fields.end.year.failed = false;
+        this.fields.end.month.failed = false;
+        this.fields.end.day.failed = false;
+
         postTripCityVisit(
           this.$route.params.tripId,
           {
             cityId: this.fields.city.value,
-            start: this.fields.start.value,
-            end: this.fields.end.value,
+            start: this.fields.start.year.value + '-' + this.fields.start.month.value + '-' + this.fields.start.day.value,
+            end: this.fields.end.year.value + '-' + this.fields.end.month.value + '-' + this.fields.end.day.value,
             users: this.fields.users.value
           }
         ).then(data => {
           this.saved = true;
-        }).catch(
-          error => console.log(error)
-        );
+        }).catch(error => {
+
+          if(typeof error.failedFields === 'undefined') {
+            console.log(error);
+            return;
+          }
+
+          if(error.failedFields.includes('startDateYear')) {
+            this.fields.start.year.failed = true;
+          }
+
+          if(error.failedFields.includes('startDateMonth')) {
+            this.fields.start.month.failed = true;
+          }
+
+          if(error.failedFields.includes('startDateDay')) {
+            this.fields.start.day.failed = true;
+          }
+
+          if(error.failedFields.includes('endDateYear')) {
+            this.fields.end.year.failed = true;
+          }
+
+          if(error.failedFields.includes('endDateMonth')) {
+            this.fields.end.month.failed = true;
+          }
+
+          if(error.failedFields.includes('endDateDay')) {
+            this.fields.end.day.failed = true;
+          }
+        });
       }
     }
   }

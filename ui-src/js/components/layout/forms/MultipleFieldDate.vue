@@ -1,28 +1,24 @@
 <template>
   <div class="jepa">
     <label>
-      <strong v-if="mandatory">*</strong>
       {{title}}:
     </label>
     <div class="input-group">
       <input type="text"
             class="form-control"
-            v-bind:class="{'failed': failed}"
+            v-bind:class="{'failed': dayFailed}"
             :placeholder="'day'"
-            v-model="day"
-            v-on:input="updateDate" />
+            v-model="value.day.value" />
       <input type="text"
             class="form-control"
-            v-bind:class="{'failed': failed}"
+            v-bind:class="{'failed': monthFailed}"
             :placeholder="'month'"
-            v-model="month"
-            v-on:input="updateDate" />
+            v-model="value.month.value" />
       <input type="text"
             class="form-control"
-            v-bind:class="{'failed': failed}"
+            v-bind:class="{'failed': yearFailed}"
             :placeholder="'year'"
-            v-model="year"
-            v-on:input="updateDate" />
+            v-model="value.year.value" />
     </div>
     <br />
   </div>
@@ -31,55 +27,31 @@
 <script>
   export default {
     computed: {
-      failed: function() {
+      yearFailed: function() {
 
-        if(typeof this.value.failed === 'undefined') {
+        if(typeof this.value.year.failed === 'undefined') {
           return false;
         }
 
-        return this.value.failed;
+        return this.value.year.failed;
       },
-      mandatory: function() {
+      monthFailed: function() {
 
-        if(typeof this.value.mandatory === 'undefined') {
+        if(typeof this.value.month.failed === 'undefined') {
           return false;
         }
 
-        return this.value.mandatory;
-      }
-    },
-    data() {
-      return {
-        day: '',
-        month: '',
-        year: ''
-      }
-    },
-    methods: {
-      getDatePart(index) {
+        return this.value.month.failed;
+      },
+      dayFailed: function() {
 
-        if(this.date === '') {
-          return '';
+        if(typeof this.value.day.failed === 'undefined') {
+          return false;
         }
 
-        let dateParts = this.getDateParts();
-        return dateParts[index];
-      },
-      getDateParts() {
-        return this.value.value.split('-');
-      },
-      updateDate() {
-        this.value.value = this.year + '-' + this.month + '-' + this.day;
-        this.$emit('input', this.value);
+        return this.value.day.failed;
       }
     },
     props: ['title', 'value'],
-    watch: {
-      'value': function() {
-        this.day = this.getDatePart(2);
-        this.month = this.getDatePart(1);
-        this.year = this.getDatePart(0);
-      }
-    }
   }
 </script>

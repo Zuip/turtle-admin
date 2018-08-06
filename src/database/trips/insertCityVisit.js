@@ -12,21 +12,26 @@ function createCityVisit(tripId, cityId, visitStart, visitEnd) {
       INSERT INTO city_visit (
         trip_id,
         city_id,
-        visit_start,
-        visit_end
+        visit_start_year,
+        visit_start_month,
+        visit_start_day,
+        visit_end_year,
+        visit_end_month,
+        visit_end_day
       ) VALUES (
-        $1,
-        $2,
-        $3,
-        $4
+        $1, $2, $3, $4, $5, $6, $7, $8
       )
       RETURNING city_visit.id AS id
     `,
     [
       tripId,
       cityId,
-      visitStart,
-      visitEnd
+      visitStart.year,
+      visitStart.month,
+      visitStart.day,
+      visitEnd.year,
+      visitEnd.month,
+      visitEnd.day
     ]
   );
 }
