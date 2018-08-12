@@ -52,7 +52,8 @@
           folderPathString += '/';
         }
 
-        return '/articles/images/'
+        return '/users/' + this.$store.getters.getUser.username.toLowerCase()
+               + '/images/'
                + folderPathString
                + this.imageName;
       },

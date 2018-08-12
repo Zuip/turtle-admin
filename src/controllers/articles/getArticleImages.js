@@ -2,9 +2,8 @@ let fs = require('fs');
 
 let config = require('../../../config');
 let getFolderPath = require('../../models/articles/getFolderPath');
+let getUserFolderPath = require('../../services/images/getUserFolderPath');
 let sendFailureToRes = require('../../services/routing/sendFailureToRes');
-
-let basePath = config.mainSiteDirectory + 'public/images/users/';
 
 function isDirectory(path, element) {
   return fs.statSync(path + '/' + element).isDirectory();
@@ -12,7 +11,9 @@ function isDirectory(path, element) {
 
 module.exports = function(req, res) {
 
-  let path = basePath + '/' + getFolderPath(req.query.path);
+  let path = getUserFolderPath(config, req.session.user)
+           + '/images/' + getFolderPath(req.query.path);
+  
   let sendFailure = sendFailureToRes(res);
 
   if(!fs.existsSync(path)) {
