@@ -15,16 +15,16 @@ module.exports = {
     }
 
     APINamedArticle = {
-      id: DBNamedArticle.id,
-      languageId: DBNamedArticle.language_id,
+      id: DBNamedArticle.article_id,
+      language: DBNamedArticle.article_language,
       languages: DBNamedArticle.languages,
-      summary: DBNamedArticle.summary,
-      text: DBNamedArticle.text,
+      summary: DBNamedArticle.article_summary,
+      text: DBNamedArticle.article_text,
       publish: {
         date: DBNamedArticle.date,
         time: DBNamedArticle.time
       },
-      published: DBNamedArticle.published
+      published: DBNamedArticle.article_is_published
     };
   }
 };

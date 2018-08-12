@@ -1,120 +1,71 @@
 let insertTrip = require('../../database/trips/insertTrip');
 let insertTripUsers = require('../../database/trips/insertTripUsers');
-let selectLanguages = require('../../database/selectLanguages');
 let selectTrip = require('../../database/trips/selectTrip');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 let validUrlName = require('../../services/validators/urlName');
 
 module.exports = function(req, res) {
 
+  let sendFailure = sendFailureToRes(res);
+
   let tripLanguageVersions = req.body.languageVersions;
 
-  tripLanguageVersions.map(tripLanguageVersion => {
-    if(!validTripName(tripLanguageVersion.name)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid trip name"
-      });
-    }
-  });
-
-  validateUrlNames(
-    tripLanguageVersions, res
+  Promise.resolve().then(
+    () => validateTripNames(tripLanguageVersions, sendFailure)
   ).then(
-    () => transformLanguageCodesToLanguageIds(
-      tripLanguageVersions,
-      res
-    )
-  ).then(tripLanguageVersionsWithLanguageId => {
-    return insertTrip(
-      tripLanguageVersionsWithLanguageId
+    () => validateUrlNames(tripLanguageVersions, sendFailure)
+  ).then(
+    () => insertTrip(
+      tripLanguageVersions
     ).then(tripId => {
       return insertTripUsers(
         tripId,
         req.body.users
       );
-    }).then(() => {
-      return res.json({
-        success: true
-      });
-    });
-  }).catch(error => {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Saving trip failed"
-    });
+    }).catch(
+      error => sendFailure(500, 'Saving trip failed' + error)
+    )
+  ).then(
+    () => res.json({ success: true })
+  ).catch(() => {
+    // Promise chain ended
   });
 };
 
-function validateUrlNames(tripLanguageVersions, res) {
-
-  tripLanguageVersions.map(tripLanguageVersion => {
-    if(!validUrlName(tripLanguageVersion.urlName)) {
-
-      res.status(400).json({
-        success: false,
-        message: "Invalid trip url name"
-      });
-
-      return Promise.resolve();
-    }
-  });
-
+function validateTripNames(tripLanguageVersions, sendFailure) {
   return Promise.all(
     tripLanguageVersions.map(tripLanguageVersion => {
-      return selectTrip.withUrlNameAndLanguage(
-        tripLanguageVersion.urlName,
-        tripLanguageVersion.language
-      ).then(() => {
-        return false;
-      }).catch(() => {
-        return true;
-      });
+      if(!validTripName(tripLanguageVersion.name)) {
+        return sendFailure(400, 'Invalid trip name');
+      }
     })
-  ).then(urlNameChecks => {
-    if(urlNameChecks.filter(validUrlName => !validUrlName).length > 0) {
-      return res.status(400).json({
-        success: false,
-        message: "URL name already in use"
-      });
-    }
-  });
+  );
 }
 
-function transformLanguageCodesToLanguageIds(tripLanguageVersions, res) {
-  
-  return selectLanguages.withCodes(
-    tripLanguageVersions.map(
-      tripLanguageVersion => tripLanguageVersion.language
-    )
-  ).then(languages => {
-    return tripLanguageVersions.map(tripLanguageVersion => {
-
-      for(i in languages) {
-        if(languages[i].code === tripLanguageVersion.language) {
-          tripLanguageVersion.languageId = languages[i].id;
-          delete tripLanguageVersion.language;
-          break;
-        }
+function validateUrlNames(tripLanguageVersions, sendFailure) {
+  return Promise.all(
+    tripLanguageVersions.map(tripLanguageVersion => {
+      if(!validUrlName(tripLanguageVersion.urlName)) {
+        return sendFailure(400, 'Invalid trip url name');
       }
-
-      return tripLanguageVersion;
-    });
-  }).then(tripLanguageVersions => {
-
-    for(i in tripLanguageVersions) {
-      if(typeof tripLanguageVersions[i].language !== 'undefined') {
-
-        res.status(400).json({
-          success: false,
-          message: "Invalid language code"
+    })
+  ).then(
+    () => Promise.all(
+      tripLanguageVersions.map(tripLanguageVersion => {
+        return selectTrip.withUrlNameAndLanguage(
+          tripLanguageVersion.urlName,
+          tripLanguageVersion.language
+        ).then(() => {
+          return false;
+        }).catch(() => {
+          return true;
         });
-
-        break;
-      }
+      })
+    )
+  ).then(urlNameChecks => {
+    if(urlNameChecks.filter(validUrlName => !validUrlName).length > 0) {
+      return sendFailure(400, 'URL name already in use');
     }
-
-    return tripLanguageVersions;
   });
 }
 

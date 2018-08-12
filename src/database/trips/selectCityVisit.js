@@ -22,9 +22,8 @@ module.exports = {
         FROM city_visit
         JOIN trip ON trip.id = city_visit.trip_id
         JOIN translated_trip ON translated_trip.trip_id = trip.id
-        JOIN language ON language.id = translated_trip.language_id
         WHERE city_visit.id = $1
-        AND language.code = $2
+        AND translated_trip.language = $2
       `,
       [ id, language ]
     );

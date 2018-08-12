@@ -1,7 +1,7 @@
 module.exports = function() {
   this.id = null;
-  this.languageId = null;
   this.visitId = null;
+  this.language = '';
   this.summary = '';
   this.text = '';
   this.publish = {

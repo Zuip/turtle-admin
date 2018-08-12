@@ -60,7 +60,7 @@
 
         this.$store.dispatch('startContentLoading', 'loadLanguageVersions');
 
-        getLanguages().then(languages => {
+        getLanguages('fi').then(languages => {
 
           this.languages = languages;
 

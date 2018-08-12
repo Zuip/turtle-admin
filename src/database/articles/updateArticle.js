@@ -31,13 +31,13 @@ function updateTranslatedArticle(article) {
           text = $2,
           published = $3
       WHERE translated_article.article_id = $5
-      AND translated_article.language_id = $4
+      AND translated_article.language = $4
     `,
     [
       article.summary,
       article.text,
       article.published,
-      article.languageId,
+      article.language,
       article.id
     ]
   );

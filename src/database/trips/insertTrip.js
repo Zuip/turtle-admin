@@ -8,7 +8,7 @@ module.exports = function(tripLanguageVersions) {
         trip.trip_id,
         tripLanguageVersion.name,
         tripLanguageVersion.urlName,
-        tripLanguageVersion.languageId
+        tripLanguageVersion.language
       );
     });
 
@@ -23,12 +23,12 @@ function insertTripBase() {
   `);
 }
 
-function insertTranslatedTrip(tripId, name, urlName, languageId) {
+function insertTranslatedTrip(tripId, name, urlName, language) {
   db.none(
     `
-      INSERT INTO translated_trip (trip_id, name, url_name, language_id)
+      INSERT INTO translated_trip (trip_id, name, url_name, language)
       VALUES ($1, $2, $3, $4)
     `,
-    [tripId, name, urlName, languageId]
+    [tripId, name, urlName, language]
   );
 }

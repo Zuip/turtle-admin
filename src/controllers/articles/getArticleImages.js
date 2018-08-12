@@ -1,8 +1,10 @@
 let fs = require('fs');
-let getFolderPath = require('../../models/articles/getFolderPath');
-let config = require('../../../config');
 
-let basePath = config.mainSiteDirectory + 'public/articles/images';
+let config = require('../../../config');
+let getFolderPath = require('../../models/articles/getFolderPath');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
+
+let basePath = config.mainSiteDirectory + 'public/images/users/';
 
 function isDirectory(path, element) {
   return fs.statSync(path + '/' + element).isDirectory();
@@ -11,9 +13,10 @@ function isDirectory(path, element) {
 module.exports = function(req, res) {
 
   let path = basePath + '/' + getFolderPath(req.query.path);
+  let sendFailure = sendFailureToRes(res);
 
   if(!fs.existsSync(path)) {
-    res.status(404).json({ success: false });
+    return sendFailure(404, 'No images in folder');
   }
 
   fs.readdir(path, function (err, elements) {
@@ -22,4 +25,4 @@ module.exports = function(req, res) {
       images: elements.filter(element => !isDirectory(path, element))
     });
   });
-}
+};

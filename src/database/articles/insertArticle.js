@@ -1,23 +1,19 @@
 let db = require('../connection');
-let selectLanguage = require('../selectLanguage');
 let getDateAsUTC = require('../../models/getDateAsUTC');
 
-module.exports = function(article, languageCode) {
-  return Promise.all([
-    insertArticleBase(article),
-    selectLanguage.withCode(languageCode)
-  ]).then(function(data) {
-    article.id = data[0].article_id;
-    return data[1];
-  }).then(language => {
-    return Promise.all([
-      insertTranslatedArticle(
-        article,
-        language.id
-      )
-    ]).then(() => {
-      return article.id;
-    });
+module.exports = function(article, language) {
+  return insertArticleBase(
+    article
+  ).then(articleId => {
+    
+    article.id = articleId;
+
+    return insertTranslatedArticle(
+      article,
+      language
+    ).then(
+      () => articleId
+    );
   });
 };
 
@@ -34,21 +30,23 @@ function insertArticleBase(article) {
       ) VALUES (
         $1::timestamp
       )
-      RETURNING id AS article_id
+      RETURNING id AS id
     `,
     [publishDateWithTime]
+  ).then(
+    data => data.id
   );
 }
 
-function insertTranslatedArticle(article, languageId) {
-  db.none(
+function insertTranslatedArticle(article, language) {
+  return db.none(
     `
       INSERT INTO translated_article (
         article_id,
         summary,
         text,
         published,
-        language_id
+        language
       ) VALUES (
         $1, $2, $3, $4, $5
       )
@@ -58,7 +56,7 @@ function insertTranslatedArticle(article, languageId) {
       article.summary,
       article.text,
       article.published,
-      languageId
+      language
     ]
   );
 }

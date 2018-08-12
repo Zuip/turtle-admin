@@ -1,12 +1,12 @@
 module.exports = {
   getSelectQuery: function() {
     return `
-      article.id AS id,
-      translated_article.summary AS summary,
-      translated_article.text AS text,
-      article.timestamp AS timestamp,
-      translated_article.published AS published,
-      translated_article.language_id AS language_id
+      article.id AS article_id,
+      translated_article.summary AS article_summary,
+      translated_article.text AS article_text,
+      article.timestamp AS article_timestamp,
+      translated_article.published AS article_is_published,
+      translated_article.language AS article_language
     `;
   }
 };

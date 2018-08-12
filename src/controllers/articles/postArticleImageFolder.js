@@ -1,9 +1,13 @@
 let fs = require('fs');
-let getFolderPath = require('../../models/articles/getFolderPath');
+
 let config = require('../../../config');
+let getFolderPath = require('../../models/articles/getFolderPath');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 
 module.exports = function(req, res) {
 
+  let sendFailure = sendFailureToRes(res);
+  
   let path = config.mainSiteDirectory + 'public/articles/images/' + getFolderPath(req.body.path.join('/'));
 
   if(!fs.existsSync(path)) {
@@ -11,5 +15,5 @@ module.exports = function(req, res) {
     return res.json({ success: true });
   }
 
-  res.status(409).json({ success: false });
+  sendFailure(409, { success: false } );
 };

@@ -1,33 +1,34 @@
 let selectTrips = require('../../database/trips/selectTrips');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 let TripDataNaming = require('../../services/dataNaming/trips/Trip');
+let validateLanguage = require('../../services/routing/validateLanguage');
 
 module.exports = function(req, res) {
 
-  let language = req.query.language;
-  if(typeof language === 'undefined') {
-    return res.status(404).json({
-      success: false,
-      message: "Missing mandatory get parameter: language"
-    });
-  }
+  let sendFailure = sendFailureToRes(res);
 
-  selectTrips.withUserIdAndLanguage(
-    req.session.user.id,
-    language
-  ).then(trips => {
-    return trips.map(trip => {
+  Promise.resolve().then(
+    () => validateLanguage(req.query.language, sendFailure)
+  ).then(() => {
+    return selectTrips.withUserIdAndLanguage(
+      req.session.user.id,
+      req.query.language
+    ).catch(
+      () => sendFailure(
+        500,
+        'There was an error in selecting trips from database'
+      )
+    );
+  }).then(
+    trips => trips.map(trip => {
       tripDataNaming = new TripDataNaming();
       tripDataNaming.DBNamed = trip;
       tripDataNaming.transformDBToAPINamed();
       return tripDataNaming.APINamed;
-    });
-  }).then(trips => {
+    })
+  ).then(trips => {
     res.json(trips);
-  }).catch(error => {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "There was an error in selecting trips from database"
-    });
+  }).catch(() => {
+    // Promise chain ended
   });
 };

@@ -18,9 +18,8 @@ module.exports = {
                translated_trip.name AS trip_name
         FROM trip
         JOIN translated_trip ON translated_trip.trip_id = trip.id
-        JOIN language ON language.id = translated_trip.language_id
         WHERE trip.id = $1
-        AND language.code = $2
+        AND translated_trip.language = $2
       `,
       [ id, language ]
     );
@@ -32,9 +31,8 @@ module.exports = {
                translated_trip.name AS trip_name
         FROM trip
         JOIN translated_trip ON translated_trip.trip_id = trip.id
-        JOIN language ON language.id = translated_trip.language_id
         WHERE translated_trip.url_name = $1
-        AND language.code = $2
+        AND translated_trip.language = $2
       `,
       [ urlName, language ]
     );

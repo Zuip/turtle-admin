@@ -1,9 +1,15 @@
-let selectLanguages = require('../database/selectLanguages');
+let getLanguages = require('../integrations/languages/getLanguages');
 
 module.exports = function(req, res) {
-  selectLanguages.all().then(function(languages) {
+  return getLanguages.translatedIn(
+    req.query.language
+  ).then(languages => {
     res.json(languages);
   }).catch(
-    error => error.log(error)
+    error => res.status(
+      error.status
+    ).json(
+      error.message
+    )
   );
 };

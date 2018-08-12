@@ -1,17 +1,21 @@
 let fs = require('fs');
-let getFolderPath = require('../../models/articles/getFolderPath');
+
 let config = require('../../../config');
+let getFolderPath = require('../../models/articles/getFolderPath');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 
 module.exports = function(req, res) {
+
+  let sendFailure = sendFailureToRes(res);
 
   let path = config.mainSiteDirectory + 'public/articles/images/' + getFolderPath(req.query.path);
 
   if(!req.files) {
-    return res.status(400).send('No files were uploaded.');
+    return sendFailure(400, 'No files were uploaded.');
   }
 
   if(!fs.existsSync(path)) {
-    res.status(404).json({ success: false });
+    return sendFailure(404, 'Folder does not exist');
   }
 
   let articleImage = req.files.articleImage;
@@ -19,7 +23,7 @@ module.exports = function(req, res) {
   articleImage.mv(path + '/' + articleImage.name, function(error) {
 
     if(error) {
-      return res.status(500).send(error);
+      return sendFailure(500, error);
     }
 
     return res.json({ success: true });

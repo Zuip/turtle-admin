@@ -1,16 +1,20 @@
 let getUsers = require('../../integrations/users/getUsers');
 let selectTripUsers = require('../../database/trips/selectTripUsers');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 
 module.exports = function(req, res) {
+
+  let sendFailure = sendFailureToRes(res);
+
   selectTripUsers.withTripId(
     req.params.tripId
-  ).then(tripUsers => {
-    return getUsers.withUserIds(
+  ).then(
+    tripUsers => getUsers.withUserIds(
       tripUsers.map(
         tripUser => tripUser.user_id
       )
-    );
-  }).then(tripUsers => {
+    )
+  ).then(tripUsers => {
 
     let users = [];
 
@@ -24,11 +28,7 @@ module.exports = function(req, res) {
 
     res.json(users);
 
-  }).catch(function(error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      error
-    });
-  });
+  }).catch(
+    () => sendFailure(500).json({})
+  );
 };

@@ -1,27 +1,28 @@
 let articleDataNaming = require('../../models/articles/articleDataNaming');
 let selectArticle = require('../../database/articles/selectArticle');
+let sendFailureToRes = require('../../services/routing/sendFailureToRes');
+let validateLanguage = require('../../services/routing/validateLanguage');
 
 module.exports = function(req, res) {
 
-  let language = req.query.language;
-  if(typeof language === 'undefined') {
-    return res.status(404).json({
-      success: false,
-      message: "Missing mandatory get parameter: language"
-    });
-  }
+  let sendFailure = sendFailureToRes(res);
 
-  selectArticle.withVisitIdAndLanguage(
-    req.params.visitId,
-    language
-  ).then(function(data) {
-    articleDataNaming.setDBNamed(data);
-    articleDataNaming.transformDBToAPINamed();
-    res.json(articleDataNaming.getAPINamed());
-  }).catch(function(error) {
-    res.status(404).json({
-      success: false,
-      message: "The article does not exist!"
-    });
+  Promise.resolve().then(
+    () => validateLanguage(req.query.language, sendFailure)
+  ).then(() => {
+    return selectArticle.withVisitIdAndLanguage(
+      req.params.visitId,
+      req.query.language
+    ).then(function(data) {
+      articleDataNaming.setDBNamed(data);
+      articleDataNaming.transformDBToAPINamed();
+      return articleDataNaming.getAPINamed();
+    }).catch(
+      () => sendFailure(404, 'The article does not exist!')
+    );
+  }).then(
+    article => res.json(article)
+  ).catch(() => {
+    // Promise chain ended 
   });
 };

@@ -4,10 +4,9 @@ module.exports = {
   withArticleId: function(articleId) {
     return db.any(
       `
-        SELECT language.code AS language_code
+        SELECT translated_article.language AS article_language
         FROM article
         JOIN translated_article ON article.id = translated_article.article_id
-        JOIN language ON language.id = translated_article.language_id
         WHERE article.id = $1
       `,
       [articleId]
@@ -17,11 +16,10 @@ module.exports = {
     return db.any(
       `
         SELECT article.id AS article_id,
-               language.code,
-               translated_article.published
+               translated_article.language AS article_language,
+               translated_article.published AS article_is_published
         FROM article
         JOIN translated_article ON article.id = translated_article.article_id
-        JOIN language ON language.id = translated_article.language_id
         WHERE article.id IN ($1:csv)
       `,
       [articleIds]

@@ -8,10 +8,9 @@ module.exports = {
                translated_trip.name AS trip_name
         FROM trip
         JOIN translated_trip ON translated_trip.trip_id = trip.id
-        JOIN language ON language.id = translated_trip.language_id
         JOIN trip_user ON trip_user.trip_id = trip.id
         WHERE trip_user.user_id = $1
-        AND language.code = $2
+        AND translated_trip.language = $2
       `,
       [ userId, language ]
     );

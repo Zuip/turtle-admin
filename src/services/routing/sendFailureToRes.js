@@ -3,9 +3,10 @@ module.exports = function(res) {
 
     if(typeof statusCode === 'undefined') {
       res.status(500).json({ message: 'Unexcepted error' });
+    } else {
+      res.status(statusCode).json(message);
     }
-
-    res.status(statusCode).json(message);
+    
     return Promise.reject();
   };
 };
