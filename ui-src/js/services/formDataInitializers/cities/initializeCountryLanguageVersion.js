@@ -1,10 +1,10 @@
 import getDefaultField from '../getDefaultField';
 
-export default function() {
+export default function(translations) {
   return Object.assign({}, {
     language: getLanguage(),
-    name: getName(),
-    urlName: getURLName()
+    name: getName(translations),
+    urlName: getURLName(translations)
   });
 }
 
@@ -14,14 +14,16 @@ function getLanguage() {
   return language;
 }
 
-function getName() {
+function getName(translations) {
   let name = getDefaultField();
+  name.name = translations.common.name;
   delete name.mandatory;
   return name;
 }
 
-function getURLName() {
+function getURLName(translations) {
   let urlName = getDefaultField();
+  urlName.name = translations.common.urlName;
   delete urlName.mandatory;
   return urlName;
 }

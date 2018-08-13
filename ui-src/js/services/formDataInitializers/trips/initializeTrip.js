@@ -1,10 +1,10 @@
 import getDefaultField from '../getDefaultField';
 import initializeTripLanguageVersion from './initializeTripLanguageVersion';
 
-export default function() {
+export default function(translations) {
   return Object.assign({}, {
     languageVersions: [
-      initializeTripLanguageVersion()
+      initializeTripLanguageVersion(translations)
     ],
     users: getUsers()
   });

@@ -27,7 +27,7 @@
         };
       },
       translations() {
-        return this.$store.getters.getTranslations.countries;
+        return this.$store.getters.getTranslations.cities;
       }
     },
     methods: {

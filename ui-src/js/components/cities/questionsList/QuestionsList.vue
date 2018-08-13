@@ -16,11 +16,11 @@
     computed: {
       tableData() {
         return {
-          rows: this.cities.map(city => {
+          rows: this.questions.map(question => {
             return {
-              id: city.id,
+              id: question.id,
               cells: [
-                this.getNameCellData(city)
+                this.getNameCellData(question)
               ]
             }
           })
@@ -31,16 +31,16 @@
       }
     },
     methods: {
-      getNameCellData(city) {
+      getNameCellData(question) {
         return {
           content: NameCellContent,
           props: {
-            id: city.id,
-            name: city.name
+            id: question.id,
+            text: question.text
           }
         };
       }
     },
-    props: ['cities']
+    props: ['questions']
   };
 </script>

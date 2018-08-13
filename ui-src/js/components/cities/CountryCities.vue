@@ -17,8 +17,8 @@
 
 <script>
 
-  import getCountry from '../../apiCalls/countries/getCountry';
-  import getCountryCities from '../../apiCalls/countries/getCountryCities';
+  import getCountry from '../../apiCalls/cities/getCountry';
+  import getCountryCities from '../../apiCalls/cities/getCountryCities';
   import Button from '../layout/buttons/PrimaryLinkButton.vue';
   import CitiesList from './citiesList/CitiesList.vue';
 
@@ -29,7 +29,7 @@
     },
     computed: {
       translations() {
-        return this.$store.getters.getTranslations.countries;
+        return this.$store.getters.getTranslations.cities;
       }
     },
     created() {

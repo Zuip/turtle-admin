@@ -3,7 +3,7 @@ let authenticatedMiddleware = require('../middlewares/authenticated');
 
 // Route files
 let articleRoutes = require('./articleRoutes');
-let countryRoutes = require('./countryRoutes');
+let cityRoutes = require('./cityRoutes');
 let tripRoutes = require('./tripRoutes');
 let userRoutes = require('./userRoutes');
 
@@ -28,7 +28,7 @@ module.exports = function(app) {
 
   // Route files
   articleRoutes(app);
-  countryRoutes(app);
+  cityRoutes(app);
   tripRoutes(app);
   userRoutes(app);
 };

@@ -27,17 +27,22 @@
           {
             id: 'countries',
             link: '/countries',
-            name: this.$store.getters.getTranslations.countries.countriesAndCities
+            name: this.$store.getters.getTranslations.cities.countriesAndCities
           },
           {
-            id: 'users',
-            link:  '/users',
-            name: this.$store.getters.getTranslations.users.users
+            id: 'city-questions',
+            link: '/cities/questions',
+            name: this.$store.getters.getTranslations.cities.questions.questions
           },
           {
             id: 'user',
             link: '/user',
             name: this.$store.getters.getTranslations.user.userInformation
+          },
+          {
+            id: 'users',
+            link:  '/users',
+            name: this.$store.getters.getTranslations.users.users
           }
         ].filter(
           section => this.allowedSections.includes(section.id)
@@ -63,6 +68,7 @@
 
       Promise.all([
         this.getUserHasPermissionToCities(),
+        this.getUserHasPermissionToCityQuestions(),
         this.getUserHasPermissionToUsers()
       ]).then(hasPermission => {
         
@@ -71,6 +77,10 @@
         }
 
         if(hasPermission[1]) {
+          allowedSections.push('city-questions');
+        }
+
+        if(hasPermission[2]) {
           allowedSections.push('users');
         }
 
@@ -99,6 +109,18 @@
         this.$store.dispatch('startContentLoading', contentLoadingName);
 
         return getUserPermissionsTo('cities').then(permissions => {
+          this.$store.dispatch('endContentLoading', contentLoadingName);
+          return permissions.length > 0;
+        }).catch(error => {
+          console.log(error);
+        });
+      },
+      getUserHasPermissionToCityQuestions() {
+
+        let contentLoadingName = 'loadUserCityQuestionsPermissions';
+        this.$store.dispatch('startContentLoading', contentLoadingName);
+
+        return getUserPermissionsTo('city-questions').then(permissions => {
           this.$store.dispatch('endContentLoading', contentLoadingName);
           return permissions.length > 0;
         }).catch(error => {

@@ -30,7 +30,7 @@
     },
     methods: {
       initializeTripLanguageVersion() {
-        return initializeTripLanguageVersion();
+        return initializeTripLanguageVersion(this.$store.getters.getTranslations);
       },
     },
     props: ['topic', 'value']

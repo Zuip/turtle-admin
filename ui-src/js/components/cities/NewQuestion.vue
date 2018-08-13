@@ -2,9 +2,9 @@
   <div class="popup-grid-container">
     <div class="popup-grid" v-if="!saved">
 
-      <CountryForm class="popup-grid-content"
-                   v-model="fields"
-                   :topic="translations.cities.newCountry" />
+      <QuestionForm class="popup-grid-content"
+                    v-model="fields"
+                    :topic="translations.cities.questions.newQuestion" />
 
       <div class="popup-grid-footer">
 
@@ -19,7 +19,7 @@
 
     <SavingSucceeded v-if="saved"
                      :closeToAddress="closeToAddress"
-                     :topic="translations.cities.newCountry" />
+                     :topic="translations.cities.questions.newQuestion" />
 
   </div>
 </template>
@@ -27,15 +27,15 @@
 <script>
 
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
-  import CountryForm from './CountryForm.vue';
-  import initializeCountry from '../../services/formDataInitializers/cities/initializeCountry';
-  import postCountry from '../../apiCalls/cities/postCountry';
+  import QuestionForm from './QuestionForm.vue';
+  import initializeQuestion from '../../services/formDataInitializers/cities/initializeQuestion';
+  import postQuestion from '../../apiCalls/cities/postQuestion';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
 
   export default {
     components: {
       ClosePopupButton,
-      CountryForm,
+      QuestionForm,
       SavingSucceeded
     },
     computed: {
@@ -45,18 +45,17 @@
     },
     data() {
       return {
-        closeToAddress: '/countries',
-        fields: initializeCountry(this.$store.getters.getTranslations),
+        closeToAddress: '/cities/questions',
+        fields: initializeQuestion(this.$store.getters.getTranslations),
         saved: false
       }
     },
     methods: {
       save() {
-        postCountry(
+        postQuestion(
           {
             languageVersions: this.fields.languageVersions.map(languageVersion => ({
-              name: languageVersion.name.value,
-              urlName: languageVersion.urlName.value,
+              text: languageVersion.text.value,
               language: languageVersion.language.value
             }))
           }

@@ -28,7 +28,7 @@
 
   import citiesObjectToOptionsFormat from '../../../services/countries/citiesObjectToOptionsFormat';
   import ClosePopupButton from '../../overlay/ClosePopupButton.vue';
-  import getCities from '../../../apiCalls/countries/getCities';
+  import getCities from '../../../apiCalls/cities/getCities';
   import getTripUsers from '../../../apiCalls/trips/getTripUsers';
   import initializeVisit from '../../../services/formDataInitializers/trips/initializeVisit';
   import postTripCityVisit from '../../../apiCalls/trips/postTripCityVisit';

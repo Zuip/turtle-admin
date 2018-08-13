@@ -1,6 +1,8 @@
+import CityQuestions from './components/cities/Questions.vue';
 import Countries from './components/cities/Countries.vue';
 import CountryCities from './components/cities/CountryCities.vue';
 import CreateCity from './components/cities/routeWrappers/CreateCity.vue';
+import CreateCityQuestion from './components/cities/routeWrappers/CreateQuestion.vue';
 import CreateCountry from './components/cities/routeWrappers/CreateCountry.vue';
 import CreateTrip from './components/trips/routeWrappers/CreateTrip.vue';
 import CreateVisitArticle from './components/trips/routeWrappers/CreateVisitArticle.vue';
@@ -19,6 +21,16 @@ let routes = {
       path: '/',
       name: 'Frontpage',
       component: Frontpage
+    },
+    {
+      path: '/cities/questions',
+      name: 'City questions',
+      component: CityQuestions
+    },
+    {
+      path: '/cities/questions/new',
+      name: 'New city question',
+      component: CreateCityQuestion
     },
     {
       path: '/countries',

@@ -6,6 +6,9 @@ module.exports = {
     cities: {
       url: ''
     },
+    languages: {
+      url: ''
+    },
     users: {
       url: ''
     }

@@ -1,5 +1,6 @@
 <template>
   <div class="input-group">
+
     <div class="input-group-prepend">
       <select class="language-select form-control"
               v-model="value.language.value"
@@ -13,18 +14,12 @@
 
       </select>
     </div>
-    <input type="text"
-           class="form-control"
-           v-bind:class="{'failed': nameFailed}"
-           :placeholder="translations.common.name"
-           v-model="value.name.value"
-           v-on:change="emitChanges()" />
-    <input type="text"
-           class="form-control"
-           v-bind:class="{'failed': urlNameFailed}"
-           :placeholder="translations.common.urlName"
-           v-model="value.urlName.value"
-           v-on:change="emitChanges()" />
+
+    <InputField v-for="field in Object.keys(value)"
+                v-if="field !== 'language'"
+                :key="'language_version_field_' + field"
+                v-model="value[field]" />
+
     <div class="input-group-append">
       <button class="btn btn-danger"
               v-on:click="$emit('removeLanguageVersion')">
@@ -33,11 +28,18 @@
       
       </button>
     </div>
+    
   </div>
 </template>
 
 <script>
+
+  import InputField from './InputField.vue';
+
   export default {
+    components: {
+      InputField
+    },
     computed: {
       availableLanguages() {
         return this.languages.filter(language => {
@@ -53,24 +55,8 @@
           return true;
         });
       },
-      nameFailed() {
-
-        if(typeof this.value.name.failed === 'undefined') {
-          return false;
-        }
-
-        return this.value.name.failed;
-      },
       translations() {
         return this.$store.getters.getTranslations;
-      },
-      urlNameFailed() {
-
-        if(typeof this.value.urlName.failed === 'undefined') {
-          return false;
-        }
-
-        return this.value.urlName.failed;
       }
     },
     methods: {

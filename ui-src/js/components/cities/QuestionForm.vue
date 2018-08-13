@@ -5,14 +5,14 @@
 
     <LanguageVersionsInput v-model="value.languageVersions"
                            class="country-language-versions-input"
-                           :initializeLanguageVersion="initializeCountryLanguageVersion"/>
+                           :initializeLanguageVersion="initializeQuestionLanguageVersion"/>
 
   </div>
 </template>
 
 <script>
 
-  import initializeCountryLanguageVersion from '../../services/formDataInitializers/cities/initializeCountryLanguageVersion';
+  import initializeQuestionLanguageVersion from '../../services/formDataInitializers/cities/initializeQuestionLanguageVersion';
   import LanguageVersionsInput from '../layout/forms/LanguageVersionsInput.vue';
   
   export default {
@@ -25,8 +25,8 @@
       }
     },
     methods: {
-      initializeCountryLanguageVersion() {
-        return initializeCountryLanguageVersion(this.$store.getters.getTranslations);
+      initializeQuestionLanguageVersion() {
+        return initializeQuestionLanguageVersion(this.$store.getters.getTranslations);
       }
     },
     props: ['topic', 'value']

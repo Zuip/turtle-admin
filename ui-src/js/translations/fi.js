@@ -25,12 +25,17 @@ let translations = {
     urlName: "URL nimi",
     yes: "Kyllä"
   },
-  countries: {
+  cities: {
     cities: "Kaupungit",
     countries: "Maat",
     countriesAndCities: "Maat ja kaupungit",
     newCity: "Uusi kaupunki",
-    newCountry: "Uusi maa"
+    newCountry: "Uusi maa",
+    questions: {
+      newQuestion: "Uusi kysymys",
+      question: "Kysymys",
+      questions: "Kysymykset"
+    }
   },
   forms: {
     lastLanguageVersionCannotBeRemoved: "Kieliversioita on oltava vähintään yksi",

@@ -26,7 +26,7 @@
     },
     methods: {
       initializeCityLanguageVersion() {
-        return initializeCityLanguageVersion();
+        return initializeCityLanguageVersion(this.$store.getters.getTranslations);
       }
     },
     props: ['topic', 'value']

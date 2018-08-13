@@ -4,7 +4,7 @@
 
       <CityForm class="popup-grid-content"
                 v-model="fields"
-                :topic="translations.countries.newCity" />
+                :topic="translations.cities.newCity" />
 
       <div class="popup-grid-footer">
 
@@ -19,7 +19,7 @@
 
     <SavingSucceeded v-if="saved"
                      :closeToAddress="closeToAddress"
-                     :topic="translations.countries.newCity" />
+                     :topic="translations.cities.newCity" />
 
   </div>
 </template>
@@ -29,7 +29,7 @@
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import CityForm from './CityForm.vue';
   import initializeCity from '../../services/formDataInitializers/cities/initializeCity';
-  import postCity from '../../apiCalls/countries/postCity';
+  import postCity from '../../apiCalls/cities/postCity';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
 
   export default {
@@ -46,7 +46,7 @@
     data() {
       return {
         closeToAddress: '/countries/' + this.$route.params.countryId + '/cities',
-        fields: initializeCity(),
+        fields: initializeCity(this.$store.getters.getTranslations),
         saved: false
       }
     },

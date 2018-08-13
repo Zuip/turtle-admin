@@ -4,13 +4,16 @@ module.exports = {
   cities(req, res) {
     getUserPermissionsToTarget(req, res, 'cities');
   },
+  cityQuestions(req, res) {
+    getUserPermissionsToTarget(req, res, 'city-questions');
+  },
   users(req, res) {
     getUserPermissionsToTarget(req, res, 'users');
   }
 };
 
 function getUserPermissionsToTarget(req, res, target) {
-  getUserPermissions.withUserIdAndTarget(
+  return getUserPermissions.withUserIdAndTarget(
     req.session.user.id,
     target
   ).then(permissions => {

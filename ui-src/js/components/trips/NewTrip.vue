@@ -50,7 +50,7 @@
     data() {
       return {
         closeToAddress: '/trips',
-        fields: initializeTrip(),
+        fields: initializeTrip(this.$store.getters.getTranslations),
         saved: false
       }
     },

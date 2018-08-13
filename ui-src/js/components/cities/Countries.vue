@@ -8,7 +8,7 @@
 
 <script>
 
-  import getCountries from '../../apiCalls/countries/getCountries';
+  import getCountries from '../../apiCalls/cities/getCountries';
   import Button from '../layout/buttons/PrimaryLinkButton.vue';
   import CountriesList from './countriesList/CountriesList.vue';
 
@@ -19,7 +19,7 @@
     },
     computed: {
       translations() {
-        return this.$store.getters.getTranslations.countries;
+        return this.$store.getters.getTranslations.cities;
       }
     },
     created() {
