@@ -36,11 +36,12 @@
           content: NameCellContent,
           props: {
             id: question.id,
-            text: question.text
+            text: question.text,
+            questionLink: this.questionLink
           }
         };
       }
     },
-    props: ['questions']
+    props: ['questions', 'questionLink']
   };
 </script>

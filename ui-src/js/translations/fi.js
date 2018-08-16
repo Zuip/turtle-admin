@@ -32,6 +32,7 @@ let translations = {
     newCity: "Uusi kaupunki",
     newCountry: "Uusi maa",
     questions: {
+      comparisons: "Vertailut",
       newQuestion: "Uusi kysymys",
       question: "Kysymys",
       questions: "Kysymykset"

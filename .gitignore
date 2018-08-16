@@ -9,5 +9,5 @@ sass-watch.sh
 /config.js
 .nyc_output
 /package-lock.json
-/tmp/sessions/*.json
+/tmp
 /public/articles/images

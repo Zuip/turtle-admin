@@ -1,15 +1,15 @@
 <template>
-  <Visits :openLayover="openNewVisitLayover" />
+  <Trip :openLayover="openNewVisitLayover" />
 </template>
 
 <script>
 
   import NewVisit from '../visits/NewVisit.vue';
-  import Visits from '../visits/Visits.vue';
+  import Trip from '../Trip.vue';
 
   export default {
     components: {
-      Visits
+      Trip
     },
     methods: {
       openNewVisitLayover: function(updateVisitList) {

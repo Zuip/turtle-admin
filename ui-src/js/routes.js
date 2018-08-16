@@ -1,3 +1,4 @@
+import CityComparison from './components/trips/cityComparisons/CityComparison.vue';
 import CityQuestions from './components/cities/Questions.vue';
 import Countries from './components/cities/Countries.vue';
 import CountryCities from './components/cities/CountryCities.vue';
@@ -9,10 +10,10 @@ import CreateVisitArticle from './components/trips/routeWrappers/CreateVisitArti
 import CreateVisit from './components/trips/routeWrappers/CreateVisit.vue';
 import EditVisitArticle from './components/trips/routeWrappers/EditVisitArticle.vue';
 import Frontpage from './components/frontpage/Frontpage.vue';
+import Trip from './components/trips/Trip.vue';
 import Trips from './components/trips/Trips.vue';
 import Users from './components/users/Users.vue';
 import Visit from './components/trips/visits/visit/Visit.vue';
-import Visits from './components/trips/visits/Visits.vue';
 
 let routes = {
   mode: 'history',
@@ -53,6 +54,11 @@ let routes = {
       component: CreateCity
     },
     {
+      path: '/visits/:visitId',
+      name: 'Visit page',
+      component: Visit
+    },
+    {
       path: '/visits/:visitId/articles/new',
       name: 'New article',
       component: CreateVisitArticle
@@ -63,9 +69,24 @@ let routes = {
       component: EditVisitArticle
     },
     {
+      path: '/trips',
+      name: 'Trips',
+      component: Trips
+    },
+    {
       path: '/trips/new',
       name: 'New trip',
       component: CreateTrip
+    },
+    {
+      path: '/trips/:tripId',
+      name: 'Trip page',
+      component: Trip
+    },
+    {
+      path: '/trips/:tripId/comparisons/:questionId',
+      name: 'Comparison page',
+      component: CityComparison
     },
     {
       path: '/trips/:tripId/visits/new',
@@ -73,24 +94,9 @@ let routes = {
       component: CreateVisit
     },
     {
-      path: '/trips',
-      name: 'Trips',
-      component: Trips
-    },
-    {
       path: '/users',
       name: 'Users',
       component: Users
-    },
-    {
-      path: '/visits/:visitId',
-      name: 'Visit page',
-      component: Visit
-    },
-    {
-      path: '/trips/:tripId',
-      name: 'Trip page',
-      component: Visits
     }
   ]
 };

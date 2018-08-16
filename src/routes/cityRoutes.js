@@ -1,3 +1,4 @@
+let getComparisonController = require('../controllers/cities/getComparison');
 let getCountriesController = require('../controllers/cities/getCountries');
 let getCountryController = require('../controllers/cities/getCountry');
 let getCitiesController = require('../controllers/cities/getCities');
@@ -7,7 +8,7 @@ let getQuestionsController = require('../controllers/cities/getQuestions');
 let postCityController = require('../controllers/cities/postCity');
 let postCountryController = require('../controllers/cities/postCountry');
 let postQuestionController = require('../controllers/cities/postQuestion');
-
+let putComparisonController = require('../controllers/cities/putComparison');
 
 module.exports = function(app) {
   app.get('/api/cities', getCitiesController);
@@ -16,7 +17,9 @@ module.exports = function(app) {
   app.get('/api/countries', getCountriesController);
   app.get('/api/countries/:countryId', getCountryController);
   app.get('/api/countries/:countryId/cities', getCountryCitiesController);
+  app.get('/api/trips/:tripId/cities/comparisons', getComparisonController);
   app.post('/api/cities/questions', postQuestionController);
   app.post('/api/countries', postCountryController);
   app.post('/api/countries/:countryId/cities', postCityController);
+  app.put('/api/trips/:tripId/cities/comparisons', putComparisonController);
 };
