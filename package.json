@@ -4,6 +4,7 @@
   "description": "Admin functionalities for Zui.fi blog",
   "main": "index.html",
   "scripts": {
+    "sass": "sass",
     "test": "nyc mocha",
     "babel": "babel --presets es2015 ui-src/js/app.js -o public/app.bundle.js",
     "webpack": "webpack",
