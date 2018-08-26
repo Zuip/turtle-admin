@@ -1,11 +1,18 @@
-let getUserController = function(req, res) {
+let getUser = require('../integrations/users/getUser');
+
+module.exports = function(req, res) {
 
   if(typeof req.session.user === 'undefined') {
-    res.json({ user: null });
-  } else {
-    res.json({ user: { name: req.session.user.name }});
+    return res.json({ user: null });
   }
 
+  getUser.withId(
+    req.session.user.id
+  ).then(
+    user => res.json({
+      user: {
+        name: user.name
+      }
+    })
+  );
 };
-
-module.exports = getUserController;

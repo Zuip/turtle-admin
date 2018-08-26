@@ -7,19 +7,5 @@ module.exports = {
     return get(
       '/api/users/' + id
     );
-  },
-  withUsernameAndPassword(username, password) {
-
-    return get(
-      '/api/users?username=' + username + '&password=' + password
-    ).then(response => {
-
-      if(response.status === 404 || response.status === 500) {
-        return Promise.reject({ code: response.status });
-      }
-
-      return response;
-
-    });
   }
 };
