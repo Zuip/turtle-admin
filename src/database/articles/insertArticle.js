@@ -26,7 +26,7 @@ function insertArticleBase(article) {
   return db.one(
     `
       INSERT INTO article (
-        timestamp
+        created
       ) VALUES (
         $1::timestamp
       )

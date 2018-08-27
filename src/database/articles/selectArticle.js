@@ -22,10 +22,10 @@ function formatTime(date) {
 }
 
 let formatDateAndTime = function(article) {
-  let datetimeWithTimezone = handleTimezone(new Date(article.article_timestamp));
+  let datetimeWithTimezone = handleTimezone(new Date(article.article_created));
   article.date = formatDate(datetimeWithTimezone);
   article.time = formatTime(datetimeWithTimezone);
-  delete article.article_timestamp;
+  delete article.article_created;
   return article;
 };
 

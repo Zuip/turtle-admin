@@ -16,7 +16,7 @@ function updateArticleBase(article) {
 
   return db.none(
     `
-      UPDATE article SET timestamp = $2
+      UPDATE article SET created = $2
       WHERE article.id = $1
     `,
     [article.id, publishDateWithTime]
