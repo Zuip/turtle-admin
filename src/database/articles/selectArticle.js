@@ -44,6 +44,19 @@ module.exports = {
       formatDateAndTime
     );
   },
+  withVisitId(visitId) {
+    return db.one(
+      `
+        SELECT article.id AS article_id
+        FROM city_visit
+        JOIN article ON article.id = city_visit.article_id
+        WHERE city_visit.id = $1
+      `,
+      [visitId]
+    ).then(
+      formatDateAndTime
+    );
+  },
   withVisitIdAndLanguage(visitId, language) {
     return db.one(
       `

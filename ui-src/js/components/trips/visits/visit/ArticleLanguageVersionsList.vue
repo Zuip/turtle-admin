@@ -39,7 +39,7 @@
           content: EditButtonCellContent,
           props: {
             visitId: this.visitId,
-            languageCode: languageVersion
+            languageVersion
           }
         };
       },
@@ -47,7 +47,7 @@
         return {
           content: LanguageCodeCellContent,
           props: {
-            languageCode: languageVersion
+            languageCode: languageVersion.language
           }
         };
       }

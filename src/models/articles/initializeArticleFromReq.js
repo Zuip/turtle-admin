@@ -10,9 +10,7 @@ module.exports = function(req) {
 
   article.summary = req.body.summary;
   article.text = req.body.text;
-  article.published = req.body.published === 'yes' ? true : false;
-  article.publish.date = req.body.publish.date;
-  article.publish.time = req.body.publish.time;
+  article.language = req.query.language;
 
   return article;
 };

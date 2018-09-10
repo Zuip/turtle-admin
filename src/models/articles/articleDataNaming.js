@@ -20,11 +20,7 @@ module.exports = {
       languages: DBNamedArticle.languages,
       summary: DBNamedArticle.article_summary,
       text: DBNamedArticle.article_text,
-      publish: {
-        date: DBNamedArticle.date,
-        time: DBNamedArticle.time
-      },
-      published: DBNamedArticle.article_is_published
+      published: DBNamedArticle.article_published
     };
   }
 };

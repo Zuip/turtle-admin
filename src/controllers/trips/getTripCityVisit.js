@@ -35,7 +35,10 @@ module.exports = function(req, res) {
     ).then(languageVersions => {
 
       visit.article.languageVersions = languageVersions.map(languageVersion => {
-        return languageVersion.article_language;
+        return {
+          language: languageVersion.article_language,
+          published: languageVersion.article_published
+        };
       });
 
       return visit;

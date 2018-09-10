@@ -1,7 +1,7 @@
 <template>
   <EditArticleSkeleton v-model="fields"
                        v-if="fields"
-                       :topic="translations.articles.newArticle"
+                       :topic="translations.articles.newArticleTranslation"
                        :save="save"
                        :visitId="$route.params.visitId"
                        :saved="saved" />
@@ -11,7 +11,7 @@
 
   import EditArticleSkeleton from './EditArticleSkeleton.vue';
   import getAvailableArticleTranslations from '../../apiCalls/articles/getAvailableTranslations';
-  import postArticle from '../../apiCalls/articles/postArticle';
+  import postArticleTranslation from '../../apiCalls/articles/postArticleTranslation';
   import initializeArticle from '../../services/articles/initializeArticle';
 
   export default {
@@ -48,7 +48,7 @@
         });
       },
       save() {
-        postArticle(
+        postArticleTranslation(
           this.$route.params.visitId,
           this.fields.language.value,
           {

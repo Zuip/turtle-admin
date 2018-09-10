@@ -7,6 +7,7 @@ import CreateCityQuestion from './components/cities/routeWrappers/CreateQuestion
 import CreateCountry from './components/cities/routeWrappers/CreateCountry.vue';
 import CreateTrip from './components/trips/routeWrappers/CreateTrip.vue';
 import CreateVisitArticle from './components/trips/routeWrappers/CreateVisitArticle.vue';
+import CreateVisitArticleTranslation from './components/trips/routeWrappers/CreateVisitArticleTranslation.vue';
 import CreateVisit from './components/trips/routeWrappers/CreateVisit.vue';
 import EditVisitArticle from './components/trips/routeWrappers/EditVisitArticle.vue';
 import Frontpage from './components/frontpage/Frontpage.vue';
@@ -59,12 +60,17 @@ let routes = {
       component: Visit
     },
     {
-      path: '/visits/:visitId/articles/new',
+      path: '/visits/:visitId/article/new',
       name: 'New article',
       component: CreateVisitArticle
     },
     {
-      path: '/visits/:visitId/articles/:language',
+      path: '/visits/:visitId/article/translations/new',
+      name: 'New article translation',
+      component: CreateVisitArticleTranslation
+    },
+    {
+      path: '/visits/:visitId/article/translations/:language',
       name: 'Edit article',
       component: EditVisitArticle
     },

@@ -31,31 +31,28 @@
       this.initializeArticle();
     },
     methods: {
-      initializeArticle: function() {
+      initializeArticle() {
         this.fields.summary.value = this.article.summary;
         this.fields.text.value = this.article.text;
-        this.fields.publish.value = this.article.publish;
-        this.fields.published.value = this.article.published ? 'yes' : 'no';
       },
-      save: function() {
+      save() {
         putArticle(
           this.$route.params.visitId,
           this.$route.params.language,
           {
             summary: this.fields.summary.value,
-            text: this.fields.text.value,
-            publish: this.fields.publish.value,
-            published: this.fields.published.value
+            text: this.fields.text.value
           }
         ).then(data => {
 
           if(data.success) {
             this.saved = true;
             this.updateVisitPage();
-          } else {
-            if(data.failedFields.includes("text")) {
-              this.fields.text.failed = true;
-            }
+            return;
+          }
+          
+          if(data.failedFields.includes("text")) {
+            this.fields.text.failed = true;
           }
 
         }).catch(error => {

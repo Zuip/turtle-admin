@@ -1,8 +1,8 @@
 let articleValidator = require('../../models/articles/articleValidator');
 let initializeArticleFromReq = require('../../models/articles/initializeArticleFromReq');
-let insertArticle = require('../../database/articles/insertArticle');
+let insertArticleTranslation = require('../../database/articles/insertArticleTranslation');
+let selectArticle = require('../../database/articles/selectArticle');
 let sendFailureToRes = require('../../services/routing/sendFailureToRes');
-let updateCityVisitArticle = require('../../database/trips/updateCityVisitArticle');
 let validateLanguage = require('../../services/routing/validateLanguage');
 
 module.exports = function(req, res) {
@@ -10,31 +10,23 @@ module.exports = function(req, res) {
   let sendFailure = sendFailureToRes(res);
   let article = initializeArticleFromReq(req);
 
-  return Promise.resolve().then(
+  Promise.resolve().then(
     () => validateLanguage(req.query.language, sendFailure)
   ).then(
-    () => articleValidator.validate(article, 'post').then(() => {
+    () => articleValidator.validate(article, 'post').then(
+      () => selectArticle.withVisitId(article.visitId)
+    ).then(visitArticle => {
+
+      article.id = visitArticle.article_id;
 
       if(articleValidator.failedFields.length === 0) {
-        return insertArticle(
-          article
-        ).catch(
-          () => sendFailure(
-            400,
-            'Error in inserting the article to database'
-          )
-        );
+        return insertArticleTranslation(article);
       }
 
       return sendFailure(400, {
         failedFields: articleValidator.failedFields
       });
     })
-  ).then(
-    articleId => updateCityVisitArticle(
-      article.visitId,
-      articleId
-    )
   ).then(
     () => res.json({ success: true })
   ).catch(() => {

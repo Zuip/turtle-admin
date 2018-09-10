@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="newArticleLink()">
+  <router-link :to="newArticleTranslationLink()">
     <button type="button" class="btn btn-primary">
-      {{translations.newArticle}}
+      {{translations.newArticleTranslation}}
     </button>
   </router-link>
 </template>
@@ -14,8 +14,9 @@
       }
     },
     methods: {
-      newArticleLink() {
-        return '/visits/' + this.$route.params.visitId + '/article/new';
+      newArticleTranslationLink() {
+        return '/visits/' + this.$route.params.visitId
+             + '/article/translations/new';
       }
     }
   };

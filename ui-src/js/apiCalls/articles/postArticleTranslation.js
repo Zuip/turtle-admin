@@ -7,6 +7,8 @@ export default function(visitId, language, data) {
     post(data),
     promiseJSON
   )(
-    'api/visits/' + visitId + '/article?language=' + language
+    'api/visits/' + visitId
+    + '/article/translations'
+    + '?language=' + language
   );
 };

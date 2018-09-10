@@ -1,6 +1,10 @@
 <template>
   <div>
 
+    <SelectInput v-model="value.language"
+                 v-if="typeof value.language !== 'undefined'"
+                 :title="translations.common.language" />
+
     <TextareaInput v-model="value.summary"
                    :title="translations.articles.summary"
                    :field="'summary'"
@@ -12,24 +16,16 @@
                    :field="'text'"
                    @selectImage="selectImage" />
 
-    <DateInput v-model="value.publish"
-               :title="translations.articles.publishDate" />
-
-    <SelectInput v-model="value.published"
-                 :title="translations.common.published" />
-
   </div>
 </template>
 
 <script>
 
-  import DateInput from '../layout/forms/DateInput.vue';
   import SelectInput from '../layout/forms/SelectInput.vue';
   import TextareaInput from '../layout/forms/TextareaInput.vue';
 
   export default {
     components: {
-      DateInput,
       SelectInput,
       TextareaInput
     },
@@ -43,7 +39,7 @@
         this.$emit('selectImage', parameter);
       }
     },
-    props: ['value']
+    props: ['value', 'mode']
   }
 
 </script>

@@ -11,10 +11,11 @@
       &gt;
       {{city.name}}
     </h3>
-    <NewArticleButton v-if="article === null" />
     <ArticleLanguageVersionsList v-if="article !== null"
                                  :article="article"
                                  :visitId="$route.params.visitId" />
+    <NewArticleButton v-if="article === null" />
+    <NewArticleTranslationButton v-if="article !== null" />
   </div>
 </template>
 
@@ -23,11 +24,13 @@
   import ArticleLanguageVersionsList from './ArticleLanguageVersionsList.vue';
   import getTripCityVisit from '../../../../apiCalls/trips/getTripCityVisit';
   import NewArticleButton from './NewArticleButton.vue';
+  import NewArticleTranslationButton from './NewArticleTranslationButton.vue';
 
   export default {
     components: {
       ArticleLanguageVersionsList,
-      NewArticleButton
+      NewArticleButton,
+      NewArticleTranslationButton
     },
     computed: {
       tripLink() {

@@ -1,25 +1,26 @@
 {
-  "name": "zuifi-admin",
+  "name": "turtle-admin",
   "version": "1.0.0",
-  "description": "Admin functionalities for Zui.fi blog",
+  "description": "Admin functionalities for Turtle.travel",
   "main": "index.html",
   "scripts": {
-    "sass": "sass",
-    "test": "nyc mocha",
     "babel": "babel --presets es2015 ui-src/js/app.js -o public/app.bundle.js",
+    "sass": "sass ui-src/style/style.scss:public/style.css",
+    "sass-watch": "sass --watch ui-src/style/style.scss:public/style.css",
+    "test": "nyc mocha",
     "webpack": "webpack",
     "webpack-watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zuip/zuifi-admin.git"
+    "url": "git+https://github.com/Zuip/turtle-admin.git"
   },
   "author": "Zuip",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Zuip/zuifi-admin/issues"
+    "url": "https://github.com/Zuip/turtle-admin/issues"
   },
-  "homepage": "https://github.com/Zuip/zuifi-admin#readme",
+  "homepage": "https://github.com/Zuip/turtle-admin#readme",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "cookie-parser": "^1.4.3",

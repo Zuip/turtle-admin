@@ -1,11 +1,10 @@
 import translations from '../../translations/translations';
 
-export default function() {
+export default function(languages) {
   return Object.assign({}, {
     summary: getDefaultField(),
     text: getText(),
-    publish: getPublish(),
-    published: getPublished()
+    language: getLanguages(languages)
   });
 };
 
@@ -23,22 +22,19 @@ function getText() {
   return text;
 }
 
-function getPublish() {
-  let publish = getDefaultField();
-  publish.value = { date: '', time: '' };
-  publish.mandatory = true;
-  return publish;
-}
+function getLanguages(languages) {
 
-function getPublished() {
+  if(typeof languages === 'undefined') {
+    return undefined;
+  }
+  
+  let languagesSelect = getDefaultField();
+  languagesSelect.mandatory = true;
+  languagesSelect.options = languages.map(language => ({
+    translation: language,
+    value: language
+  }));
+  languagesSelect.value = languagesSelect.options[0].value;
 
-  let published = getDefaultField();
-  published.value = 'no';
-  published.mandatory = true;
-  published.options = [
-    Object.assign({}, { value: 'no', translation: translations.get.common.no }),
-    Object.assign({}, { value: 'yes', translation: translations.get.common.yes })
-  ];
-
-  return published;
+  return languagesSelect;
 }
