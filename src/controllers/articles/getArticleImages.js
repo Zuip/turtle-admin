@@ -2,6 +2,7 @@ let fs = require('fs');
 
 let config = require('../../../config');
 let getFolderPath = require('../../models/articles/getFolderPath');
+let getUser = require('../../integrations/users/getUser');
 let getUserFolderPath = require('../../services/images/getUserFolderPath');
 let sendFailureToRes = require('../../services/routing/sendFailureToRes');
 
@@ -11,19 +12,22 @@ function isDirectory(path, element) {
 
 module.exports = function(req, res) {
 
-  let path = getUserFolderPath(config, req.session.user)
-           + '/images/' + getFolderPath(req.query.path);
-  
-  let sendFailure = sendFailureToRes(res);
+  getUser.withId(req.session.user.id).then(user => {
 
-  if(!fs.existsSync(path)) {
-    return sendFailure(404, 'No images in folder');
-  }
+    let path = getUserFolderPath(config, user)
+            + '/images/' + getFolderPath(req.query.path);
+    
+    let sendFailure = sendFailureToRes(res);
 
-  fs.readdir(path, function (err, elements) {
-    res.json({
-      folders: elements.filter(element => isDirectory(path, element)),
-      images: elements.filter(element => !isDirectory(path, element))
+    if(!fs.existsSync(path)) {
+      return sendFailure(404, 'No images in folder');
+    }
+
+    fs.readdir(path, function (err, elements) {
+      res.json({
+        folders: elements.filter(element => isDirectory(path, element)),
+        images: elements.filter(element => !isDirectory(path, element))
+      });
     });
   });
 };
