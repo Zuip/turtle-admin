@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <StandardTable v-model="tableData" />
-  </div>
+  <StandardTable v-model="tableData" />
 </template>
 
 <script>
 
+  import EditButtonCellContent from './EditButtonCellContent.vue';
   import NameCellContent from './NameCellContent.vue';
   import StandardTable from '../../layout/tables/Standard.vue';
 
@@ -20,7 +19,8 @@
             return {
               id: city.id,
               cells: [
-                this.getNameCellData(city)
+                this.getNameCellData(city),
+                this.getEditButtonCellData(city)
               ]
             }
           })
@@ -31,6 +31,15 @@
       }
     },
     methods: {
+      getEditButtonCellData(city) {
+        return {
+          content: EditButtonCellContent,
+          props: {
+            cityId: city.id,
+            countryId: this.$route.params.countryId
+          }
+        };
+      },
       getNameCellData(city) {
         return {
           content: NameCellContent,

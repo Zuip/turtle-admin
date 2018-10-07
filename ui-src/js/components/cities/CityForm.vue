@@ -3,9 +3,21 @@
     
     <h3>{{topic}}</h3>
 
-    <LanguageVersionsInput v-model="value.languageVersions"
-                           class="country-language-versions-input"
-                           :initializeLanguageVersion="initializeCityLanguageVersion"/>
+    <LanguageVersionsInput
+      v-model="value.languageVersions"
+      class="country-language-versions-input"
+      :initializeLanguageVersion="initializeCityLanguageVersion"
+    />
+
+    <TextInput
+      v-model="value.latitude"
+      :title="translations.cities.latitude"
+    />
+
+    <TextInput
+      v-model="value.longitude"
+      :title="translations.cities.longitude"
+    />
 
   </div>
 </template>
@@ -14,10 +26,12 @@
 
   import initializeCityLanguageVersion from '../../services/formDataInitializers/cities/initializeCityLanguageVersion';
   import LanguageVersionsInput from '../layout/forms/LanguageVersionsInput.vue';
-  
+  import TextInput from '../layout/forms/TextInput.vue';
+
   export default {
     components: {
-      LanguageVersionsInput
+      LanguageVersionsInput,
+      TextInput
     },
     computed: {
       translations() {
@@ -26,7 +40,9 @@
     },
     methods: {
       initializeCityLanguageVersion() {
-        return initializeCityLanguageVersion(this.$store.getters.getTranslations);
+        return initializeCityLanguageVersion(
+          this.$store.getters.getTranslations
+        );
       }
     },
     props: ['topic', 'value']

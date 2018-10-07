@@ -32,6 +32,9 @@ let translations = {
     cities: "Kaupungit",
     countries: "Maat",
     countriesAndCities: "Maat ja kaupungit",
+    editCity: "Muokkaa kaupunkia",
+    latitude: "Leveyspiiri",
+    longitude: "Pituuspiiri",
     newCity: "Uusi kaupunki",
     newCountry: "Uusi maa",
     questions: {

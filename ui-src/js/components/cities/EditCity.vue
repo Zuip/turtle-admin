@@ -4,7 +4,7 @@
 
       <CityForm class="popup-grid-content"
                 v-model="fields"
-                :topic="translations.cities.newCity" />
+                :topic="translations.cities.editCity" />
 
       <div class="popup-grid-footer">
 
@@ -19,7 +19,7 @@
 
     <SavingSucceeded v-if="saved"
                      :closeToAddress="closeToAddress"
-                     :topic="translations.cities.newCity" />
+                     :topic="translations.cities.editCity" />
 
   </div>
 </template>
@@ -28,8 +28,10 @@
 
   import ClosePopupButton from '../overlay/ClosePopupButton.vue';
   import CityForm from './CityForm.vue';
+  import getCity from '../../apiCalls/cities/getCity';
   import initializeCity from '../../services/formDataInitializers/cities/initializeCity';
-  import postCity from '../../apiCalls/cities/postCity';
+  import initializeCityLanguageVersion from '../../services/formDataInitializers/cities/initializeCityLanguageVersion';
+  import putCity from '../../apiCalls/cities/putCity';
   import SavingSucceeded from '../overlay/SavingSucceeded.vue';
 
   export default {
@@ -43,6 +45,30 @@
         return this.$store.getters.getTranslations;
       }
     },
+    created() {
+      getCity(
+        this.$route.params.cityId
+      ).then(city => {
+
+        this.fields.latitude.value = city.latitude;
+        this.fields.longitude.value = city.longitude;
+
+        this.fields.languageVersions = city.languageVersions.map(cityLanguageVersion => {
+          
+          let languageVersion = initializeCityLanguageVersion(
+            this.$store.getters.getTranslations
+          );
+
+          languageVersion.name.value = cityLanguageVersion.name;
+          languageVersion.urlName.value = cityLanguageVersion.urlName;
+          languageVersion.language.value = cityLanguageVersion.language;
+
+          return languageVersion;
+        });
+      }).catch(
+        error => console.log(error)
+      );
+    },
     data() {
       return {
         closeToAddress: '/countries/' + this.$route.params.countryId + '/cities',
@@ -52,8 +78,8 @@
     },
     methods: {
       save() {
-        postCity(
-          this.$route.params.countryId,
+        putCity(
+          this.$route.params.cityId,
           {
             languageVersions: this.fields.languageVersions.map(languageVersion => ({
               name: languageVersion.name.value,

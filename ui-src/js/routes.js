@@ -9,6 +9,7 @@ import CreateTrip from './components/trips/routeWrappers/CreateTrip.vue';
 import CreateVisitArticle from './components/trips/routeWrappers/CreateVisitArticle.vue';
 import CreateVisitArticleTranslation from './components/trips/routeWrappers/CreateVisitArticleTranslation.vue';
 import CreateVisit from './components/trips/routeWrappers/CreateVisit.vue';
+import EditCity from './components/cities/routeWrappers/EditCity.vue';
 import EditVisitArticle from './components/trips/routeWrappers/EditVisitArticle.vue';
 import Frontpage from './components/frontpage/Frontpage.vue';
 import Trip from './components/trips/Trip.vue';
@@ -53,6 +54,11 @@ let routes = {
       path: '/countries/:countryId/cities/new',
       name: 'New city',
       component: CreateCity
+    },
+    {
+      path: '/countries/:countryId/cities/:cityId',
+      name: 'Edit city',
+      component: EditCity
     },
     {
       path: '/visits/:visitId',
