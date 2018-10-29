@@ -6,6 +6,7 @@
 
   import EditButtonCellContent from './EditButtonCellContent.vue';
   import NameCellContent from './NameCellContent.vue';
+  import nameSort from '../../../services/nameSort';
   import StandardTable from '../../layout/tables/Standard.vue';
 
   export default {
@@ -15,7 +16,9 @@
     computed: {
       tableData() {
         return {
-          rows: this.cities.map(city => {
+          rows: this.cities.sort(
+            nameSort
+          ).map(city => {
             return {
               id: city.id,
               cells: [

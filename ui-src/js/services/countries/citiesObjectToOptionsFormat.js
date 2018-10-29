@@ -1,7 +1,9 @@
 import pipe from '../pipe';
+import nameSort from '../nameSort';
 
 export default function(citiesByCountry) {
   return pipe(
+    sortByName,
     formatCountries,
     addNullToBeginning
   )(
@@ -9,13 +11,9 @@ export default function(citiesByCountry) {
   );
 };
 
-function formatCountries(citiesByCountry) {
-  return citiesByCountry.map(country => {
-    return {
-      value: formatCities(country.cities),
-      translation: country.name
-    };
-  });
+function addNullToBeginning(citiesByCountry) {
+  citiesByCountry.unshift(null);
+  return citiesByCountry;
 }
 
 function formatCities(cities) {
@@ -27,7 +25,24 @@ function formatCities(cities) {
   });
 }
 
-function addNullToBeginning(citiesByCountry) {
-  citiesByCountry.unshift(null);
-  return citiesByCountry;
+function formatCountries(citiesByCountry) {
+  return citiesByCountry.map(country => {
+    return {
+      value: formatCities(country.cities),
+      translation: country.name
+    };
+  });
+}
+
+function sortByName(citiesByCountry) {
+  return citiesByCountry.map(
+    country => {
+
+      country.cities.sort(
+        nameSort
+      );
+
+      return country;
+    }
+  ).sort(nameSort);
 }

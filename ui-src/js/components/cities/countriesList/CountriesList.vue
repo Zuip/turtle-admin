@@ -7,6 +7,7 @@
 <script>
 
   import NameCellContent from './NameCellContent.vue';
+  import nameSort from '../../../services/nameSort';
   import StandardTable from '../../layout/tables/Standard.vue';
 
   export default {
@@ -16,7 +17,9 @@
     computed: {
       tableData() {
         return {
-          rows: this.countries.map(country => {
+          rows: this.countries.sort(
+            nameSort
+          ).map(country => {
             return {
               id: country.id,
               cells: [
