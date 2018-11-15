@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Zuip/turtle-admin#readme",
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "connect-redis": "^3.4.0",
     "cookie-parser": "^1.4.3",
     "css-loader": "^1.0.0",
     "express": "^4.16.2",
@@ -30,7 +31,6 @@
     "express-session": "^1.15.6",
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2",
-    "node-laravel-session": "^2.0.1",
     "pg-promise": "^8.2.2",
     "popper.js": "^1.12.9",
     "redis": "^2.8.0",

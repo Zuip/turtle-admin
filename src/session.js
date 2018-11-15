@@ -1,63 +1,33 @@
-let cookie = require('cookie');
-let laravelSession = require('node-laravel-session');
-let redis   = require('redis');
+let redis = require('redis');
+let session = require('express-session');
+let RedisStore = require('connect-redis')(session);
 
 module.exports = function(app, config) {
-  app.use(function(req, res, next) {
-    getSessionKey(
-      config,
-      req
-    ).then(
-      sessionKey => laravelSession.getSessionFromRedis(
-        sessionKey,
-        getClient(config),
-        'laravel'
-      )
-    ).then(
-      session => initializeReqSession(session, req)
-    ).catch(error => {
-      console.log(error);
-    }).then(() => {
-      next();
-    });
+
+  let redisClient = redis.createClient(
+    config.redis.port,
+    config.redis.host
+  );
+
+  redisClient.auth(config.redis.secret);
+
+  app.use(session({
+    cookie: {
+      secure: config.production,
+      maxAge: 86400000
+    },
+    secret: config.cookie.secret,
+    store: new RedisStore({
+      host: config.redis.host,
+      port: config.redis.port,
+      client: redisClient,
+      ttl: 260
+    }),
+    saveUninitialized: false,
+    resave: false
+  }));
+
+  redisClient.on('error', function(err) {
+    console.log('Redis error: ' + err);
   });
 };
-
-function getClient(config) {
-  return redis.createClient({
-    host: 'localhost',
-    port: 6379,
-    password: config.session.secret
-  });
-}
-
-function initializeReqSession(session, req) {
-
-  if(typeof session.userId === 'undefined') {
-    req.session = {};
-    return;
-  }
-
-  req.session = {
-    user: {
-      id: session.userId
-    }
-  };
-}
-
-function getSessionKey(config, req) {
-
-  return laravelSession.getAppKey(
-    config.mainSiteDirectory + '.env'
-  ).then(appKey => {
-
-    let session = cookie.parse(
-      req.headers.cookie
-    ).laravel_session;
-
-    return laravelSession.getSessionKey(
-      session,
-      appKey
-    );
-  });
-}

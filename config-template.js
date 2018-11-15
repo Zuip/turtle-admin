@@ -13,7 +13,12 @@ module.exports = {
       url: ''
     }
   },
-  session: {
+  cookie: {
+    secret: ''
+  },
+  redis: {
+    port: '',
+    host: '',
     secret: ''
   },
   database: {
